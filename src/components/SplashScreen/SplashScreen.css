@@ -1,0 +1,42 @@
+/* src/SplashScreen.css */
+.splash-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: #000; /* чорний фон */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  
+  .central-shape {
+    position: absolute;
+    left: 50%;
+    bottom: 50%;
+    /* Центрування по горизонталі */
+    transform: translateX(-50%);
+  }
+  
+  .text-left,
+  .text-right {
+    position: absolute;
+    left: 50%;
+    bottom: calc(50% - 5px); /* 5px – половина розміру крапки (dotSize/2) */
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+  }
+
+  .text-project {
+    position: absolute;
+    left: 50%;
+    bottom: calc(50% - 5px - 30px); /* трохи нижче за "no thing" */
+    transform: translateX(-50%);
+    color: #fff;
+    font-size: 2rem;
+    font-weight: bold;
+  }
