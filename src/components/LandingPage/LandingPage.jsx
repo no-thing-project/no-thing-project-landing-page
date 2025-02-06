@@ -1,17 +1,25 @@
-// src/LandingPage.jsx
-import React, { useRef } from 'react';
+import React, { useRef, useCallback, Suspense } from 'react';
 import { motion, useViewportScroll, useTransform } from 'framer-motion';
-import Scene from '../Scene/Scene3D'; // ваш компонент 3D-сцени
 import './LandingPage.css';
+
+// Використовуємо React.lazy для завантаження 3D-сцени
+const Scene = React.lazy(() => import('../Scene/Scene3D'));
 
 const LandingPage = () => {
   const sceneRef = useRef(null);
   const sceneContainerRef = useRef(null);
 
-  // Використовуємо useViewportScroll для відстеження scrollY
   const { scrollY } = useViewportScroll();
-  // Наприклад, коли scrollY від 0 до 2000, сцена переміщується від 0 до 100vw
-  const x = useTransform(scrollY, [0, 1000, 2000], ['0vw', '50vw', '-5vw']);
+  const x = useTransform(
+    scrollY,
+    [0, 400, 700, 1400, 1800, 2300],
+    ['0vw', '0vw', '50vw', '50vw', '-5vw', '-5vw']
+  );
+  const opacity = useTransform(
+    scrollY,
+    [0, 390, 700, 800, 1510, 1800],
+    [1, 1, 1, 1, 1, 1]
+  );
 
   const handleStop = () => {
     sceneRef.current?.stopObjects();
@@ -29,7 +37,6 @@ const LandingPage = () => {
     sceneRef.current?.showNextState();
   };
 
-  // Функція плавного скролу
   function smoothScrollTo(targetY, duration = 800) {
     const startY = window.scrollY;
     const distance = targetY - startY;
@@ -39,28 +46,26 @@ const LandingPage = () => {
       if (!startTime) startTime = currentTime;
       const timeElapsed = currentTime - startTime;
       const progress = Math.min(timeElapsed / duration, 1);
-      // Простий easing (easeInOutQuad)
-      const ease = progress < 0.5 
-        ? 2 * progress * progress 
-        : -1 + (4 - 2 * progress) * progress;
+      const ease =
+        progress < 0.5
+          ? 2 * progress * progress
+          : -1 + (4 - 2 * progress) * progress;
       window.scrollTo(0, startY + distance * ease);
       if (timeElapsed < duration) {
         requestAnimationFrame(animation);
       }
     }
-
     requestAnimationFrame(animation);
   }
 
-  // Функція для плавного скролу до секції за ID
-  const scrollToSection = (sectionId) => {
+  // Мемоізована функція для скролу до секції
+  const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
     if (element) {
-      // Отримуємо відстань від верху сторінки до елемента
       const targetY = element.getBoundingClientRect().top + window.scrollY;
-      smoothScrollTo(targetY, 1000); // 1000 мс - тривалість скролу (можна регулювати)
+      smoothScrollTo(targetY, 1000);
     }
-  };
+  }, []);
 
   return (
     <motion.div
@@ -69,24 +74,26 @@ const LandingPage = () => {
       animate={{ opacity: 1 }}
       transition={{ duration: 1 }}
     >
-      {/* Контейнер для 3D-сцени */}
-      <motion.div
-        ref={sceneContainerRef}
-        style={{
-          position: 'fixed',
-          top: 0,
-          left: 0,
-          width: '50vw',
-          height: '100vh',
-          pointerEvents: 'none',
-          x: x,
-          zIndex: 5,
-        }}
-      >
-        <Scene ref={sceneRef} />
-      </motion.div>
+      <Suspense fallback={<div>Loading 3D scene...</div>}>
+        {/* Контейнер для 3D-сцени */}
+        <motion.div
+          ref={sceneContainerRef}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '50vw',
+            height: '100vh',
+            pointerEvents: 'none',
+            x: x,
+            opacity: opacity,
+            zIndex: 5,
+          }}
+        >
+          <Scene ref={sceneRef} />
+        </motion.div>
+      </Suspense>
 
-      {/* Хедер із логотипом, навігацією та кнопками */}
       <header className="landing-header">
         <motion.a
           className="logo"
@@ -101,7 +108,6 @@ const LandingPage = () => {
           </h1>
         </motion.a>
 
-        {/* Навігаційне меню з якорями */}
         <nav className="landing-nav">
           <ul>
             <li>
@@ -153,7 +159,6 @@ const LandingPage = () => {
         </motion.div>
       </header>
 
-      {/* Секції для скролу */}
       <section
         id="section1"
         className="page-section"
@@ -163,7 +168,7 @@ const LandingPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#fafafa'
+          backgroundColor: '#fafafa',
         }}
       >
         <motion.h2
@@ -184,7 +189,7 @@ const LandingPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#f0f0f0'
+          backgroundColor: '#f0f0f0',
         }}
       >
         <motion.h2
@@ -205,7 +210,7 @@ const LandingPage = () => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          backgroundColor: '#eaeaea'
+          backgroundColor: '#eaeaea',
         }}
       >
         <motion.h2

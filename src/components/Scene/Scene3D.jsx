@@ -1,37 +1,36 @@
-// Scene.jsx
-import React, {
-  useRef,
-  useEffect,
-  useImperativeHandle,
-  forwardRef
-} from 'react';
+import React, { useRef, useEffect, useImperativeHandle, forwardRef } from 'react';
 import * as THREE from 'three';
 import shapes from './shapes';
+import { RGBELoader } from 'three/examples/jsm/loaders/RGBELoader';
+import { EffectComposer } from 'three/examples/jsm/postprocessing/EffectComposer';
+import { RenderPass } from 'three/examples/jsm/postprocessing/RenderPass';
+import { UnrealBloomPass } from 'three/examples/jsm/postprocessing/UnrealBloomPass';
+import { BokehPass } from 'three/examples/jsm/postprocessing/BokehPass';
+import { SMAAPass } from 'three/examples/jsm/postprocessing/SMAAPass';
+import { OutputPass } from 'three/examples/jsm/postprocessing/OutputPass';
 
 const Scene = forwardRef((props, ref) => {
   const mountRef = useRef(null);
-
-  // Масив об’єктів
+  const composerRef = useRef(null);
   const dynamicObjectsRef = useRef([]);
-
-  // Збереження старих швидкостей (для Stop / Continue)
   const oldVelocitiesRef = useRef([]);
   const oldRotationSpeedsRef = useRef([]);
   const oldMassesRef = useRef([]);
-
-  // Сцена, камера, рендерер
+  const collisionsEnabledRef = useRef(false);
   const sceneRef = useRef(null);
   const cameraRef = useRef(null);
   const rendererRef = useRef(null);
-
-  // Можливі позиції (кастомні стани)
+  const objectsGroupRef = useRef(new THREE.Group());
   const customStatesRef = useRef(shapes);
   const currentStateIndexRef = useRef(0);
 
   useEffect(() => {
-    // 1. Створюємо сцену
+    // 1. Створення сцени
     const scene = new THREE.Scene();
     sceneRef.current = scene;
+    const objectsGroup = new THREE.Group();
+    objectsGroupRef.current = objectsGroup;
+    scene.add(objectsGroup);
 
     // 2. Камера
     const camera = new THREE.PerspectiveCamera(
@@ -44,127 +43,190 @@ const Scene = forwardRef((props, ref) => {
     cameraRef.current = camera;
 
     // 3. Рендерер
-    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+    const renderer = new THREE.WebGLRenderer({
+      antialias: true,
+      alpha: true,
+      premultipliedAlpha: false,
+    });
     renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
     renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.shadowMap.enabled = true;
+    renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.0;
     mountRef.current.appendChild(renderer.domElement);
     rendererRef.current = renderer;
 
-    // 4. Освітлення
-    const ambientLight = new THREE.AmbientLight(0xffffff, 1);
-    scene.add(ambientLight);
-    const pointLight = new THREE.DirectionalLight(0xffffff, 10);
-    pointLight.position.set(2, 2, 2);
-    scene.add(pointLight);
+    // 4. Ініціалізація Composer та додавання пасів
+    const composer = new EffectComposer(renderer);
+    composerRef.current = composer;
+    const renderPass = new RenderPass(scene, camera);
+    composer.addPass(renderPass);
 
-    // 5. Межова сфера (прозора), що обмежує рух
+    // Прибираємо непотрібні bloomPass та bokehPass
+    // const bloomPass = new UnrealBloomPass(new THREE.Vector2(window.innerWidth, window.innerHeight), 1.5, 0.4, 0.85);
+    // composer.addPass(bloomPass);
+    // const bokehPass = new BokehPass(scene, camera, { focus: 5.0, aperture: 0.0005, maxblur: 0.005, width: window.innerWidth, height: window.innerHeight });
+    // composer.addPass(bokehPass);
+
+    if (renderer.getPixelRatio() === 1) {
+      const smaaPass = new SMAAPass(window.innerWidth, window.innerHeight);
+      composer.addPass(smaaPass);
+    }
+    const outputPass = new OutputPass();
+    composer.addPass(outputPass);
+
+    // Налаштування HDR
+    renderer.physicallyCorrectLights = true;
+    const pmremGenerator = new THREE.PMREMGenerator(renderer);
+    pmremGenerator.compileEquirectangularShader();
+    new RGBELoader()
+      .setPath('textures/')
+      .load('small_empty_room_1_4k.hdr', (texture) => {
+        const envMap = pmremGenerator.fromEquirectangular(texture).texture;
+        scene.environment = envMap;
+        texture.dispose();
+        pmremGenerator.dispose();
+      });
+
+    // 5. Освітлення
+    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+    scene.add(ambientLight);
+    const directionalLight = new THREE.DirectionalLight(0xffffff, 1.5);
+    directionalLight.position.set(2, 2, 2);
+    directionalLight.castShadow = true;
+    directionalLight.shadow.mapSize.width = 2048;
+    directionalLight.shadow.mapSize.height = 2048;
+    directionalLight.shadow.camera.near = 0.1;
+    directionalLight.shadow.camera.far = 20;
+    directionalLight.shadow.camera.left = -5;
+    directionalLight.shadow.camera.right = 5;
+    directionalLight.shadow.camera.top = 5;
+    directionalLight.shadow.camera.bottom = -5;
+    scene.add(directionalLight);
+
+    // 6. Межова сфера (прозора)
     const boundaryRadius = 2;
     const boundaryGeom = new THREE.SphereGeometry(boundaryRadius, 32, 32);
     const boundaryMat = new THREE.MeshBasicMaterial({
-      color: 0xffffff,
+      color: 0x000,
       wireframe: false,
       transparent: true,
-      opacity: 0
+      opacity: 0,
     });
     const boundarySphere = new THREE.Mesh(boundaryGeom, boundaryMat);
     scene.add(boundarySphere);
 
-    // 6. Динамічні об’єкти
+    // 7. Створення динамічних об’єктів
     const dynamicObjects = [];
     dynamicObjectsRef.current = dynamicObjects;
 
-    // Функція створення об’єктів із випадковою початковою швидкістю + малою швидкістю обертання
-    function createObj({ geometry, color, x, y }) {
+    function createObj({ geometry, color, x, y, speed = 0.05 }) {
       geometry.computeBoundingSphere();
-      const mat = new THREE.MeshStandardMaterial({
+      const material = new THREE.MeshPhysicalMaterial({
         color,
-        metalness: 0.2,
-        roughness: 0.5,
-        wireframe: true
+        metalness: 0.5,
+        roughness: 0.3,
+        clearcoat: 1.0,
+        clearcoatRoughness: 0.1,
+        sheen: 0.5,
+        transmission: 0.2,
+        opacity: 1,
+        transparent: true,
       });
-      const mesh = new THREE.Mesh(geometry, mat);
-
-      // Повільне обертання
+      const mesh = new THREE.Mesh(geometry, material);
+      mesh.castShadow = true;
+      mesh.receiveShadow = true;
       mesh.rotationSpeed = new THREE.Vector3(
-        (Math.random() - 0.5) * 0.05,
-        (Math.random() - 0.5) * 0.05,
-        (Math.random() - 0.5) * 0.05
+        (Math.random() - 0.5) * speed,
+        (Math.random() - 0.5) * speed,
+        (Math.random() - 0.5) * speed
       );
-      // Початкова швидкість
       mesh.velocity = new THREE.Vector3(
-        (Math.random() - 0.5) * 0.2,
-        (Math.random() - 0.5) * 0.2,
-        (Math.random() - 0.5) * 0.2
+        (Math.random() - 0.5) * speed,
+        (Math.random() - 0.5) * speed,
+        (Math.random() - 0.5) * speed
       );
       mesh.mass = 1;
-
-      // Для плавного “під’їзду”
+      mesh.position.set(x, y, 0);
+      mesh.boundingRadius = geometry.boundingSphere.radius;
       mesh.isLerpingToState = false;
       mesh.lerpAlpha = 0;
       mesh.startPos = new THREE.Vector3();
       mesh.targetPos = new THREE.Vector3();
       mesh.startRot = new THREE.Euler();
       mesh.targetRot = new THREE.Euler();
-
-      mesh.position.set(x, y, 0);
-
-      // Радіус, щоб правильно врахувати при колізії з межами
-      mesh.boundingRadius = geometry.boundingSphere.radius;
-
-      scene.add(mesh);
-      dynamicObjects.push(mesh);
+      objectsGroup.add(mesh);
+      dynamicObjectsRef.current.push(mesh);
     }
 
-    // Створюємо 6 об'єктів:
-    createObj({ geometry: new THREE.SphereGeometry(0.3, 16, 16), color: 0xff0000, x: 0,    y: 0 });
-    createObj({ geometry: new THREE.BoxGeometry(0.1, 1.5, 0.1),  color: 0x00ff00, x: -0.7, y: 0 });
-    createObj({ geometry: new THREE.BoxGeometry(0.1, 1.5, 0.1),  color: 0x0000ff, x: 0.7,  y: 0 });
-    createObj({ geometry: new THREE.BoxGeometry(0.1, 1.5, 0.1),  color: 0xffff00, x: 0,    y: 0.7 });
-    createObj({ geometry: new THREE.BoxGeometry(0.1, 1.5, 0.1),  color: 0xff00ff, x: 0,    y: -0.7 });
-    createObj({ geometry: new THREE.BoxGeometry(0.1, 1.5, 0.1),  color: 0x00ffff, x: 0,    y: -0.3 });
+    createObj({ geometry: new THREE.SphereGeometry(0.3, 50, 50), color: 0x0000, x: 0, y: 0 });
+    createObj({ geometry: new THREE.CapsuleGeometry(0.1, 0.5, 50, 50), color: 0x0000, x: 10, y: 0 });
+    createObj({ geometry: new THREE.CapsuleGeometry(0.1, 0.5, 50, 50), color: 0x0000, x: -10, y: 0 });
+    createObj({ geometry: new THREE.CapsuleGeometry(0.1, 0.5, 50, 50), color: 0x0000, x: 0, y: 10 });
+    createObj({ geometry: new THREE.CapsuleGeometry(0.1, 0.5, 50, 50), color: 0x0000, x: 0, y: -10 });
+    createObj({ geometry: new THREE.CapsuleGeometry(0.1, 0.5, 50, 50), color: 0x0000, x: 0, y: 0 });
 
-    // Анімація
+    // Глобальне обертання групи об’єктів на основі scroll
+    const factor = 0.001;
+    function updateGroupRotation() {
+      const scrollY = window.scrollY;
+      if (objectsGroupRef.current) {
+        objectsGroupRef.current.rotation.y = scrollY * factor;
+      }
+    }
+    // Функція throttle для оптимізації scroll-подій
+    function throttle(fn, delay) {
+      let lastCall = 0;
+      return function (...args) {
+        const now = Date.now();
+        if (now - lastCall < delay) return;
+        lastCall = now;
+        return fn(...args);
+      };
+    }
+    const throttledUpdateGroupRotation = throttle(updateGroupRotation, 16); // ≈60 fps
+    window.addEventListener('scroll', throttledUpdateGroupRotation);
+
+    // Анімаційний цикл
     const clock = new THREE.Clock();
     function animate() {
       requestAnimationFrame(animate);
       const delta = clock.getDelta();
 
-      dynamicObjects.forEach(obj => {
+      dynamicObjectsRef.current.forEach(obj => {
         if (obj.isLerpingToState) {
-          // Плавно їдемо до позицій з customStates
-          obj.lerpAlpha += delta; 
+          obj.lerpAlpha += delta;
           const t = Math.min(obj.lerpAlpha, 1);
-
           obj.position.lerpVectors(obj.startPos, obj.targetPos, t);
-
           const qa = new THREE.Quaternion().setFromEuler(obj.startRot);
           const qb = new THREE.Quaternion().setFromEuler(obj.targetRot);
           const qm = new THREE.Quaternion().slerpQuaternions(qa, qb, t);
           obj.rotation.setFromQuaternion(qm);
-
           if (t >= 1) {
             obj.isLerpingToState = false;
           }
         } else {
-          // Звичайний рух
           obj.rotation.x += obj.rotationSpeed.x * delta;
-          obj.rotation.y += obj.rotationSpeed.y * delta;
           obj.rotation.z += obj.rotationSpeed.z * delta;
-
           obj.position.x += obj.velocity.x * delta;
           obj.position.y += obj.velocity.y * delta;
           obj.position.z += obj.velocity.z * delta;
         }
-
-        // Колізія з межами (межова сфера)
-        checkBoundaryCollision(obj, 2 /* boundaryRadius */);
+        const distFromCenter = obj.position.length();
+        const maxDist = 2 - (obj.boundingRadius || 0);
+        if (distFromCenter > maxDist) {
+          const normal = obj.position.clone().normalize();
+          obj.position.setLength(maxDist);
+          const speed = obj.velocity.length();
+          obj.velocity.reflect(normal).setLength(speed);
+        }
       });
 
-      renderer.render(scene, camera);
+      composerRef.current.render(delta);
     }
     animate();
 
-    // Resize
     function onWindowResize() {
       camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
       camera.updateProjectionMatrix();
@@ -174,24 +236,19 @@ const Scene = forwardRef((props, ref) => {
 
     return () => {
       window.removeEventListener('resize', onWindowResize);
+      window.removeEventListener('scroll', throttledUpdateGroupRotation);
       mountRef.current.removeChild(renderer.domElement);
       renderer.dispose();
     };
   }, []);
 
-  // =========================
-  // STOP / CONTINUE
-  // =========================
+  // Функції Stop / Continue
   function stopObjects() {
     const objects = dynamicObjectsRef.current;
     if (!objects || !objects.length) return;
-
-    // Зберігаємо поточні швидкості + обертання
     oldVelocitiesRef.current = objects.map(o => o.velocity.clone());
     oldRotationSpeedsRef.current = objects.map(o => o.rotationSpeed.clone());
     oldMassesRef.current = objects.map(o => o.mass);
-
-    // Зупиняємо
     objects.forEach(o => {
       o.mass = 0;
       o.velocity.set(0, 0, 0);
@@ -202,30 +259,29 @@ const Scene = forwardRef((props, ref) => {
   function continueObjects() {
     const objects = dynamicObjectsRef.current;
     if (!objects || !objects.length) return;
-
-    // Даємо нову випадкову швидкість/обертання, починаючи з поточних позицій
+    collisionsEnabledRef.current = false;
+    setTimeout(() => {
+      collisionsEnabledRef.current = true;
+    }, 500);
     objects.forEach(o => {
       o.mass = 1;
       o.velocity.set(
-        (Math.random() - 0.5) * 0.5,
-        (Math.random() - 0.5) * 0.5,
-        (Math.random() - 0.5) * 0.5
+        (Math.random() - 0.5) * 0.02,
+        (Math.random() - 0.5) * 0.02,
+        (Math.random() - 0.5) * 0.02
       );
       o.rotationSpeed.set(
-        (Math.random() - 0.5) * 0.05,
-        (Math.random() - 0.5) * 0.05,
-        (Math.random() - 0.5) * 0.05
+        (Math.random() - 0.5) * 0.02,
+        (Math.random() - 0.5) * 0.02,
+        (Math.random() - 0.5) * 0.02
       );
     });
   }
 
-  // =========================
-  // Плавний перехід до станів
-  // =========================
+  // Перемикання станів
   function showNextState() {
     const objects = dynamicObjectsRef.current;
     if (!objects?.length) return;
-
     currentStateIndexRef.current++;
     if (currentStateIndexRef.current >= customStatesRef.current.length) {
       currentStateIndexRef.current = 0;
@@ -236,7 +292,6 @@ const Scene = forwardRef((props, ref) => {
   function showPreviousState() {
     const objects = dynamicObjectsRef.current;
     if (!objects?.length) return;
-
     currentStateIndexRef.current--;
     if (currentStateIndexRef.current < 0) {
       currentStateIndexRef.current = customStatesRef.current.length - 1;
@@ -248,52 +303,24 @@ const Scene = forwardRef((props, ref) => {
     const objects = dynamicObjectsRef.current;
     const stateIndex = currentStateIndexRef.current;
     const states = customStatesRef.current;
-
     if (!states[stateIndex]) return;
-
     states[stateIndex].forEach((transform, i) => {
       const { position, rotation } = transform;
       const obj = objects[i];
-
-      // зберігаємо старт
       obj.startPos = obj.position.clone();
       obj.startRot = new THREE.Euler().copy(obj.rotation);
-
-      // ціль
       obj.targetPos = position.clone();
       obj.targetRot = new THREE.Euler(rotation.x, rotation.y, rotation.z);
-
       obj.lerpAlpha = 0;
       obj.isLerpingToState = true;
     });
   }
 
-  // =========================
-  // Колізія з межовою кулею
-  // =========================
-  function checkBoundaryCollision(obj, boundaryRadius) {
-    const distFromCenter = obj.position.length();
-    const maxDist = boundaryRadius - (obj.boundingRadius || 0);
-
-    if (distFromCenter > maxDist) {
-      // знаходимо нормаль
-      const normal = obj.position.clone().normalize();
-      // притискаємо
-      obj.position.setLength(maxDist);
-      // віддзеркалюємо швидкість
-      const speed = obj.velocity.length();
-      obj.velocity.reflect(normal).setLength(speed);
-    }
-  }
-
-  // ======================================
-  // Проброс методів
-  // ======================================
   useImperativeHandle(ref, () => ({
     stopObjects,
     continueObjects,
     showNextState,
-    showPreviousState
+    showPreviousState,
   }));
 
   return (
@@ -306,7 +333,7 @@ const Scene = forwardRef((props, ref) => {
         width: '50vw',
         height: '100vh',
         overflow: 'hidden',
-        pointerEvents: 'none'
+        pointerEvents: 'none',
       }}
     />
   );

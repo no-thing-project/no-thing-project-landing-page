@@ -1,29 +1,34 @@
 import React, { useEffect, useState } from "react";
-import { motion, useMotionValue } from "framer-motion";
+import { motion, useMotionValue, useSpring } from "framer-motion";
 import "./CustomCursor.css";
 
 const CustomCursor = ({ size = 8 }) => {
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
-  const [hoveringLink, setHoveringLink] = useState(false);
+  // Початкові значення для позиціонування
+  const motionX = useMotionValue(-100);
+  const motionY = useMotionValue(-100);
+
+  // Стан для перевірки наведення на інтерактивні елементи (лінки або кнопки)
+  const [hoveringInteractive, setHoveringInteractive] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      // Округлюємо координати для чіткого позиціонування
       const x = Math.round(e.clientX);
       const y = Math.round(e.clientY);
-      cursorX.set(x);
-      cursorY.set(y);
+      motionX.set(x);
+      motionY.set(y);
     };
+
     window.addEventListener("mousemove", handleMouseMove);
     return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [cursorX, cursorY]);
+  }, [motionX, motionY]);
 
   useEffect(() => {
     const handleHover = (e) => {
-      const isLink = !!e.target.closest("a");
-      setHoveringLink(isLink);
+      // Перевірка, чи є найближчий елемент a або button
+      const isInteractive = e.target.closest("a, button");
+      setHoveringInteractive(!!isInteractive);
     };
+
     document.addEventListener("mouseover", handleHover);
     document.addEventListener("mouseout", handleHover);
     return () => {
@@ -36,13 +41,13 @@ const CustomCursor = ({ size = 8 }) => {
     <motion.svg
       className="custom-cursor"
       style={{
-        x: cursorX,
-        y: cursorY,
+        x: motionX,
+        y: motionY,
         width: size,
         height: size,
       }}
       animate={{
-        scale: hoveringLink ? 3 : 1,
+        scale: hoveringInteractive ? 3 : 1,
       }}
       transition={{
         type: "tween",

@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { motion, useAnimation } from "framer-motion";
 import "./SplashScreen.css";
 
+// Code writing!
+
 const SplashScreen = ({ onFinish }) => {
   const dotSize = 5; // діаметр крапки
   const controlsShape = useAnimation();
