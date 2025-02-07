@@ -5,20 +5,20 @@ import './LandingPage.css';
 // Використовуємо React.lazy для завантаження 3D-сцени
 const Scene = React.lazy(() => import('../Scene/Scene3D'));
 
-const LandingPage = () => {
+const LandingPage = ({hdrTexture}) => {
   const sceneRef = useRef(null);
   const sceneContainerRef = useRef(null);
 
   const { scrollY } = useViewportScroll();
   const x = useTransform(
     scrollY,
-    [0, 400, 700, 1400, 1800, 2300],
+    [0, 400, 700, 1400, 1800, 2500],
     ['0vw', '0vw', '50vw', '50vw', '-5vw', '-5vw']
   );
   const opacity = useTransform(
     scrollY,
-    [0, 390, 700, 800, 1510, 1800],
-    [1, 1, 1, 1, 1, 1]
+    [0, 390, 700, 800, 1510, 1800, 3000, 3500],
+    [1, 1, 1, 1, 1, 1, 1, 0]
   );
 
   const handleStop = () => {
@@ -90,7 +90,7 @@ const LandingPage = () => {
             zIndex: 5,
           }}
         >
-          <Scene ref={sceneRef} />
+          <Scene ref={sceneRef} hdrTexture={hdrTexture} />
         </motion.div>
       </Suspense>
 
@@ -118,7 +118,7 @@ const LandingPage = () => {
                   scrollToSection('section1');
                 }}
               >
-                Section 1
+                Home
               </a>
             </li>
             <li>
@@ -129,7 +129,7 @@ const LandingPage = () => {
                   scrollToSection('section2');
                 }}
               >
-                Section 2
+                About
               </a>
             </li>
             <li>
@@ -140,7 +140,29 @@ const LandingPage = () => {
                   scrollToSection('section3');
                 }}
               >
-                Section 3
+                Noting
+              </a>
+            </li>
+            <li>
+              <a
+                href="#section4"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('section4');
+                }}
+              >
+                Our projects
+              </a>
+            </li>
+            <li>
+              <a
+                href="#section5"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection('section5');
+                }}
+              >
+                Contacts
               </a>
             </li>
           </ul>
@@ -176,7 +198,7 @@ const LandingPage = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          Section 1
+          HOME
         </motion.h2>
       </section>
 
@@ -197,7 +219,7 @@ const LandingPage = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          Section 2
+          WHO WE ARE
         </motion.h2>
       </section>
 
@@ -218,7 +240,49 @@ const LandingPage = () => {
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2, duration: 0.5 }}
         >
-          Section 3
+          WHAT IS NOTHING FOR YOU?
+        </motion.h2>
+      </section>
+
+      <section
+        id="section4"
+        className="page-section"
+        data-section-id="4"
+        style={{
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#f0f0f0',
+        }}
+      >
+        <motion.h2
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          OUR PROJECTS
+        </motion.h2>
+      </section>
+
+      <section
+        id="section5"
+        className="page-section"
+        data-section-id="5"
+        style={{
+          height: '100vh',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          backgroundColor: '#eaeaea',
+        }}
+      >
+        <motion.h2
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.2, duration: 0.5 }}
+        >
+          CONTACTS
         </motion.h2>
       </section>
 
@@ -227,10 +291,13 @@ const LandingPage = () => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.8, duration: 0.5 }}
+          className="footer-content"
         >
-          &copy; 2025 NO.THING.PROJECT. All rights reserved.
+          <p>&copy; 2025 <span className="brand">no.thing.project</span></p>
+          <p className="rights">ALL.RIGHTS.RESERVED</p>
         </motion.div>
       </footer>
+
     </motion.div>
   );
 };
