@@ -48,7 +48,7 @@ const App = () => {
           >
             <Suspense fallback={null}>
               {/* Передаємо завантажену HDR карту як пропс */}
-              <LandingPage hdrTexture={hdrTexture} />
+              <LandingPage hdrTexture={hdrTexture} showDebugButtons={true} />
             </Suspense>
           </motion.div>
         )}

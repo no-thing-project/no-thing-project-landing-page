@@ -1,8 +1,11 @@
+/* ============================= */
+/* Global Styles                 */
+/* ============================= */
 body {
   font-family: "JetBrains Mono", monospace;
   margin: 0;
   padding: 0;
-  scroll-behavior: smooth; /* Додає плавний скрол */
+  scroll-behavior: smooth;
 }
 
 .landing-container {
@@ -15,7 +18,9 @@ body {
   overflow-x: hidden;
 }
 
-/* Хедер завжди видимий, з ефектом "скляного" фону */
+/* ============================= */
+/* Header                        */
+/* ============================= */
 .landing-header {
   position: fixed;
   top: 0;
@@ -33,7 +38,27 @@ body {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-/* Логотип */
+.header-buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.header-hub-button a {
+  font-size: 1rem;
+  color: #010101;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.header-hub-button a:hover {
+  color: #444;
+}
+
 .logo-text {
   font-family: "JetBrains Mono", monospace;
   font-size: 1.5rem;
@@ -43,43 +68,36 @@ body {
   margin: 0;
   text-transform: none;
 }
-
 .logo-sub {
   display: inline-block;
   margin-left: 2em;
 }
-
 .logo {
   text-decoration: none;
 }
 
-/* Навігація */
 .landing-nav ul {
   list-style: none;
   display: flex;
-  gap: 150px;
+  gap: 100px;
   margin: 0;
   padding: 0;
 }
-
 .landing-nav ul li a {
   text-decoration: none;
   color: #000;
   font-size: 1rem;
   transition: color 0.3s ease;
 }
-
 .landing-nav ul li a:hover {
   color: #444;
 }
 
-/* Кнопки у хедері */
 .header-buttons {
   display: flex;
   gap: 10px;
   align-items: center;
 }
-
 .header-buttons button {
   padding: 8px 16px;
   background-color: #222;
@@ -90,20 +108,245 @@ body {
   font-family: inherit;
   transition: background-color 0.3s ease;
 }
-
 .header-buttons button:hover {
   background-color: #444;
 }
 
-/* Секції для скролу */
+/* ============================= */
+/* Секції                        */
+/* ============================= */
+
+/* Загальні налаштування секцій */
 .page-section {
-  height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* Футер */
+/* Секція 1 – Перший екран */
+.first-screen {
+  flex-direction: column;
+  position: relative;
+  height: 100vh;
+  z-index: 10;
+  color: #010101;
+}
+.first-screen-content {
+  transform: translateX(300px);
+  max-width: 1000px;
+}
+.first-screen-title {
+  font-size: 48px;
+  margin: 0;
+  mix-blend-mode: difference;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+.first-screen-description {
+  font-size: 24px;
+  margin: 20px 100px;
+  text-align: left;
+  mix-blend-mode: difference;
+  font-weight: 100;
+}
+.scroll-indicator {
+  position: absolute;
+  text-transform: uppercase;
+  bottom: 20px;
+  right: 20px;
+  font-size: 16px;
+  padding: 8px 12px;
+  color: #010101;
+  border-radius: 4px;
+}
+
+/* Секція 2 – Who We Are (також застосовується для секцій 6 і 7) */
+.second-screen {
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 150px 0 0 100px;
+  height: 100vh;
+  z-index: 10;
+  color: #010101;
+}
+.second-screen-title {
+  font-size: 128px;
+  margin: 0;
+  font-weight: 400;
+}
+.second-screen-description {
+  font-size: 24px;
+  margin-top: 20px;
+  max-width: 1000px;
+  text-align: left;
+  font-weight: 100;
+}
+
+.second-screen-content {
+  width: 100%;
+  align-self: flex-start;
+  text-align: left;
+}
+
+
+/* Секція 3 – Великий текст */
+.section3 {
+  min-height: 100vh;
+  align-items: end;
+  justify-content: end;
+}
+.section3-title {
+  margin-right: 50px;
+  font-size: 248px;
+  font-weight: 400;
+  max-width: 1000px;
+  text-align: right;
+  z-index: 10;
+}
+
+/* Секція 4 – Історії */
+.section4 {
+  margin-top: 100px;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.stories-container {
+  padding: 150px 100px;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+}
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.story-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+/* Для парних історій перевертаємо порядок елементів */
+.story:nth-child(even) .story-content {
+  flex-direction: row-reverse;
+}
+
+.story:nth-child(even) .story-name {
+  margin-left: auto;
+}
+
+.story-photo img {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+}
+.story-text {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+/* Негативні відступи для "висування" фото */
+.story:nth-child(odd) .story-photo {
+  margin-left: -50px;
+}
+.story:nth-child(even) .story-photo {
+  margin-right: -50px;
+  margin-left: 0;
+}
+.story-name {
+  font-size: 64px;
+  margin: 0;
+}
+.story-description {
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Секція 5 – Interesting */
+.section5 {
+  width: 100vw;
+  padding: 50px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.interesting-container {
+  overflow: hidden;
+  width: 100vw;
+}
+.interesting-wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+  white-space: nowrap;
+}
+.interesting-text {
+  font-size: 400px;
+  text-transform: uppercase;
+  margin: 0;
+  flex-shrink: 0;
+}
+
+/* Секція 6 – our projects (у стилі секції 2) */
+.section6 {
+  padding: 150px 100px;
+  height: 100vh;
+  z-index: 10;
+  color: #010101;
+  /* При потребі можна додати додаткове вирівнювання контенту */
+}
+.section6 h2 {
+  font-size: 128px;
+  margin: 0 0 20px 0;
+  font-weight: 400;
+  text-align: left; /* Заголовок вирівнюється по лівому краю */
+}
+
+/* Секція 7 – Контакти (у стилі секції 2) */
+.section7 {
+  padding: 150px 100px;
+  height: 100vh;
+  z-index: 10;
+  color: #010101;
+}
+.section7 h2 {
+  font-size: 128px;
+  margin: 0 0 20px 0;
+  font-weight: 400;
+  text-align: left; /* Заголовок вирівнюється по лівому краю */
+}
+
+.contacts {
+  max-width: 800px;
+  text-align: left;
+  font-size: 24px;
+  line-height: 1.5;
+}
+/* Соцмережі як іконки з hover-ефектом */
+.social-icons {
+  display: flex;
+  gap: 20px;
+  margin-top: 20px;
+}
+.social-icon {
+  font-size: 48px;
+  transition: transform 0.3s ease, color 0.3s ease;
+  cursor: pointer;
+}
+.social-icon:hover {
+  transform: scale(1.2);
+  color: #0077ff;
+}
+
+/* ============================= */
+/* Футер                         */
+/* ============================= */
 .landing-footer {
   position: absolute;
   bottom: 20px;
@@ -113,18 +356,18 @@ body {
   font-size: 0.9rem;
   color: #333;
 }
-
 .brand {
   font-weight: bold;
   text-transform: uppercase;
 }
-
 .rights {
   font-size: 12px;
   opacity: 0.7;
 }
 
-/* Canvas для 3D-сцени */
+/* ============================= */
+/* Canvas для 3D-сцени           */
+/* ============================= */
 canvas {
   position: fixed;
   top: 0;
@@ -134,5 +377,3 @@ canvas {
   pointer-events: none;
   background: none !important;
 }
-
-

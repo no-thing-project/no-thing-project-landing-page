@@ -131,6 +131,7 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
 
   // Для попереднього відстеження швидкості миші (опційно)
   const cursorPrevRef = useRef(new THREE.Vector3());
+
   // Реф для дебаг-об’єкта колізії з курсором
   const cursorCollisionDebugRef = useRef(null);
 

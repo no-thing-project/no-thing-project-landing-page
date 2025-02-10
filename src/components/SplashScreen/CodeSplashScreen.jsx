@@ -17,7 +17,7 @@ const SplashScreen = ({ onFinish }) => {
         muted
         playsInline
       >
-        <source src="/nothingTypeAnimation3.mp4" type="video/mp4" />
+        <source src="/nothingTypeAnimation4.mp4" type="video/mp4" />
         Your browser does not support the video tag.
       </video>
     </div>
