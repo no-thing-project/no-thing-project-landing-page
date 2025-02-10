@@ -1,64 +1,77 @@
-import React, { useState, useEffect, lazy } from "react";
-import { AnimatePresence } from "framer-motion";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
-import { HashRouter as Router, Routes, Route } from "react-router-dom";
+// App.js
+import React, { useState, useEffect, Suspense, lazy } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+import SplashScreen from "./components/SplashScreen/CodeSplashScreen";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
-import SplashScreenContainer from "./containers/SplashScreenContainer";
-import LandingPageContainer from "./containers/LandingPageContainer";
-import config from "./config";
+import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
+import { BrowserRouter } from "react-router-dom";
 
-// const LandingPage = lazy(() => import("./pages/LandingPage"));
-const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicyPage"));
-const TermsOfUse = lazy(() => import("./pages/TermsOfUsePage"));
+const LandingPage = lazy(() => import("./pages/LandingPage"));
+
+// Функція для визначення мобільного пристрою
+const isMobileDevice = () => /Mobi|Android/i.test(navigator.userAgent);
 
 const App = () => {
-  const [showSplash, setShowSplash] = useState(true); // temporary disable
-  const [hdrTexture, setHdrTexture] = useState(null);
-  const [hdrError, setHdrError] = useState(false);
-  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
+  const [showSplash, setShowSplash] = useState(false);
+  // const [hdrTexture, setHdrTexture] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    const loadHDR = async () => {
-      try {
-        const texture = await new RGBELoader().loadAsync(
-          `${config.PUBLIC_URL}/hdr_maps/poly_haven_studio_1k.hdr`
-        );
-        setHdrTexture(texture);
-      } catch (error) {
-        console.error("Error loading HDR texture:", error);
-        setHdrError(true);
-      }
-    };
-    loadHDR();
+    setIsMobile(isMobileDevice());
   }, []);
 
+  // Завантаження HDR текстури
+  // useEffect(() => {
+  //   async function loadHDR() {
+  //     const loader = new RGBELoader();
+  //     loader.setPath("hdr_maps/");
+  //     try {
+  //       const texture = await loader.loadAsync("poly_haven_studio_1k.hdr");
+  //       setHdrTexture(texture);
+  //     } catch (error) {
+  //       console.error("Error loading HDR texture:", error);
+  //     }
+  //   }
+  //   loadHDR();
+  // }, []);
+
   return (
-    <Router>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className="App">
+        {/* Рендеримо кастомний курсор лише для десктопу */}
         {!isMobile && <CustomCursor size={12} />}
-        <AnimatePresence mode="wait">
+        <AnimatePresence exitBeforeEnter>
           {showSplash ? (
-            <SplashScreenContainer onFinish={() => setShowSplash(false)} />
+            <motion.div
+              key="splash"
+              initial={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            >
+              <SplashScreen onFinish={() => setShowSplash(false)} />
+            </motion.div>
           ) : (
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <LandingPageContainer
-                    hdrTexture={hdrTexture}
-                    hdrError={hdrError}
-                    isMobile={isMobile}
-                    key="home"
-                  />
-                }
-              />
-              <Route path="/privacy-policy" element={<PrivacyPolicy key="privacy" />} />
-              <Route path="/terms-of-use" element={<TermsOfUse key="terms" />} />
-            </Routes>
+            <motion.div
+              key="landing"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
+            >
+              <Suspense fallback={null}>
+                {/* Передаємо HDR текстуру та прапорець isMobile */}
+                <LandingPage
+                  // hdrTexture={hdrTexture}
+                  showDebugButtons={false}
+                  showHubButton={false}
+                  showDonateButton={true}
+                  isMobile={isMobile}
+                />
+              </Suspense>
+            </motion.div>
           )}
         </AnimatePresence>
       </div>
-    </Router>
+    </BrowserRouter>
   );
 };
 

@@ -1,25 +1,53 @@
+// NothingSection.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import Section from "./Section";
+import { fadeInAnimation } from "../../utils/fadeInAnimation";
+import DecryptText from "../DecryptText/DecryptText";
 
-const fadeInUp = (delay = 0.2) => ({
-  initial: { opacity: 0, y: 20 },
-  whileInView: { opacity: 1, y: 0 },
-  transition: { delay, duration: 0.5 },
-  viewport: { once: true },
-});
+const NothingSection = ({ isMobile }) => {
+  if (isMobile) {
+    return (
+      <section
+        id="section3"
+        className="page-section section3 inverting-text"
+        data-section-id="3"
+      >
+        <div className="section-wrapper">
+          <motion.h2
+            className="section3-title"
+            {...fadeInAnimation(0.2)}
+            style={{
+              writingMode: "vertical-rl",
+              textOrientation: "upright",
+              margin: "auto",
+              height: "auto", // Забезпечуємо auto-розмір
+              paddingBottom: "600px"
+            }}
+          >
+            <DecryptText text="NOTHING" />
+          </motion.h2>
+        </div>
+      </section>
+    );
+  }
 
-const NothingSection = () => {
+  const text = "WHAT IS NOTHING FOR YOU?";
   return (
-    <Section sectionNumber={3} className="section-nothing" id="section-nothing">
-      <motion.h2 className="section-title-text" {...fadeInUp(0.2)}>
-        {"NOTHING".split(" ").map((word, idx) => (
-          <a key={idx} style={{ display: "block" }}>
-            {word}
-          </a>
-        ))}
-      </motion.h2>
-    </Section>
+    <section
+      id="section3"
+      className="page-section section3 inverting-text"
+      data-section-id="3"
+    >
+      <div className="section-wrapper right-align">
+        <motion.h2 className="section3-title" {...fadeInAnimation(0.2)}>
+          {text.split(" ").map((word, idx) => (
+            <a key={idx} style={{ display: "block" }}>
+              {word === "NOTHING" ? <DecryptText text="NOTHING" /> : word}
+            </a>
+          ))}
+        </motion.h2>
+      </div>
+    </section>
   );
 };
 
