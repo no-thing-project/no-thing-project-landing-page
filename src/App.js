@@ -7,17 +7,25 @@ import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 
 const LandingPage = lazy(() => import("./components/LandingPage/LandingPage"));
 
+// Функція для визначення мобільного пристрою
+const isMobileDevice = () => /Mobi|Android/i.test(navigator.userAgent);
+
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [hdrTexture, setHdrTexture] = useState(null);
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Асинхронно завантажуємо HDR карту
+  useEffect(() => {
+    setIsMobile(isMobileDevice());
+  }, []);
+
+  // Завантаження HDR текстури
   useEffect(() => {
     async function loadHDR() {
       const loader = new RGBELoader();
-      loader.setPath('hdr_maps/');
+      loader.setPath("hdr_maps/");
       try {
-        const texture = await loader.loadAsync('poly_haven_studio_1k.hdr');
+        const texture = await loader.loadAsync("poly_haven_studio_1k.hdr");
         setHdrTexture(texture);
       } catch (error) {
         console.error("Error loading HDR texture:", error);
@@ -28,7 +36,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <CustomCursor size={12} />
+      {/* Рендеримо кастомний курсор лише для десктопу */}
+      {!isMobile && <CustomCursor size={12} />}
       <AnimatePresence exitBeforeEnter>
         {showSplash ? (
           <motion.div
@@ -47,8 +56,13 @@ const App = () => {
             transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
           >
             <Suspense fallback={null}>
-              {/* Передаємо завантажену HDR карту як пропс */}
-              <LandingPage hdrTexture={hdrTexture} showDebugButtons={true} />
+              {/* Передаємо HDR текстуру та прапорець isMobile */}
+              <LandingPage
+                hdrTexture={hdrTexture}
+                showDebugButtons={false}
+                showHubButton={false}
+                isMobile={isMobile}
+              />
             </Suspense>
           </motion.div>
         )}

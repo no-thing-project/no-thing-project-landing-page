@@ -25,7 +25,7 @@ const boundaryConfig = {
 
 const speedConfig = {
   objectSpeedMultiplier: 1,    // Множник для початкових швидкостей (rotationSpeed та velocity)
-  stateLerpSpeed: 0.3,         // Множник для швидкості переходу (applyCurrentState)
+  stateLerpSpeed: 0.2,         // Множник для швидкості переходу (applyCurrentState)
 };
 
 const CURSOR_IMPULSE_MULTIPLIER = 0.1;  // Регулювання сили відштовхування курсора
@@ -108,7 +108,7 @@ function createSphereDebug(mesh, scale) {
 }
 
 /* ========= Компонент Scene ========= */
-const Scene = forwardRef(({ hdrTexture }, ref) => {
+const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
   /* ---------- Рефи та змінні ---------- */
   const mountRef = useRef(null);
   const composerRef = useRef(null);
@@ -309,8 +309,7 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
     }
 
     /* ========= Створення об’єктів ========= */
-    // Центральний об’єкт (сфера) – створюється як звичайний; колізія з курсором не обробляється,
-    // допоки користувач не почне рухати мишею
+    // Центральний об’єкт (сфера)
     createObj({ geometry: new THREE.SphereGeometry(0.3, 50, 50), color: 0x0000, x: 0, y: 0, isStatic: false });
 
     // Об’єкти, розташовані по колу
@@ -324,7 +323,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
     }
 
     /* ========= Обробка подій ========= */
-    // Глобальне обертання групи об’єктів при скролі
     const scrollFactor = 0.001;
     function updateGroupRotation() {
       const scrollY = window.scrollY;
@@ -344,7 +342,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
     const throttledUpdateGroupRotation = throttle(updateGroupRotation, 16);
     window.addEventListener('scroll', throttledUpdateGroupRotation);
 
-    // Обробка руху миші – зберігаємо нормалізовані координати
     function onMouseMove(event) {
       const rect = mountRef.current.getBoundingClientRect();
       const mouse = new THREE.Vector2(
@@ -352,7 +349,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
         -((event.clientY - rect.top) / rect.height) * 2 + 1
       );
       mouseCoordsRef.current.copy(mouse);
-      // Позначаємо, що миша рухнулась
       hasMouseMovedRef.current = true;
     }
     window.addEventListener('mousemove', onMouseMove);
@@ -363,12 +359,10 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
       requestAnimationFrame(animate);
       const delta = clock.getDelta();
 
-      // Скидання лічильника зіткнень для кожного об’єкта
       dynamicObjectsRef.current.forEach(obj => {
         obj.collisionCount = 0;
       });
 
-      /* --- Оновлення позицій та обертів об’єктів --- */
       dynamicObjectsRef.current.forEach(obj => {
         if (obj.isLerpingToState) {
           obj.lerpAlpha += delta * speedConfig.stateLerpSpeed;
@@ -386,7 +380,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
           obj.position.y += obj.velocity.y * delta;
           obj.position.z += obj.velocity.z * delta;
         }
-        // Обмеження віддалення від центру
         const distFromCenter = obj.position.length();
         const maxDist = 2 - (obj.boundingRadius || 0);
         if (distFromCenter > maxDist) {
@@ -395,7 +388,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
           const speed = obj.velocity.length();
           obj.velocity.reflect(normal).setLength(speed);
         }
-        // Оновлення дебаг-хелперів OBB, якщо увімкнено
         if (obj.obbHelper && boundaryConfig.showDebugOBB) {
           const obb = createOBB(obj);
           const newHelper = createOBBHelper(obb);
@@ -404,7 +396,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
         }
       });
 
-      /* --- Обробка колізій між об’єктами (OBB) --- */
       if (collisionsEnabledRef.current && boundaryConfig.collisionType === 'OBB') {
         const objs = dynamicObjectsRef.current;
         const obbArray = objs.map(obj => createOBB(obj));
@@ -433,8 +424,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
         }
       }
 
-      /* --- Колізія "курсора" як променя --- */
-      // Виконуємо логіку колізії з мишею лише після першого руху
       if (hasMouseMovedRef.current) {
         const raycaster = new THREE.Raycaster();
         raycaster.setFromCamera(mouseCoordsRef.current, cameraRef.current);
@@ -453,7 +442,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
               const rotationalImpulse = new THREE.Vector3(n.y, 0, -n.x).multiplyScalar(impulseStrength * 0.5);
               obj.rotationSpeed.add(rotationalImpulse);
               obj.collisionCount = (obj.collisionCount || 0) + 1;
-              // Якщо увімкнено дебаг колізій з курсором – оновлюємо дебаг-об’єкт
               if (debugConfig.showDebugCursorCollision && cursorCollisionDebugRef.current) {
                 cursorCollisionDebugRef.current.position.copy(closestPoint);
                 cursorCollisionDebugRef.current.visible = true;
@@ -462,18 +450,15 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
             }
           }
         });
-        // Якщо жодна колізія не виявлена, ховаємо дебаг-об’єкт
         if (cursorCollisionDebugRef.current && !cursorCollisionFound) {
           cursorCollisionDebugRef.current.visible = false;
         }
       }
 
-      /* --- Застосування затухання (damping) з мінімальним рівнем --- */
       dynamicObjectsRef.current.forEach(obj => {
         const baseDamping = 0.99;
         const extraDamping = 1 - Math.min(0.05 * (obj.collisionCount || 0), 0.5);
         const dampingFactor = baseDamping * extraDamping;
-        // Для лінійної швидкості:
         const currentSpeed = obj.velocity.length();
         const dampedSpeed = currentSpeed * dampingFactor;
         const minSpeed = obj.initialVelocity ? obj.initialVelocity.length() : 0;
@@ -481,7 +466,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
         if (obj.velocity.length() > 0) {
           obj.velocity.setLength(finalSpeed);
         }
-        // Для кутової швидкості:
         const currentRotSpeed = obj.rotationSpeed.length();
         const dampedRotSpeed = currentRotSpeed * dampingFactor;
         const minRotSpeed = obj.initialRotationSpeed ? obj.initialRotationSpeed.length() : 0;
@@ -495,7 +479,6 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
     }
     animate();
 
-    /* ========= Обробка зміни розмірів вікна ========= */
     function onWindowResize() {
       camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
       camera.updateProjectionMatrix();
@@ -553,6 +536,7 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
     if (currentStateIndexRef.current >= customStatesRef.current.length) {
       currentStateIndexRef.current = 0;
     }
+    console.log('Застосовується фігура, state index:', currentStateIndexRef.current);
     applyCurrentState();
   }
 
@@ -582,6 +566,36 @@ const Scene = forwardRef(({ hdrTexture }, ref) => {
       obj.isLerpingToState = true;
     });
   }
+
+  /* ========= Автоматична трансформація фігури ========= */
+  useEffect(() => {
+    // Якщо увімкнено debugButtons (прапорець з App.jsx) – автоматична трансформація відключається
+    if (showDebugButtons) return;
+
+    let autoTransitionTimeout;
+    let holdTimeout;
+
+    function scheduleAutoTransition() {
+      const randomDelay = 10000 + Math.random() * 10000; // від 10 до 20 секунд
+      autoTransitionTimeout = setTimeout(() => {
+        stopObjects();
+        showNextState();
+        console.log("Авто-трансформація: застосовано фігуру, state index:", currentStateIndexRef.current);
+        const holdTime = 3000; // фіксоване тримання 3 секунди
+        holdTimeout = setTimeout(() => {
+          continueObjects();
+          scheduleAutoTransition();
+        }, holdTime);
+      }, randomDelay);
+    }
+
+    scheduleAutoTransition();
+
+    return () => {
+      clearTimeout(autoTransitionTimeout);
+      clearTimeout(holdTimeout);
+    };
+  }, [showDebugButtons]);
 
   useImperativeHandle(ref, () => ({
     stopObjects,

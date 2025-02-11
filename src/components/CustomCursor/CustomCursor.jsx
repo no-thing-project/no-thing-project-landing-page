@@ -1,21 +1,17 @@
+// CustomCursor.js
 import React, { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import "./CustomCursor.css";
 
 const CustomCursor = ({ size = 8 }) => {
-  // Початкові значення для позиціонування
   const motionX = useMotionValue(-100);
   const motionY = useMotionValue(-100);
-
-  // Стан для перевірки наведення на інтерактивні елементи (лінки або кнопки)
   const [hoveringInteractive, setHoveringInteractive] = useState(false);
 
   useEffect(() => {
     const handleMouseMove = (e) => {
-      const x = Math.round(e.clientX);
-      const y = Math.round(e.clientY);
-      motionX.set(x);
-      motionY.set(y);
+      motionX.set(Math.round(e.clientX));
+      motionY.set(Math.round(e.clientY));
     };
 
     window.addEventListener("mousemove", handleMouseMove);
@@ -24,8 +20,7 @@ const CustomCursor = ({ size = 8 }) => {
 
   useEffect(() => {
     const handleHover = (e) => {
-      // Перевірка, чи є найближчий елемент a або button
-      const isInteractive = e.target.closest("a, button");
+      const isInteractive = e.target.closest("a, button, img");
       setHoveringInteractive(!!isInteractive);
     };
 
@@ -46,22 +41,10 @@ const CustomCursor = ({ size = 8 }) => {
         width: size,
         height: size,
       }}
-      animate={{
-        scale: hoveringInteractive ? 3 : 1,
-      }}
-      transition={{
-        type: "tween",
-        ease: "easeInOut",
-        duration: 0.3,
-      }}
+      animate={{ scale: hoveringInteractive ? 3 : 1 }}
+      transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
     >
-      <circle
-        cx="50%"
-        cy="50%"
-        r="50%"
-        fill="white"
-        shapeRendering="geometricPrecision"
-      />
+      <circle cx="50%" cy="50%" r="50%" fill="white" shapeRendering="geometricPrecision" />
     </motion.svg>
   );
 };
