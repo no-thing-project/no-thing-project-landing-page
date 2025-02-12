@@ -153,7 +153,7 @@ const LandingPage = ({
                       scrollToSection("section2");
                     }}
                   >
-                    About
+                    What is
                   </a>
                 </li>
                 <li>
@@ -164,7 +164,7 @@ const LandingPage = ({
                       scrollToSection("section3");
                     }}
                   >
-                    Noting
+                    Nothing
                   </a>
                 </li>
                 <li>
@@ -175,7 +175,7 @@ const LandingPage = ({
                       scrollToSection("section4");
                     }}
                   >
-                    Histories
+                    For You?
                   </a>
                 </li>
                 <li>
@@ -186,7 +186,7 @@ const LandingPage = ({
                       scrollToSection("section6");
                     }}
                   >
-                    Contacts
+                    Contact Us
                   </a>
                 </li>
               </ul>
@@ -242,7 +242,7 @@ const LandingPage = ({
               transition={{ delay: 0.2, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Lorem ipsum dolor sit amet consectetur.
+              No.Thing Project
             </motion.h1>
             <motion.p
               className="first-screen-description"
@@ -250,10 +250,7 @@ const LandingPage = ({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
               viewport={{ once: true }}
-            >
-              Lorem ipsum dolor sit amet consectetur. Enim leo et blandit in.
-              Volutpat blandit egestas ac convallis viverra consequat risus
-              erat.
+            >start with Nothing, create Everything
             </motion.p>
             <motion.p
               className="first-screen-description"
@@ -262,9 +259,6 @@ const LandingPage = ({
               transition={{ delay: 0.4, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Volutpat blandit egestas ac convallis viverra consequat risus
-              erat. Viverra porttitor quam enim risus vitae integer dui feugiat.
-              Lectus orci quam mi eget vestibulum enim sed laoreet viverra.
             </motion.p>
           </div>
           {!isMobile && (
@@ -292,7 +286,7 @@ const LandingPage = ({
               transition={{ delay: 0.2, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              WHO WE ARE
+              WHAT IS
             </motion.h1>
             <motion.p
               className="second-screen-description"
@@ -301,8 +295,15 @@ const LandingPage = ({
               transition={{ delay: 0.4, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Lorem ipsum odor amet, consectetuer adipiscing elit. Ridiculus
-              vivamus rutrum maecenas nec lobortis hendrerit et urna.
+             No.Thing Project is a movement, a mindset, and a platform for transformation
+            </motion.p>
+            <motion.p
+              className="second-screen-description"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.6, duration: 0.5 }}
+              viewport={{ once: true }}
+            >It is the idea that nothing is not emptiness but a starting point—a space where creativity, innovation, and change can emerge.
             </motion.p>
             <motion.p
               className="second-screen-description"
@@ -311,20 +312,7 @@ const LandingPage = ({
               transition={{ delay: 0.6, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              Quis non eleifend faucibus per himenaeos efficitur ridiculus.
-              Sollicitudin inceptos cras luctus; felis conubia volutpat?
-            </motion.p>
-            <motion.p
-              className="second-screen-description"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
-              viewport={{ once: true }}
-            >
-              Libero venenatis convallis; tempus mattis bibendum urna posuere.
-              Odio euismod amet duis hendrerit senectus eleifend. Augue dis
-              aptent torquent justo at sagittis posuere nascetur. Massa tempus
-              elementum magnis habitasse ligula mi laoreet arcu.
+              We embrace minimalism as a tool for clarity and inspiration, proving that even from nothing, something extraordinary can be built.
             </motion.p>
           </div>
         </section>
@@ -361,22 +349,23 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/photo1.png" alt="Oleksandr" />
+                  <img src="/someone-photo.png" alt="Someone" />
                 </div>
                 <div className="story-text">
-                  <h3 className="story-name">Oleksandr</h3>
+                  <h3 className="story-name">Someone</h3>
                   <p className="story-description">
-                    Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
-                    tellus. Malesuada tristique tempus quis viverra vivamus a.
-                    Mollis facilisi senectus penatibus laoreet neque mauris
-                    suscipit tempus vitae. Ultrices ac pharetra ut dui. Maecenas
-                    arcu non proin ante facilisis. Tortor a amet et ultricies.
-                    Nunc eu felis sit amet nisi porta. Eget magnis eu vestibulum
-                    adipiscing tellus pretium augue. Vel sed sit neque enim.
-                    Odio nunc enim quisque tellus. Nibh aliquam proin non sapien
-                    sed tempus erat pellentesque in. Cursus quis cras morbi leo
-                    proin elit ut. At dui dolor porta auctor in nec. Mauris ac
-                    pretium nunc feugiat purus.
+                  Nothing is not emptiness.
+                  It is a breath before a thought.
+                  A space before a step.
+                  A silence before a song.
+                  
+                  Nothing is not absence.
+                  It is freedom from what does not matter.
+                  It is the weight that was never there.
+                  
+                  I do not fear nothing.
+                  I live in it. I move with it.
+                  And in nothing, I find everything.
                   </p>
                 </div>
               </div>
@@ -385,22 +374,20 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/photo2.png" alt="Andrii" />
+                  <img src="/noone-photo.png" alt="Noone" />
                 </div>
                 <div className="story-text">
-                  <h3 className="story-name">Andrii</h3>
+                  <h3 className="story-name">Noone</h3>
                   <p className="story-description">
-                    Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
-                    tellus. Malesuada tristique tempus quis viverra vivamus a.
-                    Mollis facilisi senectus penatibus laoreet neque mauris
-                    suscipit tempus vitae. Ultrices ac pharetra ut dui. Maecenas
-                    arcu non proin ante facilisis. Tortor a amet et ultricies.
-                    Nunc eu felis sit amet nisi porta. Eget magnis eu vestibulum
-                    adipiscing tellus pretium augue. Vel sed sit neque enim.
-                    Odio nunc enim quisque tellus. Nibh aliquam proin non sapien
-                    sed tempus erat pellentesque in. Cursus quis cras morbi leo
-                    proin elit ut. At dui dolor porta auctor in nec. Mauris ac
-                    pretium nunc feugiat purus.
+                  For me, Nothing is not empty.
+                  It’s not the absence of meaning, but the space where meaning begins.
+                  Nothing is silence before a song, the blank page before a story, the deep breath before the first step.
+                  
+                  People fear Nothing. They think it’s a void, a dead end. But I see it as freedom.
+                  Freedom from expectations. Freedom to create, to reinvent, to become.
+                  
+                  I am No One.
+                  And I’ve built everything from Nothing.
                   </p>
                 </div>
               </div>
@@ -409,10 +396,10 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/photo3.png" alt="Sophia" />
+                  <img src="/yuliia_date_photo.png" alt="Yuliia" />
                 </div>
                 <div className="story-text">
-                  <h3 className="story-name">Sophia</h3>
+                  <h3 className="story-name">Yuliia</h3>
                   <p className="story-description">
                     Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
                     tellus. Malesuada tristique tempus quis viverra vivamus a.
@@ -433,10 +420,34 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/photo4.png" alt="Yulia" />
+                  <img src="/sophia_date_photo.png" alt="Sophia" />
                 </div>
                 <div className="story-text">
-                  <h3 className="story-name">Yulia</h3>
+                  <h3 className="story-name">Sophia</h3>
+                  <p className="story-description">
+                    Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
+                    tellus. Malesuada tristique tempus quis viverra vivamus a.
+                    Mollis facilisi senectus penatibus laoreet neque mauris
+                    suscipit tempus vitae. Ultrices ac pharetra ut dui. Maecenas
+                    arcu non proin ante facilisis. Tortor a amet et ultricies.
+                    Nunc eu felis sit amet nisi porta. Eget magnis eu vestibulum
+                    adipiscing tellus pretium augue. Vel sed sit neque enim.
+                    Odio nunc enim quisque tellus. Nibh aliquam proin non sapien
+                    sed tempus erat pellentesque in. Cursus quis cras morbi leo
+                    proin elit ut. At dui dolor porta auctor in nec. Mauris ac
+                    pretium nunc feugiat purus.
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* Історія 5 */}
+            <div className="story">
+              <div className="story-content">
+                <div className="story-photo">
+                  <img src="/andrii_date_photo.png" alt="Andrii" />
+                </div>
+                <div className="story-text">
+                  <h3 className="story-name">Andrii</h3>
                   <p className="story-description">
                     Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
                     tellus. Malesuada tristique tempus quis viverra vivamus a.
@@ -455,7 +466,23 @@ const LandingPage = ({
             </div>
           </div>
         </section>
-
+            {/* Історія 6 */}
+            {/* <div className="story">
+              <div className="story-content">
+                <div className="story-photo">
+                  <img src="/oleksandr_date_photo.png" alt="Oleksandr" />
+                </div>
+                <div className="story-text">
+                  <h3 className="story-name">Oleksandr</h3>
+                  <p className="story-description">
+                  Nothing is not emptiness, but a limitless source of potential. It is the beginning of everything. In a world filled with noise, distractions, and complexity, Nothing offers clarity, focus, and the space to create.
+                  When you have nothing, you have the freedom to shape anything. It is the blank page before a masterpiece, the silence before music, the stillness before a revolution.
+                  Nothing is the foundation of No.Thing Project, a movement that transforms the idea of absence into a catalyst for creativity, self-discovery, and progress. It challenges people to rethink what they truly need and to embrace simplicity as a tool for innovation and personal growth.
+                  In the grand scheme, Nothing is the paradox that drives life forward. It is both the void and the spark, the question and the answer. When you truly understand Nothing, you realize that it is, in fact, everything.
+                  </p>
+                </div>
+              </div>
+            </div> */}
         {/* Секція 5 – Interesting */}
         <section
           id="section5"
@@ -486,18 +513,18 @@ const LandingPage = ({
               transition={{ delay: 0.2, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              CONTACTS
+              CONTACT US
             </motion.h1>
             <div className="contacts">
               <p>
-                Email:{" "}
-                <a href="mailto:contact@example.com">contact@example.com</a>
+                <a href="mailto:someone@nothingproject.io">someone@nothingproject.io</a>
               </p>
               <p>
-                Phone: <a href="tel:+1234567890">+1 234 567 890</a>
+                <a href="mailto:noone@nothingproject.io">noone@nothingproject.io</a>
+                {/* Phone: <a href="tel:+380637466673">+380 63 746 66 73</a> */}
               </p>
               <div className="social-icons">
-                <motion.a
+                {/* <motion.a
                   href="https://facebook.com"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -516,9 +543,9 @@ const LandingPage = ({
                   transition={{ duration: 0.1, ease: "easeInOut" }}
                 >
                   <i className="fab fa-x-twitter"></i>
-                </motion.a>
+                </motion.a> */}
                 <motion.a
-                  href="https://telegram.com"
+                  href="https://t.me/no_thing_project"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-icon"
@@ -528,7 +555,7 @@ const LandingPage = ({
                   <i className="fab fa-telegram"></i>
                 </motion.a>
                 <motion.a
-                  href="https://instagram.com"
+                  href="https://www.instagram.com/no.thing.project"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="social-icon"
