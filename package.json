@@ -1,7 +1,8 @@
 {
-  "name": "landing-page",
+  "name": "website.landing",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://no-thing-project.github.io/website.landing/",
   "dependencies": {
     "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.121.4",
@@ -20,7 +21,9 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "serve": "serve -s build"
+    "serve": "serve -s build",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -39,5 +42,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
