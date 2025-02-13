@@ -95,31 +95,21 @@ const LandingPage = ({
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Рендеримо 3D-сцену лише для десктопу */}
+        {/* Бекграунд у стилі "біле скло" з 3D-сферою */}
         {!isMobile && (
-          <Suspense fallback={<div>Loading 3D scene...</div>}>
-            <motion.div
-              ref={sceneContainerRef}
-              style={{
-                position: "fixed",
-                top: 0,
-                left: 0,
-                width: "50vw",
-                height: "100vh",
-                pointerEvents: "none",
-                x: x,
-                opacity: opacity,
-                zIndex: 5,
-              }}
-            >
-              <Scene
-                ref={sceneRef}
-                hdrTexture={hdrTexture}
-                showDebugButtons={showDebugButtons}
-                isMobile={isMobile}
-              />
-            </motion.div>
-          </Suspense>
+          <div className="background-container">
+            <Suspense fallback={<div>Loading 3D scene...</div>}>
+              <div className="scene-wrapper">
+                <Scene
+                  ref={sceneRef}
+                  hdrTexture={hdrTexture}
+                  showDebugButtons={showDebugButtons}
+                  isMobile={isMobile}
+                />
+              </div>
+            </Suspense>
+            <div className="glass-overlay"></div>
+          </div>
         )}
 
         <header className="landing-header">
@@ -261,15 +251,6 @@ const LandingPage = ({
             >
             </motion.p>
           </div>
-          {!isMobile && (
-            <motion.div
-              className="scroll-indicator"
-              animate={{ y: [0, 20, 0] }}
-              transition={{ duration: 3, ease: "easeInOut", repeat: Infinity }}
-            >
-              KEEP SCROLLING
-            </motion.div>
-          )}
         </section>
 
         {/* Секція 2 – Who We Are */}
