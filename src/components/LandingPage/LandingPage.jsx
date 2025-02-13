@@ -1,29 +1,25 @@
 // LandingPage.js
-import React, {
-  useRef,
-  useCallback,
-  Suspense,
-  useEffect,
-  useState,
-} from "react";
+import React, { useRef, useCallback, Suspense, useEffect, useState } from "react";
 import { motion, useViewportScroll, useTransform } from "framer-motion";
-import { wrap } from "popmotion";
-import "./LandingPage.css";
 import { Helmet } from "react-helmet";
 import Scene from "../Scene/Scene3D";
+import "./LandingPage.css";
 
-const LandingPage = ({
-  hdrTexture,
-  showDebugButtons,
-  showHubButton,
-  isMobile,
-}) => {
+const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) => {
+  // ===== References & State =====
   const sceneRef = useRef(null);
-  const sceneContainerRef = useRef(null);
+  const interestingRef = useRef(null);
   const { scrollY } = useViewportScroll();
-  // menuOpen та бургер меню прибрано
-  // const [menuOpen, setMenuOpen] = useState(false);
+  const [calcTextWidth, setCalcTextWidth] = useState(0);
 
+  // Визначення ширини текстового блоку для анімації секції Interesting
+  useEffect(() => {
+    if (interestingRef.current) {
+      setCalcTextWidth(interestingRef.current.offsetWidth);
+    }
+  }, []);
+
+  // ===== Scroll Animations =====
   const x = useTransform(
     scrollY,
     [0, 400, 700, 1400, 1800, 2500],
@@ -35,42 +31,31 @@ const LandingPage = ({
     [1, 1, 1, 1, 1, 1, 1, 0]
   );
 
-  const interestingRef = useRef(null);
-  const [calcTextWidth, setCalcTextWidth] = useState(1500);
-  useEffect(() => {
-    if (interestingRef.current) {
-      setCalcTextWidth(interestingRef.current.offsetWidth);
-    }
-  }, []);
-
-  const speedFactor = 0.5;
-  const xTrans = useTransform(scrollY, (value) =>
-    wrap(0, -calcTextWidth, -value * speedFactor)
-  );
-
-  // Функції управління 3D-об'єктами
+  // ===== 3D Object Controls =====
   const handleStop = () => sceneRef.current?.stopObjects();
   const handleContinue = () => sceneRef.current?.continueObjects();
   const handlePrev = () => sceneRef.current?.showPreviousState();
   const handleNext = () => sceneRef.current?.showNextState();
 
-  function smoothScrollTo(targetY, duration = 800) {
+  // ===== Smooth Scrolling =====
+  const smoothScrollTo = (targetY, duration = 800) => {
     const startY = window.scrollY;
     const distance = targetY - startY;
     let startTime = null;
-    function animation(currentTime) {
+
+    const animation = (currentTime) => {
       if (!startTime) startTime = currentTime;
       const timeElapsed = currentTime - startTime;
       const progress = Math.min(timeElapsed / duration, 1);
-      const ease =
-        progress < 0.5
-          ? 2 * progress * progress
-          : -1 + (4 - 2 * progress) * progress;
+      const ease = progress < 0.5
+        ? 2 * progress * progress
+        : -1 + (4 - 2 * progress) * progress;
       window.scrollTo(0, startY + distance * ease);
       if (timeElapsed < duration) requestAnimationFrame(animation);
-    }
+    };
+
     requestAnimationFrame(animation);
-  }
+  };
 
   const scrollToSection = useCallback((sectionId) => {
     const element = document.getElementById(sectionId);
@@ -80,6 +65,7 @@ const LandingPage = ({
     }
   }, []);
 
+  // ===== Render Component =====
   return (
     <>
       <Helmet>
@@ -95,7 +81,7 @@ const LandingPage = ({
         animate={{ opacity: 1 }}
         transition={{ duration: 1 }}
       >
-        {/* Бекграунд у стилі "біле скло" з 3D-сферою */}
+        {/* Фон із 3D-сценою */}
         {!isMobile && (
           <div className="background-container">
             <Suspense fallback={<div>Loading 3D scene...</div>}>
@@ -112,6 +98,7 @@ const LandingPage = ({
           </div>
         )}
 
+        {/* ===== Header ===== */}
         <header className="landing-header">
           <motion.a
             className="logo"
@@ -218,13 +205,9 @@ const LandingPage = ({
           </div>
         </header>
 
-        {/* Секція 1 – Перший екран */}
-        <section
-          id="section1"
-          className="page-section first-screen"
-          data-section-id="1"
-        >
-          <div className="first-screen-content">
+        {/* ===== Section 1 – First Screen ===== */}
+        <section id="section1" className="page-section first-screen" data-section-id="1">
+          <div className="section-wrapper first-screen-content">
             <motion.h1
               className="first-screen-title"
               initial={{ opacity: 0, y: 20 }}
@@ -240,26 +223,15 @@ const LandingPage = ({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.4, duration: 0.5 }}
               viewport={{ once: true }}
-            >start with Nothing, create Everything
-            </motion.p>
-            <motion.p
-              className="first-screen-description"
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.5 }}
-              viewport={{ once: true }}
             >
+              start with Nothing, create Everything
             </motion.p>
           </div>
         </section>
 
-        {/* Секція 2 – Who We Are */}
-        <section
-          id="section2"
-          className="page-section second-screen"
-          data-section-id="2"
-        >
-          <div className="second-screen-content">
+        {/* ===== Section 2 – Who We Are ===== */}
+        <section id="section2" className="page-section second-screen" data-section-id="2">
+          <div className="section-wrapper left-align second-screen-content">
             <motion.h1
               className="second-screen-title"
               initial={{ opacity: 0, y: 20 }}
@@ -276,7 +248,7 @@ const LandingPage = ({
               transition={{ delay: 0.4, duration: 0.5 }}
               viewport={{ once: true }}
             >
-             No.Thing Project is a movement, a mindset, and a platform for transformation
+              No.Thing Project is a movement, a mindset, and a platform for transformation
             </motion.p>
             <motion.p
               className="second-screen-description"
@@ -284,13 +256,14 @@ const LandingPage = ({
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.6, duration: 0.5 }}
               viewport={{ once: true }}
-            >It is the idea that nothing is not emptiness but a starting point—a space where creativity, innovation, and change can emerge.
+            >
+              It is the idea that nothing is not emptiness but a starting point—a space where creativity, innovation, and change can emerge.
             </motion.p>
             <motion.p
               className="second-screen-description"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.6, duration: 0.5 }}
+              transition={{ delay: 0.8, duration: 0.5 }}
               viewport={{ once: true }}
             >
               We embrace minimalism as a tool for clarity and inspiration, proving that even from nothing, something extraordinary can be built.
@@ -298,195 +271,28 @@ const LandingPage = ({
           </div>
         </section>
 
-        {/* Секція 3 – Великий текст */}
-        <section
-          id="section3"
-          className="page-section section3"
-          data-section-id="3"
-        >
-          <motion.h2
-            className="section3-title"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-            viewport={{ once: true }}
-          >
-            {"WHAT IS NOTHING FOR YOU?".split(" ").map((word, idx) => (
-              <a key={idx} style={{ display: "block" }}>
-                {word}
-              </a>
-            ))}
-          </motion.h2>
-        </section>
-
-        {/* Секція 4 – Історії */}
-        <section
-          id="section4"
-          className="page-section section4"
-          data-section-id="4"
-        >
-          <div className="stories-container">
-            {/* Історія 1 */}
-            <div className="story">
-              <div className="story-content">
-                <div className="story-photo">
-                  <img src="/someone-photo.png" alt="Someone" />
-                </div>
-                <div className="story-text">
-                  <h3 className="story-name">Someone</h3>
-                  <p className="story-description">
-                  Nothing is not emptiness.
-                  It is a breath before a thought.
-                  A space before a step.
-                  A silence before a song.
-                  
-                  Nothing is not absence.
-                  It is freedom from what does not matter.
-                  It is the weight that was never there.
-                  
-                  I do not fear nothing.
-                  I live in it. I move with it.
-                  And in nothing, I find everything.
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Історія 2 */}
-            <div className="story">
-              <div className="story-content">
-                <div className="story-photo">
-                  <img src="/noone-photo.png" alt="Noone" />
-                </div>
-                <div className="story-text">
-                  <h3 className="story-name">Noone</h3>
-                  <p className="story-description">
-                  For me, Nothing is not empty.
-                  It’s not the absence of meaning, but the space where meaning begins.
-                  Nothing is silence before a song, the blank page before a story, the deep breath before the first step.
-                  
-                  People fear Nothing. They think it’s a void, a dead end. But I see it as freedom.
-                  Freedom from expectations. Freedom to create, to reinvent, to become.
-                  
-                  I am No One.
-                  And I’ve built everything from Nothing.
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Історія 3 */}
-            <div className="story">
-              <div className="story-content">
-                <div className="story-photo">
-                  <img src="/yuliia_date_photo.png" alt="Yuliia" />
-                </div>
-                <div className="story-text">
-                  <h3 className="story-name">Yuliia</h3>
-                  <p className="story-description">
-                    Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
-                    tellus. Malesuada tristique tempus quis viverra vivamus a.
-                    Mollis facilisi senectus penatibus laoreet neque mauris
-                    suscipit tempus vitae. Ultrices ac pharetra ut dui. Maecenas
-                    arcu non proin ante facilisis. Tortor a amet et ultricies.
-                    Nunc eu felis sit amet nisi porta. Eget magnis eu vestibulum
-                    adipiscing tellus pretium augue. Vel sed sit neque enim.
-                    Odio nunc enim quisque tellus. Nibh aliquam proin non sapien
-                    sed tempus erat pellentesque in. Cursus quis cras morbi leo
-                    proin elit ut. At dui dolor porta auctor in nec. Mauris ac
-                    pretium nunc feugiat purus.
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Історія 4 */}
-            <div className="story">
-              <div className="story-content">
-                <div className="story-photo">
-                  <img src="/sophia_date_photo.png" alt="Sophia" />
-                </div>
-                <div className="story-text">
-                  <h3 className="story-name">Sophia</h3>
-                  <p className="story-description">
-                    Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
-                    tellus. Malesuada tristique tempus quis viverra vivamus a.
-                    Mollis facilisi senectus penatibus laoreet neque mauris
-                    suscipit tempus vitae. Ultrices ac pharetra ut dui. Maecenas
-                    arcu non proin ante facilisis. Tortor a amet et ultricies.
-                    Nunc eu felis sit amet nisi porta. Eget magnis eu vestibulum
-                    adipiscing tellus pretium augue. Vel sed sit neque enim.
-                    Odio nunc enim quisque tellus. Nibh aliquam proin non sapien
-                    sed tempus erat pellentesque in. Cursus quis cras morbi leo
-                    proin elit ut. At dui dolor porta auctor in nec. Mauris ac
-                    pretium nunc feugiat purus.
-                  </p>
-                </div>
-              </div>
-            </div>
-            {/* Історія 5 */}
-            <div className="story">
-              <div className="story-content">
-                <div className="story-photo">
-                  <img src="/andrii_date_photo.png" alt="Andrii" />
-                </div>
-                <div className="story-text">
-                  <h3 className="story-name">Andrii</h3>
-                  <p className="story-description">
-                    Lorem ipsum dolor sit amet consectetur. Nunc donec morbi ac
-                    tellus. Malesuada tristique tempus quis viverra vivamus a.
-                    Mollis facilisi senectus penatibus laoreet neque mauris
-                    suscipit tempus vitae. Ultrices ac pharetra ut dui. Maecenas
-                    arcu non proin ante facilisis. Tortor a amet et ultricies.
-                    Nunc eu felis sit amet nisi porta. Eget magnis eu vestibulum
-                    adipiscing tellus pretium augue. Vel sed sit neque enim.
-                    Odio nunc enim quisque tellus. Nibh aliquam proin non sapien
-                    sed tempus erat pellentesque in. Cursus quis cras morbi leo
-                    proin elit ut. At dui dolor porta auctor in nec. Mauris ac
-                    pretium nunc feugiat purus.
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-            {/* Історія 6 */}
-            {/* <div className="story">
-              <div className="story-content">
-                <div className="story-photo">
-                  <img src="/oleksandr_date_photo.png" alt="Oleksandr" />
-                </div>
-                <div className="story-text">
-                  <h3 className="story-name">Oleksandr</h3>
-                  <p className="story-description">
-                  Nothing is not emptiness, but a limitless source of potential. It is the beginning of everything. In a world filled with noise, distractions, and complexity, Nothing offers clarity, focus, and the space to create.
-                  When you have nothing, you have the freedom to shape anything. It is the blank page before a masterpiece, the silence before music, the stillness before a revolution.
-                  Nothing is the foundation of No.Thing Project, a movement that transforms the idea of absence into a catalyst for creativity, self-discovery, and progress. It challenges people to rethink what they truly need and to embrace simplicity as a tool for innovation and personal growth.
-                  In the grand scheme, Nothing is the paradox that drives life forward. It is both the void and the spark, the question and the answer. When you truly understand Nothing, you realize that it is, in fact, everything.
-                  </p>
-                </div>
-              </div>
-            </div> */}
-        {/* Секція 5 – Interesting */}
-        <section
-          id="section5"
-          className="page-section section5"
-          data-section-id="5"
-        >
-          <div className="interesting-container">
-            <motion.div className="interesting-wrapper" style={{ x: xTrans }}>
-              <a ref={interestingRef} className="interesting-text">
-                INTERESTING?
-              </a>
-              <a className="interesting-text">INTERESTING?</a>
-            </motion.div>
+        {/* ===== Section 3 – Large Text ===== */}
+        <section id="section3" className="page-section section3" data-section-id="3">
+          <div className="section-wrapper right-align">
+            <motion.h2
+              className="section3-title"
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.5 }}
+              viewport={{ once: true }}
+            >
+              {"NOTHING".split(" ").map((word, idx) => (
+                <a key={idx} style={{ display: "block" }}>
+                  {word}
+                </a>
+              ))}
+            </motion.h2>
           </div>
         </section>
 
-        {/* Секція 6 – Contacts */}
-        <section
-          id="section6"
-          className="page-section section6"
-          data-section-id="6"
-        >
-          <div className="second-screen-content">
+        {/* ===== Section 4 – Stories ===== */}
+        <section id="section4" className="page-section section4" data-section-id="4">
+          <div className="section-wrapper">
             <motion.h1
               className="second-screen-title"
               initial={{ opacity: 0, y: 20 }}
@@ -494,62 +300,152 @@ const LandingPage = ({
               transition={{ delay: 0.2, duration: 0.5 }}
               viewport={{ once: true }}
             >
-              CONTACT US
+              FOR YOU?
             </motion.h1>
-            <div className="contacts">
-              <p>
-                <a href="mailto:someone@nothingproject.io">someone@nothingproject.io</a>
-              </p>
-              <p>
-                <a href="mailto:noone@nothingproject.io">noone@nothingproject.io</a>
-                {/* Phone: <a href="tel:+380637466673">+380 63 746 66 73</a> */}
-              </p>
-              <div className="social-icons">
-                {/* <motion.a
-                  href="https://facebook.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  whileHover={{ scale: 1, color: "#7f44ff" }}
-                  transition={{ duration: 0.1, ease: "easeInOut" }}
-                >
-                  <i className="fab fa-facebook-f"></i>
-                </motion.a>
-                <motion.a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  whileHover={{ scale: 1, color: "#7f44ff" }}
-                  transition={{ duration: 0.1, ease: "easeInOut" }}
-                >
-                  <i className="fab fa-x-twitter"></i>
-                </motion.a> */}
-                <motion.a
-                  href="https://t.me/no_thing_project"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  whileHover={{ scale: 1, color: "#7f44ff" }}
-                  transition={{ duration: 0.1, ease: "easeInOut" }}
-                >
-                  <i className="fab fa-telegram"></i>
-                </motion.a>
-                <motion.a
-                  href="https://www.instagram.com/no.thing.project"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  whileHover={{ scale: 1, color: "#7f44ff" }}
-                  transition={{ duration: 0.1, ease: "easeInOut" }}
-                >
-                  <i className="fab fa-instagram"></i>
-                </motion.a>
+            <div className="stories-container">
+              <div className="story">
+                <div className="story-content">
+                  <div className="story-photo">
+                    <img src="someone-photo.png" alt="Someone" />
+                  </div>
+                  <div className="story-text">
+                    <h3 className="story-name">Someone</h3>
+                    <p className="story-description">
+                      Nothing is not emptiness. It is a breath before a thought. A space before a step. A silence before a song.
+                      Nothing is not absence. It is freedom from what does not matter. It is the weight that was never there.
+                      I do not fear nothing. I live in it. I move with it. And in nothing, I find everything.
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div className="story">
+                <div className="story-content">
+                  <div className="story-photo">
+                    <img src="noone-photo.png" alt="Noone" />
+                  </div>
+                  <div className="story-text">
+                    <h3 className="story-name">Noone</h3>
+                    <p className="story-description">
+                      For me, Nothing is not empty. It’s not the absence of meaning, but the space where meaning begins.
+                      Nothing is silence before a song, the blank page before a story, the deep breath before the first step.
+                      People fear Nothing. They think it’s a void, a dead end. But I see it as freedom – freedom from expectations,
+                      freedom to create, to reinvent, to become. I am No One. And I’ve built everything from Nothing.
+                    </p>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
         </section>
 
+        {/* ===== Section 5 – Interesting Animation ===== */}
+        <section id="section5" className="page-section section5" data-section-id="5">
+          <div className="section-wrapper-full">
+            <div className="interesting-container">
+              <motion.div
+                className="interesting-wrapper"
+                animate={{ x: -calcTextWidth }}
+                transition={{
+                  duration: 20,
+                  ease: "linear",
+                  repeat: Infinity,
+                  repeatType: "loop",
+                }}
+              >
+                <span
+                  ref={interestingRef}
+                  className="interesting-text"
+                  data-text="INTERESTING?"
+                >
+                  INTERESTING?
+                </span>
+              </motion.div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Section 6 – Contacts ===== */}
+        <section id="section6" className="page-section section6" data-section-id="6">
+          <div className="section-wrapper left-align">
+            <div className="second-screen-content">
+              <motion.h1
+                className="second-screen-title"
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2, duration: 0.5 }}
+                viewport={{ once: true }}
+              >
+                CONTACT US
+              </motion.h1>
+              <div className="contacts">
+                <p>
+                  <a href="mailto:someone@nothingproject.io">
+                    someone@nothingproject.io
+                  </a>
+                </p>
+                <p>
+                  <a href="mailto:noone@nothingproject.io">
+                    noone@nothingproject.io
+                  </a>
+                </p>
+                <div className="social-icons">
+                  <motion.a
+                    href="https://t.me/no_thing_project"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon"
+                    whileHover={{ scale: 1, color: "#7f44ff" }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                  >
+                    <i className="fab fa-telegram"></i>
+                  </motion.a>
+                  <motion.a
+                    href="https://www.instagram.com/no.thing.project"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon"
+                    whileHover={{ scale: 1, color: "#7f44ff" }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                  >
+                    <i className="fab fa-instagram"></i>
+                  </motion.a>
+                  <motion.a
+                    href="https://x.com/nooneonnothing"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon"
+                    whileHover={{ scale: 1, color: "#7f44ff" }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                  >
+                    <i className="fab fa-x-twitter"></i>
+                  </motion.a>
+                  <motion.a
+                    href="https://www.linkedin.com/company/no-thing-project"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon"
+                    whileHover={{ scale: 1, color: "#7f44ff" }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                  >
+                    <i className="fab fa-linkedin"></i>
+                  </motion.a>
+                  <motion.a
+                    href="https://www.behance.net/nothingproject"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="social-icon"
+                    whileHover={{ scale: 1, color: "#7f44ff" }}
+                    transition={{ duration: 0.1, ease: "easeInOut" }}
+                  >
+                    <i className="fab fa-behance"></i>
+                  </motion.a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ===== Footer ===== */}
         <footer className="landing-footer">
           <motion.div
             className="footer-content"

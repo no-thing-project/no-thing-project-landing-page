@@ -4,6 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import SplashScreen from "./components/SplashScreen/CodeSplashScreen";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
+import { BrowserRouter } from "react-router-dom";
 
 const LandingPage = lazy(() => import("./components/LandingPage/LandingPage"));
 
@@ -35,39 +36,41 @@ const App = () => {
   }, []);
 
   return (
-    <div className="App">
-      {/* Рендеримо кастомний курсор лише для десктопу */}
-      {!isMobile && <CustomCursor size={12} />}
-      <AnimatePresence exitBeforeEnter>
-        {showSplash ? (
-          <motion.div
-            key="splash"
-            initial={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95 }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          >
-            <SplashScreen onFinish={() => setShowSplash(false)} />
-          </motion.div>
-        ) : (
-          <motion.div
-            key="landing"
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
-          >
-            <Suspense fallback={null}>
-              {/* Передаємо HDR текстуру та прапорець isMobile */}
-              <LandingPage
-                hdrTexture={hdrTexture}
-                showDebugButtons={false}
-                showHubButton={false}
-                isMobile={isMobile}
-              />
-            </Suspense>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <div className="App">
+        {/* Рендеримо кастомний курсор лише для десктопу */}
+        {!isMobile && <CustomCursor size={12} />}
+        <AnimatePresence exitBeforeEnter>
+          {showSplash ? (
+            <motion.div
+              key="splash"
+              initial={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.95 }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            >
+              <SplashScreen onFinish={() => setShowSplash(false)} />
+            </motion.div>
+          ) : (
+            <motion.div
+              key="landing"
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
+            >
+              <Suspense fallback={null}>
+                {/* Передаємо HDR текстуру та прапорець isMobile */}
+                <LandingPage
+                  hdrTexture={hdrTexture}
+                  showDebugButtons={false}
+                  showHubButton={false}
+                  isMobile={false}
+                />
+              </Suspense>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </BrowserRouter>
   );
 };
 
