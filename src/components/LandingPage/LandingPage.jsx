@@ -311,7 +311,7 @@ const LandingPage = ({
             transition={{ delay: 0.2, duration: 0.5 }}
             viewport={{ once: true }}
           >
-            {"WHAT IS NOTHING FOR YOU?".split(" ").map((word, idx) => (
+            {"NOTHING".split(" ").map((word, idx) => (
               <a key={idx} style={{ display: "block" }}>
                 {word}
               </a>
@@ -326,11 +326,20 @@ const LandingPage = ({
           data-section-id="4"
         >
           <div className="stories-container">
+          <motion.h2
+            className="section4-title"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
+            viewport={{ once: true }}
+          >
+            FOR YOU
+          </motion.h2>
             {/* Історія 1 */}
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/assets/images/someone-photo.png" alt="Someone" />
+                  <img src="assets/images/someone-photo.png" alt="Someone" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Someone</h3>
@@ -355,7 +364,7 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/assets/images/noone-photo.png" alt="Noone" />
+                  <img src="assets/images/noone-photo.png" alt="Noone" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Noone</h3>
@@ -497,17 +506,7 @@ const LandingPage = ({
                   transition={{ duration: 0.1, ease: "easeInOut" }}
                 >
                   <i className="fab fa-facebook-f"></i>
-                </motion.a>
-                <motion.a
-                  href="https://twitter.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="social-icon"
-                  whileHover={{ scale: 1, color: "#7f44ff" }}
-                  transition={{ duration: 0.1, ease: "easeInOut" }}
-                >
-                  <i className="fab fa-x-twitter"></i>
-                </motion.a> */}
+                </motion.a>*/}
                 <motion.a
                   href="https://t.me/no_thing_project"
                   target="_blank"
@@ -528,6 +527,36 @@ const LandingPage = ({
                 >
                   <i className="fab fa-instagram"></i>
                 </motion.a>
+                <motion.a
+                  href="https://x.com/nooneonnothing"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon"
+                  whileHover={{ scale: 1, color: "#7f44ff" }}
+                  transition={{ duration: 0.1, ease: "easeInOut" }}
+                >
+                  <i className="fab fa-x-twitter"></i>
+                </motion.a> 
+                <motion.a
+                  href="https://www.linkedin.com/company/no-thing-project"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon"
+                  whileHover={{ scale: 1, color: "#7f44ff" }}
+                  transition={{ duration: 0.1, ease: "easeInOut" }}
+                >
+                  <i className="fab fa-linkedin"></i>
+                </motion.a>
+                <motion.a
+                  href="https://www.behance.net/nothingproject"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="social-icon"
+                  whileHover={{ scale: 1, color: "#7f44ff" }}
+                  transition={{ duration: 0.1, ease: "easeInOut" }}
+                >
+                  <i className="fab fa-behance"></i>
+                </motion.a> 
               </div>
             </div>
           </div>

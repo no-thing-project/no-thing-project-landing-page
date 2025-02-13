@@ -17,7 +17,7 @@ import { OBB } from "three/examples/jsm/math/OBB.js";
 // ================== CONFIGURATION ==================
 const config = {
   debug: {
-    enable: true, // Головний перемикач дебаг-режиму. Якщо false – всі дебаг-ефекти вимкнені.
+    enable: false, // Головний перемикач дебаг-режиму. Якщо false – всі дебаг-ефекти вимкнені.
     showDebugCursorCollision: false,
     debugCursorColor: 0xff00ff,
     showDebugOBB: false,
@@ -33,7 +33,7 @@ const config = {
   },
   performance: {
     enablePostProcessing: false, // Вмикає/вимикає постпроцесінг
-    pixelRatio: 0.3, // Нижчий pixelRatio для зниження навантаження на GPU
+    pixelRatio: 1, // Нижчий pixelRatio для зниження навантаження на GPU
     enableShadows: false, // Вмикає/вимикає тіні
     antialias: true, // Антіаліас може бути вимкнено для покращення продуктивності
   },
