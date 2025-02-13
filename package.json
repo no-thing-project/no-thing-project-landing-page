@@ -1,6 +1,6 @@
 {
-  "name": "website.landing",
-  "version": "0.1.0",
+  "name": "no-thin-project-landing",
+  "version": "0.0.1",
   "private": true,
   "homepage": "https://no-thing-project.github.io/website.landing/",
   "dependencies": {
@@ -13,6 +13,7 @@
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
     "react-helmet": "^6.1.0",
+    "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1",
     "web-vitals": "^4.2.4"
   },

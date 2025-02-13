@@ -11,3 +11,633 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/*========================
+   Global Styles & Reset
+========================*/
+body {
+  font-family: "JetBrains Mono", monospace;
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/*========================
+   Layout Containers
+========================*/
+.landing-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scene-wrapper {
+  width: 100dvw;
+  height: 100dvh;
+}
+
+/*========================
+   Header & Navigation
+========================*/
+.landing-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  z-index: 1000;
+  background: rgba(255, 255, 255, 0.3);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.logo {
+  text-decoration: none;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #000;
+  font-weight: 400;
+  margin: 0;
+}
+
+.logo-sub {
+  display: inline-block;
+  margin-left: 2em;
+}
+
+.landing-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.landing-nav ul li a:hover {
+  color: #444;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.header-buttons button {
+  padding: 8px 16px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background-color 0.3s ease;
+}
+
+.header-buttons button:hover {
+  background-color: #444;
+}
+
+.header-buttons-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 10px;
+}
+
+.header-hub-button a {
+  font-size: 1rem;
+  color: #010101;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.header-hub-button a:hover {
+  color: #444;
+}
+
+/*========================
+   Section Wrappers
+========================*/
+.page-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.section-wrapper {
+  max-width: 1200px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* За замовчуванням центровано */
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.section-wrapper.left-align {
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 0;
+}
+
+.section-wrapper.right-align {
+  align-items: flex-end;
+  text-align: right;
+  margin-right: 0;
+}
+
+.section-wrapper-full {
+  width: 100vw;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/*========================
+   Section Specific Styles
+========================*/
+
+/* Section 1 – First Screen */
+.first-screen {
+  flex-direction: column;
+  position: relative;
+  z-index: 10;
+  color: #010101;
+}
+
+.first-screen-content {
+  max-width: 1000px;
+}
+
+.first-screen-title {
+  font-size: 48px;
+  margin: 0;
+  font-weight: 700;
+  mix-blend-mode: difference;
+}
+
+.first-screen-description {
+  font-size: 24px;
+  margin: 20px 100px;
+  text-align: left;
+  font-weight: 100;
+  mix-blend-mode: difference;
+}
+
+/* Section 2 – Who We Are */
+.second-screen {
+  height: 50vh;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 150px 0 0 100px;
+  z-index: 10;
+  color: #010101;
+}
+
+.second-screen-title {
+  font-size: 128px;
+  margin: 0;
+  font-weight: 400;
+}
+
+.second-screen-description {
+  font-size: 24px;
+  margin-top: 20px;
+  max-width: 1000px;
+  text-align: left;
+  font-weight: 100;
+}
+
+.second-screen-content {
+  width: 100%;
+  align-self: flex-start;
+  text-align: left;
+}
+
+/* Section 3 – Large Text */
+.section3 {
+  min-height: 150vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.section3-title {
+  margin-right: 50px;
+  font-size: 248px;
+  font-weight: 400;
+  max-width: 1000px;
+  text-align: right;
+  line-height: 100%;
+  z-index: 10;
+}
+
+/* Section 4 – Stories */
+.section4 {
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: auto;
+}
+
+.stories-container {
+  padding: 100px;
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+  z-index: 10;
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.story-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.story:nth-child(even) .story-content {
+  flex-direction: row-reverse;
+}
+
+.story:nth-child(even) .story-name {
+  margin-left: auto;
+}
+
+.story-photo img {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+}
+
+.story-text {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.story-name {
+  font-size: 64px;
+  margin: 0;
+}
+
+.story-description {
+  font-size: 24px;
+  margin: 0;
+}
+
+/* Section 5 – Interesting */
+.section5 {
+  width: 100vw;
+  padding: 50px 0;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.interesting-container {
+  overflow: hidden;
+  width: 100vw;
+}
+
+.interesting-wrapper {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.interesting-text {
+  font-size: 400px;
+  text-transform: uppercase;
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.interesting-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 100%;
+  top: 0;
+  white-space: nowrap;
+}
+
+/* Section 6 – Contacts */
+.section6 {
+  padding: 150px 100px;
+  z-index: 10;
+  color: #010101;
+}
+
+.contacts {
+  max-width: 800px;
+  text-align: left;
+  font-size: 24px;
+  line-height: 1.5;
+  margin: 50px 100px;
+}
+
+.contacts p {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 24px;
+  font-weight: 100;
+  margin: 10px 0;
+  color: #010101;
+}
+
+.contacts a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.8s ease;
+}
+
+.contacts a:hover {
+  color: #7f44ff;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 50px;
+  margin: 20px auto;
+}
+
+.social-icon {
+  font-size: 48px;
+  color: #010101;
+  cursor: pointer;
+}
+
+/*========================
+   Footer
+========================*/
+.landing-footer {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.brand {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.rights {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/*========================
+   Canvas for 3D Scene
+========================*/
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none;
+  background: none !important;
+}
+
+/*========================
+   Responsive - Mobile Styles
+========================*/
+@media (max-width: 768px) {
+  canvas {
+    display: none;
+  }
+  
+  .landing-header {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 10px 20px;
+  }
+  
+  .landing-nav ul,
+  .mobile-nav ul {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .hamburger {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    z-index: 1100;
+  }
+  
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    background: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    z-index: 1050;
+  }
+  
+  .mobile-nav.open {
+    transform: translateX(0);
+  }
+  
+  .first-screen {
+    height: 100vh;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .first-screen-content {
+    width: 100%;
+    padding: 0 20px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .first-screen-title {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  .first-screen-description {
+    font-size: 16px;
+    margin: 10px 20px;
+  }
+  
+  .second-screen {
+    padding: 40px 20px;
+    height: auto;
+    margin-bottom: 0;
+  }
+  
+  .second-screen-title {
+    font-size: 40px;
+    margin-bottom: 20px;
+  }
+  
+  .second-screen-description {
+    font-size: 16px;
+    margin-bottom: 10px;
+    max-width: 100%;
+  }
+  
+  .section3 {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .section3-title {
+    font-size: calc(100vw / 2);
+    text-align: center;
+    margin: 0;
+  }
+  
+  .section4 {
+    padding: 20px;
+    display: block;
+    text-align: center;
+  }
+  
+  .stories-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 0 20px;
+    margin: 0 auto;
+  }
+  
+  .story {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+  }
+  
+  .story:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+  
+  .story-content {
+    display: block;
+  }
+  
+  .story-photo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+  
+  .story-photo img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+  }
+  
+  .story-text {
+    width: 100%;
+    text-align: left;
+  }
+  
+  .story-name {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+  
+  .story-description {
+    font-size: 14px;
+    margin: 0;
+  }
+  
+  .interesting-text {
+    font-size: calc(100vw / 2);
+  }
+  
+  .contacts {
+    font-size: 16px;
+    margin: 20px auto;
+    width: 100%;
+  }
+  
+  .social-icons {
+    justify-content: center;
+    margin: 20px auto;
+  }
+  
+  .landing-footer {
+    padding: 20px;
+    text-align: center;
+  }
+}

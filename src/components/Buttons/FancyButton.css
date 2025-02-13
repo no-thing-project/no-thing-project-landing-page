@@ -1,0 +1,77 @@
+.fancy-button {
+  position: relative;
+  overflow: hidden; /* Щоб псевдоелементи з блиском не виходили за межі */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 999px;
+  font-size: 1rem;
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  will-change: transform, box-shadow, background-position;
+  background:
+    radial-gradient(circle at 30% 50%, #7a00ff 0%, transparent 60%),
+    radial-gradient(circle at 70% 50%, #00d2ff 0%, transparent 60%),
+    radial-gradient(circle at 50% 50%, #ff4081 0%, transparent 60%);
+  background-repeat: no-repeat;
+  background-size: 200% 200%;
+  animation: swirl 6s infinite alternate ease-in-out;
+  border: #ffffff solid 2px;
+}
+
+/* Ключові кадри: змінюємо позиції градієнтів */
+@keyframes swirl {
+  0% {
+    background-position: 0% 50%, 100% 50%, 50% 50%;
+  }
+  50% {
+    background-position: 50% 0%, 50% 100%, 50% 50%;
+  }
+  100% {
+    background-position: 100% 50%, 0% 50%, 50% 50%;
+  }
+}
+
+/* Псевдоелемент для ефекту блиску */
+.fancy-button::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -75%;
+  width: 50%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.4) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: skewX(-20deg);
+  transition: left 0.75s ease;
+}
+
+/* Ефект при наведенні */
+.fancy-button:hover {
+  transform: scale(1.06);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+}
+
+.fancy-button:hover::before {
+  left: 120%;
+}
+
+/* Стиль для фокуса (доступність) */
+.fancy-button:focus {
+  outline: none;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
+}
+
+/* Стиль для активного стану */
+.fancy-button:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+}
