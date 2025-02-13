@@ -33,9 +33,9 @@ const config = {
   },
   performance: {
     enablePostProcessing: false, // Вмикає/вимикає постпроцесінг
-    pixelRatio: 0.5, // Нижчий pixelRatio для зниження навантаження на GPU
+    pixelRatio: 0.3, // Нижчий pixelRatio для зниження навантаження на GPU
     enableShadows: false, // Вмикає/вимикає тіні
-    antialias: false, // Антіаліас може бути вимкнено для покращення продуктивності
+    antialias: true, // Антіаліас може бути вимкнено для покращення продуктивності
   },
   constants: {
     CURSOR_IMPULSE_MULTIPLIER: 0.05, // Регулювання сили відштовхування курсора
@@ -43,7 +43,7 @@ const config = {
   controls: {
     enableScrollRotation: false, // Початкове значення для повороту сцени при скролі
     toggleKey: "r", // Клавіша для перемикання повороту сцени
-    enableScrollImpulse: true, // Початкове значення для імпульсу при скролі
+    enableScrollImpulse: false, // Початкове значення для імпульсу при скролі
     toggleImpulseKey: "i", // Клавіша для перемикання імпульсу при скролі
   },
   camera: {

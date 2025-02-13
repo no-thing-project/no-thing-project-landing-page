@@ -330,7 +330,7 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/someone-photo.png" alt="Someone" />
+                  <img src="someone-photo.png" alt="Someone" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Someone</h3>
@@ -355,7 +355,7 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/noone-photo.png" alt="Noone" />
+                  <img src="noone-photo.png" alt="Noone" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Noone</h3>
@@ -374,10 +374,10 @@ const LandingPage = ({
               </div>
             </div>
             {/* Історія 3 */}
-            <div className="story">
+            {/* <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/yuliia_date_photo.png" alt="Yuliia" />
+                  <img src="yuliia_date_photo.png" alt="Yuliia" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Yuliia</h3>
@@ -396,12 +396,12 @@ const LandingPage = ({
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* Історія 4 */}
-            <div className="story">
+            {/* <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/sophia_date_photo.png" alt="Sophia" />
+                  <img src="sophia_date_photo.png" alt="Sophia" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Sophia</h3>
@@ -420,12 +420,12 @@ const LandingPage = ({
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
             {/* Історія 5 */}
-            <div className="story">
+            {/* <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="/andrii_date_photo.png" alt="Andrii" />
+                  <img src="andrii_date_photo.png" alt="Andrii" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Andrii</h3>
@@ -444,26 +444,9 @@ const LandingPage = ({
                   </p>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </section>
-            {/* Історія 6 */}
-            {/* <div className="story">
-              <div className="story-content">
-                <div className="story-photo">
-                  <img src="/oleksandr_date_photo.png" alt="Oleksandr" />
-                </div>
-                <div className="story-text">
-                  <h3 className="story-name">Oleksandr</h3>
-                  <p className="story-description">
-                  Nothing is not emptiness, but a limitless source of potential. It is the beginning of everything. In a world filled with noise, distractions, and complexity, Nothing offers clarity, focus, and the space to create.
-                  When you have nothing, you have the freedom to shape anything. It is the blank page before a masterpiece, the silence before music, the stillness before a revolution.
-                  Nothing is the foundation of No.Thing Project, a movement that transforms the idea of absence into a catalyst for creativity, self-discovery, and progress. It challenges people to rethink what they truly need and to embrace simplicity as a tool for innovation and personal growth.
-                  In the grand scheme, Nothing is the paradox that drives life forward. It is both the void and the spark, the question and the answer. When you truly understand Nothing, you realize that it is, in fact, everything.
-                  </p>
-                </div>
-              </div>
-            </div> */}
         {/* Секція 5 – Interesting */}
         <section
           id="section5"

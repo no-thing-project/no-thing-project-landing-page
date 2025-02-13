@@ -61,7 +61,7 @@ const App = () => {
                 hdrTexture={hdrTexture}
                 showDebugButtons={false}
                 showHubButton={false}
-                isMobile={isMobile}
+                isMobile={false}
               />
             </Suspense>
           </motion.div>
