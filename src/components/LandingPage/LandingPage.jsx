@@ -339,7 +339,7 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="assets/images/someone-photo.png" alt="Someone" />
+                  <img src="assets/images/someone_userphoto_id.png" alt="Someone" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Someone</h3>
@@ -364,7 +364,7 @@ const LandingPage = ({
             <div className="story">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src="assets/images/noone-photo.png" alt="Noone" />
+                  <img src="assets/images/noone_userphoto_id.png" alt="Noone" />
                 </div>
                 <div className="story-text">
                   <h3 className="story-name">Noone</h3>
