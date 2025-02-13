@@ -264,9 +264,9 @@ h2 {
 
 .section3-title {
   margin-right: 50px;
-  font-size: 248px;
-  font-weight: 400;
-  max-width: 1000px;
+  font-size: 124px;
+  font-weight: 200;
+  max-width: 500px;
   text-align: right;
   line-height: 100%;
   z-index: 10;
@@ -280,7 +280,6 @@ h2 {
   align-items: center;
   height: auto;
 }
-
 .stories-container {
   padding: 100px;
   width: 100%;
