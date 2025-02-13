@@ -33,7 +33,7 @@ const config = {
   },
   performance: {
     enablePostProcessing: false, // Вмикає/вимикає постпроцесінг
-    pixelRatio: 1, // Нижчий pixelRatio для зниження навантаження на GPU
+    pixelRatio: 0.5, // Нижчий pixelRatio для зниження навантаження на GPU
     enableShadows: false, // Вмикає/вимикає тіні
     antialias: false, // Антіаліас може бути вимкнено для покращення продуктивності
   },
