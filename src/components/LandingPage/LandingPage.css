@@ -1,6 +1,12 @@
-/* ============================= */
-/* Global Styles                 */
-/* ============================= */
+/*========================
+   Global Styles & Reset
+========================*/
+html,
+a,
+body {
+  cursor: none !important;
+}
+
 body {
   font-family: "JetBrains Mono", monospace;
   margin: 0;
@@ -14,11 +20,14 @@ h2 {
   margin: 0;
 }
 
+/*========================
+   Layout Containers
+========================*/
 .landing-container {
   position: relative;
   width: 100vw;
   min-height: 100vh;
-  background-color: #f5f5f5;
+  background-color: #f0f0f0;
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -30,29 +39,18 @@ h2 {
   left: 0;
   width: 100vw;
   height: 100vh;
-  z-index: 0; /* Розташовуємо на задньому плані */
+  z-index: 0;
   pointer-events: none;
 }
 
 .scene-wrapper {
-  width: 100%;
-  height: 100%;
+  width: 100dvw;
+  height: 100dvh;
 }
 
-.glass-overlay {
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
-  /* width: 100%; */
-  /* height: 100%; */
-  /* background: rgba(255, 255, 255, 0.3); */
-  backdrop-filter: blur(10px);
-  box-shadow: (0px 10px);
-}
-
-/* ============================= */
-/* Header                        */
-/* ============================= */
+/*========================
+   Header & Navigation
+========================*/
 .landing-header {
   position: fixed;
   top: 0;
@@ -70,6 +68,62 @@ h2 {
   border-bottom: 1px solid rgba(255, 255, 255, 0.2);
 }
 
+.logo {
+  text-decoration: none;
+}
+
+.logo-text {
+  font-size: 1.5rem;
+  line-height: 1;
+  color: #000;
+  font-weight: 400;
+  margin: 0;
+}
+
+.logo-sub {
+  display: inline-block;
+  margin-left: 2em;
+}
+
+.landing-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 100px;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-nav ul li a {
+  text-decoration: none;
+  color: #000;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.landing-nav ul li a:hover {
+  color: #444;
+}
+
+.header-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.header-buttons button {
+  padding: 8px 16px;
+  background-color: #222;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-family: inherit;
+  transition: background-color 0.3s ease;
+}
+
+.header-buttons button:hover {
+  background-color: #444;
+}
+
 .header-buttons-wrapper {
   display: flex;
   flex-direction: column;
@@ -84,125 +138,108 @@ h2 {
   text-decoration: none;
   background: none;
   border: none;
-  cursor: pointer;
   transition: color 0.3s ease;
 }
+
 .header-hub-button a:hover {
   color: #444;
 }
 
-.logo-text {
-  font-family: "JetBrains Mono", monospace;
-  font-size: 1.5rem;
-  line-height: 1;
-  color: #000;
-  font-weight: 400;
-  margin: 0;
-  text-transform: none;
-}
-.logo-sub {
-  display: inline-block;
-  margin-left: 2em;
-}
-.logo {
-  text-decoration: none;
-}
-
-.landing-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 100px;
-  margin: 0;
-  padding: 0;
-}
-.landing-nav ul li a {
-  text-decoration: none;
-  color: #000;
-  font-size: 1rem;
-  transition: color 0.3s ease;
-}
-.landing-nav ul li a:hover {
-  color: #444;
-}
-
-.header-buttons {
-  display: flex;
-  gap: 10px;
-  align-items: center;
-}
-.header-buttons button {
-  padding: 8px 16px;
-  background-color: #222;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-family: inherit;
-  transition: background-color 0.3s ease;
-}
-.header-buttons button:hover {
-  background-color: #444;
-}
-
-/* ============================= */
-/* Секції                        */
-/* ============================= */
-
-/* Загальні налаштування секцій */
+/*========================
+   Section Wrappers
+========================*/
 .page-section {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 100vh;
 }
 
-/* Секція 1 – Перший екран */
+.section-wrapper {
+  max-width: 1200px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* За замовчуванням центровано */
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.section-wrapper.left-align {
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 0;
+}
+
+.section-wrapper.right-align {
+  align-items: flex-end;
+  text-align: right;
+  margin-right: 0;
+}
+
+.section-wrapper-full {
+  width: 100vw;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/*========================
+   Section Specific Styles
+========================*/
+
+/* Section 1 – First Screen */
 .first-screen {
   flex-direction: column;
   position: relative;
-  height: 100vh;
   z-index: 10;
   color: #010101;
 }
+
 .first-screen-content {
-  transform: translateX(300px);
   max-width: 1000px;
 }
+
 .first-screen-title {
   font-size: 48px;
   margin: 0;
-  mix-blend-mode: difference;
   font-weight: 700;
-  color: #010101;
-
+  mix-blend-mode: difference;
 }
+
 .first-screen-description {
   font-size: 24px;
   margin: 20px 100px;
   text-align: left;
-  mix-blend-mode: difference;
   font-weight: 100;
+  mix-blend-mode: difference;
 }
 
-/* Секція 2 – Who We Are (також застосовується для секцій 6 і 7) */
+/* Section 2 – Who We Are */
 .second-screen {
+  height: 50vh;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
   padding: 150px 0 0 100px;
-  margin-bottom: -200px;
-  height: 100vh;
   z-index: 10;
   color: #010101;
 }
-.section2-title {
-  margin-right: 50px;
-  font-size: 124px;
-  font-weight: 200;
-  /* max-width: 600px; */
-  /* text-align: left; */
-  line-height: 100%;
-  z-index: 10;
+
+.second-screen-title {
+  font-size: 128px;
+  margin: 0;
+  font-weight: 400;
 }
+
 .second-screen-description {
   font-size: 24px;
   margin-top: 20px;
@@ -217,40 +254,35 @@ h2 {
   text-align: left;
 }
 
-/* Секція 3 – Великий текст */
+/* Section 3 – Large Text */
 .section3 {
   min-height: 100vh;
-  align-items: right;
-  justify-content: end;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .section3-title {
   margin-right: 50px;
-  font-size: 124px;
-  font-weight: 200;
-  max-width: 500px;
+  font-size: 248px;
+  font-weight: 400;
+  max-width: 1000px;
   text-align: right;
   line-height: 100%;
   z-index: 10;
 }
 
-/* Секція 4 – Історії */
+/* Section 4 – Stories */
 .section4 {
   padding: 50px 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  height: auto;
 }
-.section4-title {
-  margin-right: 50px;
-  font-size: 124px;
-  font-weight: 100;
-  max-width: 600px;
-  text-align: left;
-  line-height: 100%;
-  z-index: 10;
-}
+
 .stories-container {
-  padding: 100px 100px 0 100px;
+  padding: 100px;
   width: 100%;
   max-width: 1000px;
   display: flex;
@@ -258,69 +290,89 @@ h2 {
   gap: 150px;
   z-index: 10;
 }
+
 .story {
   display: flex;
   flex-direction: column;
   gap: 20px;
 }
+
 .story-content {
   display: flex;
   align-items: center;
   gap: 20px;
 }
-/* Для парних історій перевертаємо порядок елементів */
+
 .story:nth-child(even) .story-content {
   flex-direction: row-reverse;
 }
+
 .story:nth-child(even) .story-name {
   margin-left: auto;
 }
+
 .story-photo img {
   width: 300px;
   height: 450px;
   object-fit: cover;
 }
+
 .story-text {
   max-width: 600px;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .story-name {
   font-size: 64px;
   margin: 0;
 }
+
 .story-description {
   font-size: 24px;
   margin: 0;
 }
 
-/* Секція 5 – Interesting */
+/* Section 5 – Interesting */
 .section5 {
   width: 100vw;
   padding: 50px 0;
+  height: auto;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: -100px;
 }
+
 .interesting-container {
   overflow: hidden;
   width: 100vw;
 }
+
 .interesting-wrapper {
-  display: flex;
-  flex-wrap: nowrap;
+  display: inline-block;
   white-space: nowrap;
 }
+
 .interesting-text {
   font-size: 400px;
   text-transform: uppercase;
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
   margin: 0;
-  flex-shrink: 0;
+  padding: 0;
 }
 
-/* Секція 6 – Contacts */
+.interesting-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 100%;
+  top: 0;
+  white-space: nowrap;
+}
+
+/* Section 6 – Contacts */
 .section6 {
   padding: 150px 100px;
   z-index: 10;
@@ -334,6 +386,7 @@ h2 {
   line-height: 1.5;
   margin: 50px 100px;
 }
+
 .contacts p {
   font-family: "JetBrains Mono", monospace;
   font-size: 24px;
@@ -341,55 +394,55 @@ h2 {
   margin: 10px 0;
   color: #010101;
 }
+
 .contacts a {
   color: inherit;
   text-decoration: none;
   transition: color 0.8s ease;
 }
+
 .contacts a:hover {
   color: #7f44ff;
 }
 
-/* Соц. іконки */
 .social-icons {
   display: flex;
   justify-content: flex-start;
   gap: 50px;
-  margin: 20px auto 20px;
+  margin: 20px auto;
 }
 
 .social-icon {
   font-size: 48px;
-  display: inline-block;
   color: #010101;
-  cursor: pointer;
 }
 
-/* ============================= */
-/* Футер                         */
-/* ============================= */
+/*========================
+   Footer
+========================*/
 .landing-footer {
   position: absolute;
   bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
-  width: auto;
   text-align: center;
   font-size: 0.9rem;
   color: #333;
 }
+
 .brand {
   font-weight: bold;
   text-transform: uppercase;
 }
+
 .rights {
   font-size: 12px;
   opacity: 0.7;
 }
 
-/* ============================= */
-/* Canvas для 3D-сцени           */
-/* ============================= */
+/*========================
+   Canvas for 3D Scene
+========================*/
 canvas {
   position: fixed;
   top: 0;
@@ -400,39 +453,34 @@ canvas {
   background: none !important;
 }
 
-/* ============================= */
-/* Медіа-запити для мобільних     */
-/* ============================= */
+/*========================
+   Responsive - Mobile Styles
+========================*/
 @media (max-width: 768px) {
-  /* Ховаємо 3D-сцену */
   canvas {
     display: none;
   }
-
-  /* Header – логотип зліва, бургер з правої сторони */
+  
   .landing-header {
     flex-direction: row;
-    align-items: center;
     justify-content: space-between;
     padding: 10px 20px;
   }
+  
   .landing-nav ul,
   .mobile-nav ul {
     flex-direction: column;
     gap: 10px;
     align-items: center;
   }
-
-  /* Стилі бургер кнопки */
+  
   .hamburger {
     background: none;
     border: none;
     font-size: 1.5rem;
-    cursor: pointer;
     z-index: 1100;
   }
-
-  /* Стилі мобільного меню */
+  
   .mobile-nav {
     position: fixed;
     top: 0;
@@ -446,154 +494,137 @@ canvas {
     transition: transform 0.3s ease-out;
     z-index: 1050;
   }
+  
   .mobile-nav.open {
     transform: translateX(0);
   }
-
-  /* Секція 1 – Перший екран (Hero) */
+  
   .first-screen {
     height: 100vh;
     padding: 20px;
     justify-content: center;
     align-items: center;
   }
+  
   .first-screen-content {
-    transform: none;
     width: 100%;
     padding: 0 20px;
     margin: 0 auto;
     text-align: center;
   }
+  
   .first-screen-title {
     font-size: 32px;
-    margin: 0 0 20px;
+    margin-bottom: 20px;
     text-align: center;
-    color: black
   }
+  
   .first-screen-description {
     font-size: 16px;
     margin: 10px 20px;
   }
-
-  /* Секція 2 – Who We Are */
+  
   .second-screen {
     padding: 40px 20px;
     height: auto;
     margin-bottom: 0;
   }
+  
   .second-screen-title {
     font-size: 40px;
     margin-bottom: 20px;
   }
+  
   .second-screen-description {
     font-size: 16px;
     margin-bottom: 10px;
     max-width: 100%;
   }
-
-  /* Секція 3 – Великий текст */
+  
   .section3 {
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
   }
+  
   .section3-title {
     font-size: calc(100vw / 2);
     text-align: center;
     margin: 0;
   }
-
-  /* Адаптація секції 4 – Історії для мобільних */
+  
   .section4 {
     padding: 20px;
     display: block;
     text-align: center;
   }
-
+  
   .stories-container {
-    display: block;
-    margin: 0 auto;
     width: 100%;
     max-width: 600px;
     padding: 0 20px;
+    margin: 0 auto;
   }
-
+  
   .story {
     margin-bottom: 30px;
     padding-bottom: 20px;
   }
-
+  
   .story:last-child {
     border-bottom: none;
     margin-bottom: 0;
     padding-bottom: 0;
   }
-
+  
   .story-content {
     display: block;
   }
-
+  
   .story-photo {
     width: 100%;
     text-align: center;
     margin-bottom: 10px;
   }
-
+  
   .story-photo img {
     width: 100%;
     max-width: 300px;
     height: auto;
     object-fit: cover;
   }
-
+  
   .story-text {
     width: 100%;
     text-align: left;
   }
-
+  
   .story-name {
     font-size: 20px;
     margin-bottom: 10px;
   }
-
+  
   .story-description {
     font-size: 14px;
     margin: 0;
   }
-
-  .story:nth-child(even) .story-name {
-    margin-left: 0;
-  }
-
-  /* Секція 5 – Interesting */
-  .section5 {
-    padding: 40px 20px;
-  }
+  
   .interesting-text {
     font-size: calc(100vw / 2);
   }
-
-  /* Секція 6 – Contacts */
-  .section6 {
-    padding: 150px 20px;
-  }
-
+  
   .contacts {
     font-size: 16px;
     margin: 20px auto;
     width: 100%;
   }
-
-  /* Соц. іконки */
+  
   .social-icons {
-    display: flex;
     justify-content: center;
-    gap: 50px;
-    margin: 20px auto 20px;
+    margin: 20px auto;
   }
-
-  /* Футер */
+  
   .landing-footer {
     padding: 20px;
     text-align: center;

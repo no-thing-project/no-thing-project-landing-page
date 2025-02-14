@@ -1,10 +1,5 @@
 // Scene.js
-import React, {
-  useRef,
-  useEffect,
-  useImperativeHandle,
-  forwardRef,
-} from "react";
+import React, { useRef, useEffect, useImperativeHandle, forwardRef } from "react";
 import * as THREE from "three";
 import shapes from "./shapes";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
@@ -14,7 +9,9 @@ import { SMAAPass } from "three/examples/jsm/postprocessing/SMAAPass";
 import { OutputPass } from "three/examples/jsm/postprocessing/OutputPass";
 import { OBB } from "three/examples/jsm/math/OBB.js";
 
-// ================== CONFIGURATION ==================
+/*======================================
+   CONFIGURATION
+======================================*/
 const config = {
   debug: {
     enable: false, // Головний перемикач дебаг-режиму. Якщо false – всі дебаг-ефекти вимкнені.
@@ -29,7 +26,7 @@ const config = {
   },
   speed: {
     objectSpeedMultiplier: 1, // Множник для швидкостей об’єктів
-    stateLerpSpeed: 0.5, // Швидкість переходу при анімації стану
+    stateLerpSpeed: 1, // Швидкість переходу при анімації стану
   },
   performance: {
     enablePostProcessing: false, // Вмикає/вимикає постпроцесінг
@@ -50,9 +47,11 @@ const config = {
     fov: 20, // Налаштування FOV для камери
   },
 };
-// ================== END CONFIGURATION ==================
 
-// Допоміжні функції
+/*======================================
+   HELPER FUNCTIONS
+======================================*/
+// Створення OBB для mesh
 function createOBB(mesh) {
   mesh.updateWorldMatrix(true, false);
   mesh.geometry.computeBoundingBox();
@@ -71,6 +70,7 @@ function createOBB(mesh) {
   return obb;
 }
 
+// Створення OBB-хелпера для візуалізації
 function createOBBHelper(obb) {
   const vertices = [];
   for (let i = 0; i < 8; i++) {
@@ -86,9 +86,7 @@ function createOBBHelper(obb) {
     localCorner.add(obb.center);
     vertices.push(localCorner);
   }
-  const indices = [
-    0, 1, 0, 2, 0, 4, 1, 3, 1, 5, 2, 3, 2, 6, 3, 7, 4, 5, 4, 6, 5, 7, 6, 7,
-  ];
+  const indices = [0, 1, 0, 2, 0, 4, 1, 3, 1, 5, 2, 3, 2, 6, 3, 7, 4, 5, 4, 6, 5, 7, 6, 7];
   const geometry = new THREE.BufferGeometry();
   const positions = new Float32Array(indices.length * 3);
   for (let i = 0; i < indices.length; i++) {
@@ -107,17 +105,19 @@ function createOBBHelper(obb) {
   return new THREE.LineSegments(geometry, material);
 }
 
+// Обчислення розмірів фрустума камери
 function computeFrustumDimensions(camera) {
   const frustumHeight =
-    2 *
-    Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) *
-    Math.abs(camera.position.z);
+    2 * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * Math.abs(camera.position.z);
   const frustumWidth = frustumHeight * camera.aspect;
   return { frustumWidth, frustumHeight };
 }
 
-/* ========= Компонент Scene ========= */
+/*======================================
+   COMPONENT: Scene
+======================================*/
 const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
+  // ===== References & State =====
   const mountRef = useRef(null);
   const composerRef = useRef(null);
   const dynamicObjectsRef = useRef([]);
@@ -139,16 +139,14 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
   const cursorCollisionDisabledRef = useRef(false);
   const lastClickPointRef = useRef(new THREE.Vector3());
 
+  // ===== Ініціалізація сцени та рендеринг =====
   useEffect(() => {
     // Обробка клавіш для перемикання функціональностей
     function onKeyDown(event) {
       const key = event.key.toLowerCase();
       if (key === config.controls.toggleKey.toLowerCase()) {
         scrollRotationEnabledRef.current = !scrollRotationEnabledRef.current;
-        console.log(
-          "Scroll rotation toggled:",
-          scrollRotationEnabledRef.current
-        );
+        console.log("Scroll rotation toggled:", scrollRotationEnabledRef.current);
       }
       if (key === config.controls.toggleImpulseKey.toLowerCase()) {
         scrollImpulseEnabledRef.current = !scrollImpulseEnabledRef.current;
@@ -157,14 +155,14 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     }
     window.addEventListener("keydown", onKeyDown);
 
-    // ================== Ініціалізація сцени ==================
+    // Ініціалізація сцени
     const scene = new THREE.Scene();
     sceneRef.current = scene;
     const objectsGroup = new THREE.Group();
     objectsGroupRef.current = objectsGroup;
     scene.add(objectsGroup);
 
-    // Дебаг-об’єкт для колізій з курсором (якщо ввімкнено дебаг)
+    // Дебаг: створення об’єкта для колізій з курсором
     if (config.debug.enable && config.debug.showDebugCursorCollision) {
       const debugSphere = new THREE.Mesh(
         new THREE.SphereGeometry(0.05, 8, 8),
@@ -188,6 +186,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     camera.position.z = 5;
     cameraRef.current = camera;
 
+    // Обчислення boundary за розмірами фрустума
     const { frustumWidth, frustumHeight } = computeFrustumDimensions(camera);
     const collisionDepth = 1;
     const boundary = {
@@ -196,7 +195,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
       halfDepth: collisionDepth / 2,
     };
 
-    // (Опціонально) Створення куба для візуалізації boundary
+    // Дебаг: візуалізація boundary (опціонально)
     if (config.debug.enable && config.debug.showDebugSphere) {
       const boundaryCube = new THREE.Mesh(
         new THREE.BoxGeometry(
@@ -215,16 +214,13 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
       scene.add(boundaryCube);
     }
 
-    // Налаштування рендера
+    // Налаштування рендерера
     const renderer = new THREE.WebGLRenderer({
       antialias: config.performance.antialias,
       alpha: true,
       premultipliedAlpha: false,
     });
-    renderer.setSize(
-      mountRef.current.clientWidth,
-      mountRef.current.clientHeight
-    );
+    renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
     renderer.setPixelRatio(config.performance.pixelRatio);
     renderer.shadowMap.enabled = config.performance.enableShadows;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
@@ -283,18 +279,12 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     directionalLight.shadow.camera.bottom = -5;
     scene.add(directionalLight);
 
-    // Функція створення об’єктів
+    /*--------------------------------------
+       Функція створення об’єктів
+    --------------------------------------*/
     const dynamicObjects = [];
     dynamicObjectsRef.current = dynamicObjects;
-    function createObj({
-      geometry,
-      color,
-      x,
-      y,
-      speed = 0.05,
-      rotation,
-      isStatic = false,
-    }) {
+    function createObj({ geometry, color, x, y, speed = 0.05, rotation, isStatic = false }) {
       geometry.computeBoundingSphere();
       const material = new THREE.MeshPhysicalMaterial({
         color,
@@ -331,8 +321,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
       mesh.initialRotationSpeed = mesh.rotationSpeed.clone();
       mesh.mass = 1;
       mesh.position.set(x, y, 0);
-      mesh.boundingRadius =
-        geometry.boundingSphere.radius * config.boundary.sphereScale;
+      mesh.boundingRadius = geometry.boundingSphere.radius * config.boundary.sphereScale;
       mesh.isLerpingToState = false;
       mesh.lerpAlpha = 0;
       mesh.startPos = new THREE.Vector3();
@@ -344,7 +333,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
         mesh.rotation.copy(rotation);
       }
 
-      // Створення OBB-хелпера для дебагу (якщо ввімкнено)
+      // Дебаг: створення OBB-хелпера для CapsuleGeometry
       if (
         config.boundary.collisionType === "OBB" &&
         geometry.type === "CapsuleGeometry" &&
@@ -359,8 +348,8 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
       dynamicObjectsRef.current.push(mesh);
     }
 
-    // Створення об’єктів: центральний (сфера) та інші елементи з випадковими позиціями
-    const maxRange = 10; // діапазон випадкових координат
+    // Створення об’єктів: центральна сфера та декілька Capsule
+    const maxRange = 10;
     createObj({
       geometry: new THREE.SphereGeometry(0.1, 50, 50),
       color: 0x000000,
@@ -378,7 +367,9 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
       });
     }
 
-    // Обробка подій скролу
+    /*--------------------------------------
+       Обробка подій скролу
+    --------------------------------------*/
     const scrollFactor = 0.001;
     let prevScrollY = window.scrollY;
     const scrollImpulseFactor = -0.0002;
@@ -395,11 +386,9 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
       const scrollY = window.scrollY;
       const delta = scrollY - prevScrollY;
       prevScrollY = scrollY;
-
       if (scrollRotationEnabledRef.current && objectsGroupRef.current) {
         objectsGroupRef.current.rotation.y = scrollY * scrollFactor;
       }
-
       if (scrollImpulseEnabledRef.current) {
         dynamicObjectsRef.current.forEach((obj) => {
           obj.velocity.y += -delta * scrollImpulseFactor;
@@ -409,6 +398,9 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     const throttledScrollHandler = throttle(handleScroll, 16);
     window.addEventListener("scroll", throttledScrollHandler);
 
+    /*--------------------------------------
+       Обробка руху миші
+    --------------------------------------*/
     function onMouseMove(event) {
       const rect = mountRef.current.getBoundingClientRect();
       const mouse = new THREE.Vector2(
@@ -420,16 +412,20 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     }
     window.addEventListener("mousemove", onMouseMove);
 
-    // Анімаційний цикл
+    /*--------------------------------------
+       Анімаційний цикл
+    --------------------------------------*/
     const clock = new THREE.Clock();
     function animate() {
       requestAnimationFrame(animate);
       const delta = clock.getDelta();
 
+      // Обнулення лічильника колізій
       dynamicObjectsRef.current.forEach((obj) => {
         obj.collisionCount = 0;
       });
 
+      // Оновлення позицій та анімація переходу станів
       dynamicObjectsRef.current.forEach((obj) => {
         if (obj.isLerpingToState) {
           obj.lerpAlpha += delta * config.speed.stateLerpSpeed;
@@ -448,7 +444,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
           obj.position.z += obj.velocity.z * delta;
         }
 
-        // Перевірка колізій із global boundary
+        // Перевірка колізій з boundary
         const r = obj.boundingRadius || 0;
         if (obj.position.x + r > boundary.halfWidth) {
           obj.position.x = boundary.halfWidth - r;
@@ -475,7 +471,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
           obj.velocity.z *= -1;
         }
 
-        // Оновлення OBB-хелпера для дебагу, якщо ввімкнено
+        // Оновлення OBB-хелпера для дебагу
         if (obj.obbHelper && config.debug.enable && config.debug.showDebugOBB) {
           const obb = createOBB(obj);
           const newHelper = createOBBHelper(obb);
@@ -484,7 +480,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
         }
       });
 
-      // Перевірка колізій з курсором (якщо не вимкнено)
+      // Обробка колізій з курсором
       if (hasMouseMovedRef.current && !cursorCollisionDisabledRef.current) {
         const raycaster = new THREE.Raycaster();
         raycaster.setFromCamera(mouseCoordsRef.current, cameraRef.current);
@@ -497,24 +493,13 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
             ray.closestPointToPoint(obj.position, closestPoint);
             const dist = closestPoint.distanceTo(obj.position);
             if (dist < obj.boundingRadius) {
-              const n = new THREE.Vector3()
-                .subVectors(obj.position, closestPoint)
-                .normalize();
-              const impulseStrength =
-                config.constants.CURSOR_IMPULSE_MULTIPLIER;
+              const n = new THREE.Vector3().subVectors(obj.position, closestPoint).normalize();
+              const impulseStrength = config.constants.CURSOR_IMPULSE_MULTIPLIER;
               obj.velocity.add(n.clone().multiplyScalar(impulseStrength));
-              const rotationalImpulse = new THREE.Vector3(
-                n.y,
-                0,
-                -n.x
-              ).multiplyScalar(impulseStrength * 0.5);
+              const rotationalImpulse = new THREE.Vector3(n.y, 0, -n.x).multiplyScalar(impulseStrength * 0.5);
               obj.rotationSpeed.add(rotationalImpulse);
               obj.collisionCount = (obj.collisionCount || 0) + 1;
-              if (
-                config.debug.enable &&
-                config.debug.showDebugCursorCollision &&
-                cursorCollisionDebugRef.current
-              ) {
+              if (config.debug.enable && config.debug.showDebugCursorCollision && cursorCollisionDebugRef.current) {
                 cursorCollisionDebugRef.current.position.copy(closestPoint);
                 cursorCollisionDebugRef.current.visible = true;
               }
@@ -527,10 +512,41 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
         }
       }
 
+      // Перевірка колізій між об'єктами (виконується лише, якщо collisionsEnabledRef.current === true)
+      if (collisionsEnabledRef.current) {
+        for (let i = 0; i < dynamicObjectsRef.current.length; i++) {
+          const objA = dynamicObjectsRef.current[i];
+          for (let j = i + 1; j < dynamicObjectsRef.current.length; j++) {
+            const objB = dynamicObjectsRef.current[j];
+            let collisionDetected = false;
+
+            if (config.boundary.collisionType === "OBB") {
+              const obbA = createOBB(objA);
+              const obbB = createOBB(objB);
+              collisionDetected = obbA.intersectsOBB(obbB);
+            } else if (config.boundary.collisionType === "sphere") {
+              const distance = objA.position.distanceTo(objB.position);
+              const radiusSum = objA.boundingRadius + objB.boundingRadius;
+              collisionDetected = distance < radiusSum;
+            }
+
+            if (collisionDetected) {
+              const normal = new THREE.Vector3().subVectors(objA.position, objB.position).normalize();
+              const impulseStrength = 0.1;
+              const impulse = normal.clone().multiplyScalar(impulseStrength);
+              objA.velocity.add(impulse);
+              objB.velocity.sub(impulse);
+              objA.collisionCount = (objA.collisionCount || 0) + 1;
+              objB.collisionCount = (objB.collisionCount || 0) + 1;
+            }
+          }
+        }
+      }
+
+      // Демпфінг швидкостей та обертання
       dynamicObjectsRef.current.forEach((obj) => {
         const baseDamping = 0.99;
-        const extraDamping =
-          1 - Math.min(0.05 * (obj.collisionCount || 0), 0.5);
+        const extraDamping = 1 - Math.min(0.05 * (obj.collisionCount || 0), 0.5);
         const dampingFactor = baseDamping * extraDamping;
         const currentSpeed = obj.velocity.length();
         const dampedSpeed = currentSpeed * dampingFactor;
@@ -541,15 +557,14 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
         }
         const currentRotSpeed = obj.rotationSpeed.length();
         const dampedRotSpeed = currentRotSpeed * dampingFactor;
-        const minRotSpeed = obj.initialRotationSpeed
-          ? obj.initialRotationSpeed.length()
-          : 0;
+        const minRotSpeed = obj.initialRotationSpeed ? obj.initialRotationSpeed.length() : 0;
         const finalRotSpeed = Math.max(dampedRotSpeed, minRotSpeed);
         if (obj.rotationSpeed.length() > 0) {
           obj.rotationSpeed.setLength(finalRotSpeed);
         }
       });
 
+      // Рендеринг: постпроцесінг або прямий рендер
       if (config.performance.enablePostProcessing && composerRef.current) {
         composerRef.current.render(delta);
       } else {
@@ -558,20 +573,18 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     }
     animate();
 
+    // Обробка зміни розміру вікна
     function onWindowResize() {
-      camera.aspect =
-        mountRef.current.clientWidth / mountRef.current.clientHeight;
+      camera.aspect = mountRef.current.clientWidth / mountRef.current.clientHeight;
       camera.updateProjectionMatrix();
-      renderer.setSize(
-        mountRef.current.clientWidth,
-        mountRef.current.clientHeight
-      );
+      renderer.setSize(mountRef.current.clientWidth, mountRef.current.clientHeight);
       const { frustumWidth, frustumHeight } = computeFrustumDimensions(camera);
       boundary.halfWidth = frustumWidth / 2;
       boundary.halfHeight = frustumHeight / 2;
     }
     window.addEventListener("resize", onWindowResize);
 
+    // Cleanup
     return () => {
       window.removeEventListener("resize", onWindowResize);
       window.removeEventListener("mousemove", onMouseMove);
@@ -582,7 +595,9 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     };
   }, [hdrTexture]);
 
-  // Методи керування об’єктами
+  /*======================================
+     Методи керування об’єктами
+  ======================================*/
   function stopObjects() {
     const objects = dynamicObjectsRef.current;
     if (!objects || !objects.length) return;
@@ -599,45 +614,33 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
   function continueObjects() {
     const objects = dynamicObjectsRef.current;
     if (!objects || !objects.length) return;
+    // Якщо продовження викликається з події mouseup з "збиранням",
+    // collisionsEnabledRef вже встановлено в false, тому тут ми знову відновлюємо колізії через 500 мс.
     collisionsEnabledRef.current = false;
     setTimeout(() => {
       collisionsEnabledRef.current = true;
     }, 500);
 
-    // Використовуємо останню точку кліку як центр вибуху
-    const explosionCenter =
-      lastClickPointRef.current || new THREE.Vector3(0, 0, 0);
-    const explosionStrength = 1; // налаштовуваний коефіцієнт сили вибуху
-
+    const explosionCenter = lastClickPointRef.current || new THREE.Vector3(0, 0, 0);
+    const explosionStrength = 1;
     objects.forEach((o) => {
       o.mass = 1;
-      // Розрахунок напрямку від центру вибуху до поточної позиції об’єкта
       let direction = o.position.clone().sub(explosionCenter);
       let distance = direction.length();
       if (distance < 0.001) {
-        // Якщо об’єкт практично в центрі – задаємо випадковий напрямок
-        direction = new THREE.Vector3(
-          Math.random() - 0.5,
-          Math.random() - 0.5,
-          Math.random() - 0.5
-        );
+        direction = new THREE.Vector3(Math.random() - 0.5, Math.random() - 0.5, Math.random() - 0.5);
         distance = direction.length();
       }
       direction.normalize();
-      // Чим ближче об’єкт до центру, тим сильніший імпульс (діапазон регулюється коефіцієнтом)
       let impulseMagnitude = explosionStrength / (distance + 0.5);
       impulseMagnitude *= 0.8 + Math.random() * 0.4;
       o.velocity.copy(direction.multiplyScalar(impulseMagnitude));
-
-      // Рандомізуємо швидкість обертання – тепер значення можуть бути більшими
-      const explosionRotSpeed = 0.1 + Math.random() * 0.3; // діапазон 0.1 - 0.4
+      const explosionRotSpeed = 0.1 + Math.random() * 0.3;
       o.rotationSpeed.set(
         (Math.random() - 0.5) * explosionRotSpeed,
         (Math.random() - 0.5) * explosionRotSpeed,
         (Math.random() - 0.5) * explosionRotSpeed
       );
-
-      // Задаємо абсолютно випадкове початкове обертання, щоб об'єкти не виглядали однаково
       o.rotation.set(
         Math.random() * Math.PI * 2,
         Math.random() * Math.PI * 2,
@@ -653,10 +656,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     if (currentStateIndexRef.current >= customStatesRef.current.length) {
       currentStateIndexRef.current = 0;
     }
-    console.log(
-      "Застосовується фігура, state index:",
-      currentStateIndexRef.current
-    );
+    console.log("Застосовується фігура, state index:", currentStateIndexRef.current);
     applyCurrentState();
   }
 
@@ -687,7 +687,9 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     });
   }
 
-  // Обробка подій "натискання-утримання / відпускання"
+  /*======================================
+     Обробка подій mousedown / mouseup
+  ======================================*/
   useEffect(() => {
     let isMouseDown = false;
     let isGathering = false;
@@ -695,7 +697,8 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
 
     function handleMouseDown(event) {
       isMouseDown = true;
-      // Обчислюємо clickPoint негайно та зберігаємо
+      collisionsEnabledRef.current = false;
+      
       const rect = mountRef.current.getBoundingClientRect();
       const mouse = new THREE.Vector2(
         ((event.clientX - rect.left) / rect.width) * 2 - 1,
@@ -707,35 +710,25 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
       const clickPoint = new THREE.Vector3();
       raycaster.ray.intersectPlane(planeZ, clickPoint);
       lastClickPointRef.current = clickPoint.clone();
-      // Вимикаємо колізії з курсором
       cursorCollisionDisabledRef.current = true;
-      // Запускаємо таймер затримки 500 мс для початку формування
+
       gatherTimeout = setTimeout(() => {
         if (isMouseDown) {
           isGathering = true;
-          // Обираємо випадкову фігуру
           const state =
             customStatesRef.current[
               Math.floor(Math.random() * customStatesRef.current.length)
             ];
-          currentStateIndexRef.current = state;
           state.forEach((transform, i) => {
             const obj = dynamicObjectsRef.current[i];
             if (!obj) return;
             obj.startPos = obj.position.clone();
             obj.startRot = new THREE.Euler().copy(obj.rotation);
-            obj.targetPos = transform.position
-              .clone()
-              .add(lastClickPointRef.current);
-            obj.targetRot = new THREE.Euler(
-              transform.rotation.x,
-              transform.rotation.y,
-              transform.rotation.z
-            );
+            obj.targetPos = transform.position.clone().add(lastClickPointRef.current);
+            obj.targetRot = new THREE.Euler(transform.rotation.x, transform.rotation.y, transform.rotation.z);
             obj.lerpAlpha = 0;
             obj.isLerpingToState = true;
           });
-          // Зупиняємо рух, щоб об’єкти "зібралися" у форму
           stopObjects();
         }
       }, 500);
@@ -748,13 +741,14 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
         clearTimeout(gatherTimeout);
         gatherTimeout = null;
       }
-      // Якщо формування розпочато (утримання більше 500 мс), запускаємо експлозивний ефект;
-      // Якщо ні – нічого не робимо з елементами
       if (isGathering) {
         continueObjects();
         isGathering = false;
+      } else {
+        setTimeout(() => {
+          collisionsEnabledRef.current = true;
+        }, 1000);
       }
-      // Вимикаємо колізії з курсором ще на 1 секунду після відпускання
       setTimeout(() => {
         cursorCollisionDisabledRef.current = false;
       }, 1000);
@@ -768,6 +762,9 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     };
   }, []);
 
+  /*======================================
+     Надання методів через ref
+  ======================================*/
   useImperativeHandle(ref, () => ({
     stopObjects,
     continueObjects,
@@ -775,6 +772,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     showPreviousState,
   }));
 
+  // ===== Render компонента =====
   return (
     <div
       ref={mountRef}
