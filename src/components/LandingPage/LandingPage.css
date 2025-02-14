@@ -40,13 +40,14 @@ h2 {
 }
 
 .glass-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.2);
-  /* backdrop-filter: blur(0.1px); */
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* width: 100%; */
+  /* height: 100%; */
+  /* background: rgba(255, 255, 255, 0.3); */
+  backdrop-filter: blur(10px);
+  box-shadow: (0px 10px);
 }
 
 /* ============================= */
@@ -171,6 +172,8 @@ h2 {
   margin: 0;
   mix-blend-mode: difference;
   font-weight: 700;
+  color: #010101;
+
 }
 .first-screen-description {
   font-size: 24px;
@@ -191,10 +194,14 @@ h2 {
   z-index: 10;
   color: #010101;
 }
-.second-screen-title {
-  font-size: 128px;
-  margin: 0;
-  font-weight: 400;
+.section2-title {
+  margin-right: 50px;
+  font-size: 124px;
+  font-weight: 200;
+  /* max-width: 600px; */
+  /* text-align: left; */
+  line-height: 100%;
+  z-index: 10;
 }
 .second-screen-description {
   font-size: 24px;
@@ -461,6 +468,7 @@ canvas {
     font-size: 32px;
     margin: 0 0 20px;
     text-align: center;
+    color: black
   }
   .first-screen-description {
     font-size: 16px;
