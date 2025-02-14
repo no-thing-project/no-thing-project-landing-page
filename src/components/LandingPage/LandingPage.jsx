@@ -308,7 +308,7 @@ const LandingPage = ({
         <Section sectionNumber={1} className="first-screen" id="section1">
           <div className="first-screen-content glass-overlay">
             <Title
-              as="h1"
+              as="h2"
               className="first-screen-title"
               motionProps={fadeInUp(0.2)}
             >
@@ -333,31 +333,31 @@ const LandingPage = ({
 
         {/* Секція 2 – Who We Are */}
         <Section sectionNumber={2} className="second-screen" id="section2">
-          <div className="second-screen-content">
+          <div className="second-screen-content glass-overlay">
             <Title
-              as="h1"
-              className="section2-title glass-overlay"
+              as="h2"
+              className="section-title-text "
               motionProps={fadeInUp(0.2)}
             >
               WHAT IS
             </Title>
             <Title
               as="p"
-              className="second-screen-description glass-overlay"
+              className="section-description-text" 
               motionProps={fadeInUp(0.4)}
             >
               No.Thing Project is a movement, a mindset, and a platform for transformation
             </Title>
             <Title
               as="p"
-              className="second-screen-description glass-overlay"
+              className="section-description-text"
               motionProps={fadeInUp(0.6)}
             >
               It is the idea that nothing is not emptiness but a starting point—a space where creativity, innovation, and change can emerge.
             </Title>
             <Title
               as="p"
-              className="second-screen-description glass-overlay"
+              className="section-description-text"
               motionProps={fadeInUp(0.6)}
             >
               We embrace minimalism as a tool for clarity and inspiration, proving that even from nothing, something extraordinary can be built.
@@ -367,7 +367,7 @@ const LandingPage = ({
 
         {/* Секція 3 – Великий текст */}
         <Section sectionNumber={3} className="section3" id="section3">
-          <motion.h2 className="section3-title glass-overlay" {...fadeInUp(0.2)}>
+          <motion.h2 className="section-title-text glass-overlay" {...fadeInUp(0.2)}>
             {"NOTHING".split(" ").map((word, idx) => (
               <a key={idx} style={{ display: "block" }}>
                 {word}
@@ -380,7 +380,7 @@ const LandingPage = ({
         <Section sectionNumber={4} className="section4" id="section4">
           <div className="stories-container">
             <motion.h2
-              className="section4-title glass-overlay"
+              className="section-title-text glass-overlay"
               {...fadeInUp(0.2)}
             >
               FOR YOU
@@ -389,14 +389,14 @@ const LandingPage = ({
             {/* Виводимо усі історії з масиву storiesData */}
             {storiesData.map((story, i) => (
               <motion.div key={i} {...fadeInUp(0.2 + i * 0.2)}>
-                <div className="story">
+                <div className="story  glass-overlay">
                   <div className="story-content">
-                    <div className="story-photo glass-overlay">
+                    <div className="story-photo">
                       <img src={story.img} alt={story.name} />
                     </div>
-                    <div className="story-text glass-overlay">
+                    <div className="story-text ">
                       <h3 className="story-name">{story.name}</h3>
-                      <p className="story-description">{story.text}</p>
+                      <p className="section-description-text">{story.text}</p>
                     </div>
                   </div>
                 </div>
@@ -421,8 +421,8 @@ const LandingPage = ({
         <Section sectionNumber={6} className="section6" id="section6">
           <div className="second-screen-content glass-overlay">
             <Title
-              as="h1"
-              className="section2-title"
+              as="h2"
+              className="section-title-text"
               motionProps={fadeInUp(0.2)}
             >
               CONTACT US
