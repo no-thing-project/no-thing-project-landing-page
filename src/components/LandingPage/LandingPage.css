@@ -79,7 +79,7 @@ h2 {
   top: 0;
   left: 0;
   width: 100%;
-  padding: 12px 24px;
+  padding: 35px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -94,13 +94,31 @@ h2 {
 
 .header.scrolled {
   background: rgba(255, 255, 255, 0.3);
-  padding: 12px 24px;
+  padding: 35px 24px;
 }
 
 .logo-container {
   font-size: 1.8rem;
   font-weight: bold;
   color: #000;
+}
+
+/* Логотип після прокрутки: переміщається в лівий кут хедера */
+.logo-container.in-header {
+  position: absolute;
+  top: 20px;
+  left: 30px;
+  transform: translate(0, 0);
+  font-size: 1.8rem;
+}
+
+/* Фіксація логотипа у хедері після переходу */
+.header.scrolled .logo-container {
+  position: absolute;
+  top: 1.5rem;
+  left: 30px;
+  transform: translate(0, 0);
+  font-size: 1.5rem;
 }
 
 .logo-text {
@@ -406,7 +424,7 @@ h2 {
 }
 
 .first-screen-title {
-  font-size: 48px;
+  font-size: 50px;
   margin: 0;
   font-weight: 700;
   mix-blend-mode: difference;
@@ -426,7 +444,7 @@ h2 {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 150px 0 0 100px;
+  padding: 150px 100px;
   z-index: 10;
   color: #010101;
 }
@@ -448,7 +466,7 @@ h2 {
 
 /* Section Stories */
 .section-stories {
-  padding: 50px 20px;
+  padding: 150px 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -748,8 +766,8 @@ canvas {
   }
 
   .first-screen-title {
-    font-size: 32px;
-    margin-bottom: 20px;
+    font-size: 44px;
+    /* margin-bottom: 20px; */
   }
 
   .first-screen-description {
@@ -904,7 +922,7 @@ canvas {
   }
 
   .first-screen-title {
-    font-size: 28px;
+    font-size: 36px;
   }
 
   .first-screen-description {
