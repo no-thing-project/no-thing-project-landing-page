@@ -252,7 +252,9 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
               <motion.div key={i} {...fadeInUp(0.2 + i * 0.2)}>
                 <div className="story glass-overlay">
                   <div className="story-content">
-                    <img src={story.img} alt={story.name} />
+                      <div className="story-photo">
+                        <img src={story.img} alt={story.name} />
+                      </div>
                     <div className="story-text">
                       <h3 className="story-title-text">{story.name}</h3>
                       <p className="story-description-text">{story.text}</p>
