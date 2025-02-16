@@ -87,18 +87,31 @@ const storiesData = [
 ];
 
 const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) => {
-  const sceneRef = useRef(null);
   const interestingRef = useRef(null); // Додано useRef
-  const { scrollY } = useViewportScroll();
-  const [calcTextWidth, setCalcTextWidth] = useState(1500);
-  const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef(null);
-  const [isScrolled, setIsScrolled] = useState(false);
 
-  // Оптимізовані анімації через useTransform
-  const x = useTransform(scrollY, [0, 400, 700, 1400, 1800, 2500], ["0vw", "0vw", "50vw", "50vw", "10vw", "10vw"]);
-  const opacity = useTransform(scrollY, [0, 390, 700, 800, 1510, 1800, 2650, 2700], [1, 1, 1, 1, 1, 1, 1, 0]);
-  const xTrans = useTransform(scrollY, (value) => wrap(0, -calcTextWidth, -value * 0.5));
+  const sceneRef = useRef(null);
+  const { scrollY } = useViewportScroll();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
+  const { scrollYProgress } = useViewportScroll();
+
+  const logoScale = useTransform(scrollYProgress, [0, 0.2], [1.2, 0.8]);
+  const logoX = useTransform(scrollYProgress, [0, 0.2], ["0%", "-30vw"]);
+  const logoY = useTransform(scrollYProgress, [0, 0.2], ["0%", "-20vh"]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsScrolled(window.scrollY > 50);
+    };
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
+
+  const toggleMenu = () => {
+    setMenuOpen((prev) => !prev);
+  };
+
 
 
   useLayoutEffect(() => {
@@ -113,30 +126,27 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const toggleMenu = () => {
-    setMenuOpen((prev) => !prev);
-  };
-
   return (
     <>
       <Helmet>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
       </Helmet>
       
-      <header className={`header ${isScrolled ? "scrolled" : ""}`} ref={menuRef}>
-        <div className={`logo-container ${menuOpen ? "open" : ""}`}>
-          <a href="#section1" className="logo-text" onClick={(e) => {
-            e.preventDefault();
-            document.getElementById("section1")?.scrollIntoView({ behavior: "smooth" });
-            }}>
-              no.thing<br /><span className="logo-sub">project</span>
+     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
+        <motion.div
+          className={`logo-container ${(menuOpen || isScrolled )}`}
+          // Коли лого велике (скрол маленький) – керуємо scale, x, y через framer-motion
+          // style={isScrolled ? {} : { scale: logoScale, x: logoX, y: logoY }}
+        >
+          <a href="#section1" className="logo-text">
+            no.thing<br/>
+            <span className="logo-sub">project</span>
           </a>
-        </div>
-        
-        <div className={`menu-container ${menuOpen ? "open" : ""}`}>
-        <nav className={`landing-nav ${menuOpen ? "open" : ""}`}>
+        </motion.div>
+
+        <div className="menu-container">
+          <nav className={`landing-nav ${menuOpen ? "open" : ""}`}>
             <ul>
-              
               {navLinks.map(({ id, label }) => (
                 <li key={id} className="menu-item">
                   <a href={`#${id}`} onClick={(e) => {
@@ -147,7 +157,7 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
               ))}
             </ul>
           </nav>
-
+          
           <div className="menu-toggle">
             <input
               type="checkbox"
@@ -193,11 +203,24 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
 
         {/* Sections */}
         <Section sectionNumber={1} className="first-screen">
-          <div className="first-screen-content glass-overlay">
-            <Title as="h2" className="first-screen-title" motionProps={fadeInUp(0.2)}>No.Thing Project</Title>
-            <Title as="p" className="first-screen-description" motionProps={fadeInUp(0.4)}>Start with Nothing - create Everything</Title>
-          </div>
-        </Section>
+          <motion.div className="first-screen-content glass-overlay">
+            {!isScrolled && (
+              <motion.h1 className="first-screen-title" style={{ scale: logoScale, x: logoX, y: logoY }}>
+                        <motion.div 
+                          className={`first-screen-title ${(menuOpen || isScrolled) ? "in-header" : ""}`}
+                          style={isScrolled ? {} : { scale: logoScale, x: logoX, y: logoY }}
+                          >
+                            <a href="#section1" className="logo-text">no.thing<br/>
+                            <span className="logo-sub">project</span>
+                            </a>
+                        </motion.div>
+              </motion.h1>
+            )}
+              <Title className="first-screen-description" as="p">
+                Start with Nothing - create Everything
+              </Title>
+          </motion.div>
+      </Section>
 
            {/* Секція 2 – Who We Are */}
         <Section sectionNumber={2} className="section2" id="section2">

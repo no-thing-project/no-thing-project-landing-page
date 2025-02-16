@@ -1,4 +1,3 @@
-// App.js
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SplashScreen from "./components/SplashScreen/CodeSplashScreen";
@@ -8,37 +7,26 @@ import { BrowserRouter } from "react-router-dom";
 
 const LandingPage = lazy(() => import("./components/LandingPage/LandingPage"));
 
-// Функція для визначення мобільного пристрою
-const isMobileDevice = () => /Mobi|Android/i.test(navigator.userAgent);
-
 const App = () => {
   const [showSplash, setShowSplash] = useState(true);
   const [hdrTexture, setHdrTexture] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
+  const isMobile = /Mobi|Android/i.test(navigator.userAgent);
 
   useEffect(() => {
-    setIsMobile(isMobileDevice());
-  }, []);
-
-  // Завантаження HDR текстури
-  useEffect(() => {
-    async function loadHDR() {
-      const loader = new RGBELoader();
-      loader.setPath("hdr_maps/");
+    const loadHDR = async () => {
       try {
-        const texture = await loader.loadAsync("poly_haven_studio_1k.hdr");
+        const texture = await new RGBELoader().setPath("hdr_maps/").loadAsync("poly_haven_studio_1k.hdr");
         setHdrTexture(texture);
       } catch (error) {
         console.error("Error loading HDR texture:", error);
       }
-    }
+    };
     loadHDR();
   }, []);
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <div className="App">
-        {/* Рендеримо кастомний курсор лише для десктопу */}
         {!isMobile && <CustomCursor size={12} />}
         <AnimatePresence exitBeforeEnter>
           {showSplash ? (
@@ -58,13 +46,7 @@ const App = () => {
               transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
             >
               <Suspense fallback={null}>
-                {/* Передаємо HDR текстуру та прапорець isMobile */}
-                <LandingPage
-                  hdrTexture={hdrTexture}
-                  showDebugButtons={false}
-                  showHubButton={false}
-                  isMobile={false}
-                />
+                <LandingPage hdrTexture={hdrTexture} showDebugButtons={false} showHubButton={false} isMobile={isMobile} />
               </Suspense>
             </motion.div>
           )}

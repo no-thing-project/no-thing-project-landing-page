@@ -71,9 +71,11 @@ h2 {
   box-shadow: (0px 10px);
 }
 
+
 /* ============================= */
-/* Header                        */
+/* HEADER                        */
 /* ============================= */
+
 .header {
   position: fixed;
   top: 0;
@@ -81,15 +83,15 @@ h2 {
   width: 100%;
   padding: 35px 24px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  /* align-items: center; */
+  justify-content: center;
   background: rgba(255, 255, 255, 0.3);
-  box-shadow: (0px 10px);
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   transition: background 0.3s ease-in-out, padding 0.3s ease-in-out;
-  z-index: 1000;
+  z-index: 99;
 }
 
 .header.scrolled {
@@ -97,44 +99,78 @@ h2 {
   padding: 35px 24px;
 }
 
+/* ============================= */
+/* LOGO                          */
+/* ============================= */
+
 .logo-container {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #000;
+  position: absolute;
+  /* top: 1.5rem; */
+  /* left: 2rem; */
+  transform: translate(0, 0);
+  font-size: 1.5rem;
+  z-index: 99;
+}
+
+.logo-container.false{
+  top: 1.5rem; 
+  left: 2rem;
+  transform: translate(0, 0);
+  transition: all 0.3s ease;
+  z-index: 999;
+  display: none;
 }
 
 /* Логотип після прокрутки: переміщається в лівий кут хедера */
 .logo-container.in-header {
-  position: absolute;
-  top: 20px;
-  left: 30px;
+  top: 1.5rem; 
+  left: 2rem;
   transform: translate(0, 0);
-  font-size: 1.8rem;
+  transition: all 0.3s ease;
+  z-index: 999;
 }
+
 
 /* Фіксація логотипа у хедері після переходу */
 .header.scrolled .logo-container {
   position: absolute;
   top: 1.5rem;
-  left: 30px;
+  left: 2rem;
   transform: translate(0, 0);
   font-size: 1.5rem;
+  z-index: 99;
 }
 
 .logo-text {
   text-decoration: none;
-  color: inherit;
-  font-size: 1.6rem;
-  font-weight: 700;
+  color: #111;              /* замість inherit, щоб чіткіше задати колір */
+  font-weight: 700;        /* залишаємось на масивному написанні */
   line-height: 1.2;
+  letter-spacing: 0.02em;  /* легке “дихання” між літерами */
+  transition: color 0.3s linear;
+  z-index: 999;
 }
 
 .logo-sub {
-  display: block;
-  font-size: 0.9rem;
-  font-weight: 400;
-  color: #666;
+  padding-left: 40%;
+  z-index: 999;
 }
+/* 
+font-size: 24px;
+margin: 20px 100px;
+text-align: left;
+font-weight: 100;
+mix-blend-mode: difference; */
+
+.logo-text:hover {
+}
+
+
+
+
+/* ============================= */
+/* NAVIGATION                    */
+/* ============================= */
 
 .landing-nav ul {
   list-style: none;
@@ -169,6 +205,10 @@ h2 {
 .menu-icon {
   display: none;
 }
+
+/* ============================= */
+/* HEADER BUTTONS                 */
+/* ============================= */
 
 .header-buttons-wrapper {
   display: flex;
@@ -205,6 +245,10 @@ h2 {
 .header-hub-button a:hover {
   color: #555;
 }
+
+/* ============================= */
+/* MOBILE NAVIGATION             */
+/* ============================= */
 
 @media (max-width: 768px) {
   .menu-toggle {
@@ -271,23 +315,6 @@ h2 {
     top: 0;
   }
 
-  /* .landing-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 80%;
-    max-width: 320px;
-    height: 100vh;
-    background: white;
-    box-shadow: -2px 0 12px rgba(0, 0, 0, 0.15);
-    transform: translateX(100%);
-    transition: transform 0.3s ease-in-out;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  } */
-
   .landing-nav {
     display: none;
     overflow: hidden;
@@ -297,7 +324,6 @@ h2 {
     flex-direction: column;
   }
 
-  
   .landing-nav.open {
     display: flex;
     max-height: 100%;
@@ -318,7 +344,7 @@ h2 {
   .menu-item {
     margin: 10px 0;
   }
-  
+
   .menu-item a {
     display: block;
     padding: 20px;
@@ -327,14 +353,39 @@ h2 {
     color: #333;
     transition: color 0.3s ease;
   }
-  
+
   .menu-item a:hover {
     color: #007bff;
   }
-  
+
+.logo-container {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  transform: translate(0, 0);
+  font-size: 1.5rem;
+  z-index: 99;
 }
 
+.logo-container.false{
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  transform: translate(0, 0);
+  transition: all 1s ease;
+  z-index: 999;
+  display: none;
+}
 
+.header.scrolled .logo-container {
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  transform: translate(0, 0);
+  transition: all 0.3s ease;
+  z-index: 99;
+}
+}
 
 
 /*========================
@@ -424,9 +475,15 @@ h2 {
 }
 
 .first-screen-title {
-  font-size: 50px;
-  margin: 0;
-  font-weight: 700;
+  position: relative;
+  padding: 2rem;
+  transform: translateX(-50%);
+  text-align: center;
+  max-width: 404px;
+  font-size: 74px;
+  font-weight: bold;
+  transition: all 0.3s ease; /* Додаємо плавність */
+  z-index: 999;
   mix-blend-mode: difference;
 }
 
@@ -603,7 +660,7 @@ h2 {
 }
 
 .contacts a:hover {
-  color: #7f44ff;
+  color: #544545;
 }
 
 .social-icons {
@@ -686,9 +743,9 @@ canvas {
   /* Header (Мобільна версія)      */
   /* ============================= */
 
-  .logo-text {
-    font-size: 1.2rem;
-  }
+  /* .logo-text {
+    font-size: 2rem;
+  } */
 
   .landing-nav ul {
     flex-direction: column;
@@ -761,11 +818,24 @@ canvas {
 
   .first-screen-content {
     width: 100%;
-    padding: 0 20px;
+    /* padding: 0 20px; */
     text-align: center;
   }
 
   .first-screen-title {
+
+    position: relative;
+    padding: 2rem;
+    transform: translateX(-50%);
+    text-align: center;
+    max-width: 404px;
+    font-size: 44px;
+    font-weight: bold;
+    transition: all 0.3s ease; /* Додаємо плавність */
+    z-index: 999;
+    mix-blend-mode: difference;
+
+
     font-size: 44px;
     /* margin-bottom: 20px; */
   }
@@ -873,6 +943,8 @@ canvas {
   }
   
   .contacts a:hover {
+  color: #544545;
+
   }
 
   .social-icons {
@@ -908,9 +980,9 @@ canvas {
     font-size: 1.2rem;
   }
 
-  .logo-text {
-    font-size: 1.2rem;
-  }
+  /* .logo-text {
+    font-size: 1.8rem;
+  } */
 
   .hamburger {
     font-size: 1.8rem;
@@ -922,7 +994,16 @@ canvas {
   }
 
   .first-screen-title {
+    position: relative;
+    padding: 2rem;
+    transform: translateX(-50%);
+    text-align: center;
+    max-width: 404px;
     font-size: 36px;
+    font-weight: bold;
+    transition: all 0.3s ease; /* Додаємо плавність */
+    z-index: 999;
+    mix-blend-mode: difference;
   }
 
   .first-screen-description {
