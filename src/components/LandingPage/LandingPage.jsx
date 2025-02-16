@@ -100,6 +100,11 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
   const logoX = useTransform(scrollYProgress, [0, 0.2], ["0%", "-30vw"]);
   const logoY = useTransform(scrollYProgress, [0, 0.2], ["0%", "-20vh"]);
 
+  const x = useTransform(scrollY, [0, 400, 700, 1400, 1800, 2500], ["0vw", "0vw", "50vw", "50vw", "10vw", "10vw"]);
+  const opacity = useTransform(scrollY, [0, 390, 700, 800, 1510, 1800, 2650, 2700], [1, 1, 1, 1, 1, 1, 1, 0]);
+  const [calcTextWidth, setCalcTextWidth] = useState(1500);
+  const xTrans = useTransform(scrollY, (value) => wrap(0, -calcTextWidth, -value * 0.5));
+
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
@@ -158,7 +163,7 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
             </ul>
           </nav>
           
-          <div className="menu-toggle">
+          <div className={`menu-toggle  ${isScrolled ? "scrolled" : ""}`}>
             <input
               type="checkbox"
               className="menu-checkbox"
