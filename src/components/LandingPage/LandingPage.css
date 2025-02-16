@@ -317,6 +317,7 @@ h2 {
 
   .landing-nav.open {
     display: flex;
+    right: 2rem;
     max-height: 100%;
     height: 100vh;
     width: 100%;

@@ -113,6 +113,14 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (menuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [menuOpen]);
+
   const toggleMenu = () => {
     setMenuOpen((prev) => !prev);
   };
@@ -151,16 +159,23 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
 
         <div className="menu-container">
           <nav className={`landing-nav ${menuOpen ? "open" : ""}`}>
-            <ul>
-              {navLinks.map(({ id, label }) => (
-                <li key={id} className="menu-item">
-                  <a href={`#${id}`} onClick={(e) => {
+          <ul>
+            {navLinks.map(({ id, label }) => (
+              <li key={id} className="menu-item">
+                <a
+                  href={`#${id}`}
+                  onClick={(e) => {
                     e.preventDefault();
                     document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
-                  }}>{label}</a>
-                </li>
-              ))}
-            </ul>
+                    
+                      setMenuOpen(false);
+                  }}
+                >
+          {label}
+        </a>
+      </li>
+    ))}
+  </ul>
           </nav>
           
           <div className={`menu-toggle  ${isScrolled ? "scrolled" : ""}`}>
