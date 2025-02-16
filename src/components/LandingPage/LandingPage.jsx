@@ -196,7 +196,7 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
       </header>
       
       <motion.div className="landing-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-        {!isMobile && (
+        {/* {!isMobile && ( */}
           <div className="background-container">
             <Suspense fallback={<div>Loading 3D scene...</div>}>
               <div className="scene-wrapper">
@@ -204,7 +204,7 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
               </div>
             </Suspense>
           </div>
-        )}
+        {/* )} */}
 
         {/* Sections */}
         <Section sectionNumber={1} className="first-screen">
