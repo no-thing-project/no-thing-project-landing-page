@@ -1,6 +1,6 @@
-/*========================
-   Global Styles & Reset
-========================*/
+/*====================================
+=            1. GLOBAL & RESET       =
+====================================*/
 
 :root {
   --main-font: "JetBrains Mono", monospace;
@@ -10,15 +10,12 @@ body {
   margin: 0;
   padding: 0;
   scroll-behavior: smooth;
-
 }
-
 html,
 a,
 body {
   cursor: none !important;
 }
-
 
 h1 {
   font-size: 4rem;
@@ -32,9 +29,10 @@ h2 {
   margin: 0;
 }
 
-/*========================
-   Layout Containers
-========================*/
+/*====================================
+=         2. LAYOUT CONTAINERS       =
+====================================*/
+
 .landing-container {
   position: relative;
   width: 100vw;
@@ -61,6 +59,11 @@ h2 {
   height: 100dvh;
 }
 
+/*====================================
+=            3. GLASS OVERLAY        =
+====================================*/
+/* Прозора блюр-підкладка (поки що деактивовано позиціонування) */
+
 .glass-overlay {
   /* position: absolute; */
   /* top: 0; */
@@ -72,10 +75,9 @@ h2 {
   box-shadow: (0px 10px);
 }
 
-
-/* ============================= */
-/* HEADER                        */
-/* ============================= */
+/*====================================
+=               4. HEADER            =
+====================================*/
 
 .header {
   position: fixed;
@@ -99,55 +101,53 @@ h2 {
   padding-top: 35px;
 } */
 
-/* ============================= */
-/* LOGO                          */
-/* ============================= */
+/*====================================
+=               5. LOGO             =
+====================================*/
 
 .logo-container {
   position: absolute;
-  /* top: 1.5rem; */
-  /* left: 2rem; */
   transform: translate(0, 0);
+  transition: all 0.5s ease;
   font-size: 1.5rem;
   z-index: 99;
 }
 
 .logo-container.false{
-  top: 15px;
-  left: 15px;
   transform: translate(0, 0);
   transition: all 0.3s ease;
   z-index: 999;
   display: none;
 }
 
-/* Логотип після прокрутки: переміщається в лівий кут хедера */
+/* Логотип (у хедері після скролу) */
 .logo-container.in-header {
-  top: 15px;
-  left: 15px;
+  top: 20px;
+  left: 20px;
   transform: translate(0, 0);
-  transition: all 0.3s ease;
+  transition: all 0.5s ease;
   z-index: 999;
 }
-
 
 /* Фіксація логотипа у хедері після переходу */
 .header.scrolled .logo-container {
   position: absolute;
-  top: 15px;
-  left: 15px;
+  top: 20px;
+  left: 20px;
   transform: translate(0, 0);
-  font-size: 1.5rem;
+  transition: all 0.5s ease;
+  font-size: 24px;
   z-index: 99;
 }
 
 .logo-text {
   text-decoration: none;
-  color: #111;              /* замість inherit, щоб чіткіше задати колір */
-  font-weight: 700;        /* залишаємось на масивному написанні */
+  color: #111;
+  font-weight: 700;
   line-height: 1.2;
-  letter-spacing: 0.02em;  /* легке “дихання” між літерами */
-  transition: color 0.3s linear;
+  letter-spacing: 0.02em;
+  transform: translate(0, 0);
+  transition: all 0.5s ease;
   z-index: 999;
 }
 
@@ -155,22 +155,14 @@ h2 {
   padding-left: 40%;
   z-index: 999;
 }
-/* 
-font-size: 24px;
-margin: 20px 100px;
-text-align: left;
-font-weight: 100;
-mix-blend-mode: difference; */
 
 .logo-text:hover {
+  /* Можна налаштувати ховер тут */
 }
 
-
-
-
-/* ============================= */
-/* NAVIGATION                    */
-/* ============================= */
+/*====================================
+=           6. NAVIGATION            =
+====================================*/
 
 .landing-nav ul {
   list-style: none;
@@ -206,9 +198,9 @@ mix-blend-mode: difference; */
   display: none;
 }
 
-/* ============================= */
-/* HEADER BUTTONS                 */
-/* ============================= */
+/*====================================
+=         7. HEADER BUTTONS          =
+====================================*/
 
 .header-buttons-wrapper {
   display: flex;
@@ -246,15 +238,15 @@ mix-blend-mode: difference; */
   color: #555;
 }
 
-/* ============================= */
-/* MOBILE NAVIGATION             */
-/* ============================= */
+/*====================================
+=          8. MOBILE NAV             =
+====================================*/
 
 @media (max-width: 768px) {
   .menu-toggle  {
     position: absolute;
     top: 14px;
-    right: 10px;
+    right: 5rem;
     display: block;
     cursor: pointer;
   }
@@ -357,36 +349,44 @@ mix-blend-mode: difference; */
     color: #007bff;
   }
 
-.logo-container {
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  transform: translate(0, 0);
-  font-size: 1.5rem;
-  z-index: 99;
-}
+  .logo-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 99;
+  }
 
-.logo-container.false{
-  position: absolute;
-  top: 15px;
-  left: 15px;
-  transform: translate(0, 0);
-  transition: all 1s ease;
-  z-index: 999;
-  display: none;
-}
+  .logo-container.false{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 999;
+    display: none;
+  }
 
-.header.scrolled {
-    padding-top: 80px;
-  z-index: 99;
+  .header.scrolled .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: translate(0, 0);
+  transition: all 0.5s ease;
+    font-size: 22px;
+    z-index: 99;
+  }
 
+  .header.scrolled {
+    z-index: 99;
   }
 }
 
+/*====================================
+=         9. SECTION WRAPPERS        =
+====================================*/
 
-/*========================
-   Section Wrappers
-========================*/
 .page-section {
   display: flex;
   align-items: center;
@@ -437,10 +437,6 @@ mix-blend-mode: difference; */
   max-width: 750px;
   line-height: 100%;
   z-index: 10;
-/* 
-    font-size: calc(100vw / 2);
-    text-align: center;
-    margin: 0; */
 }
 
 .align-left {
@@ -448,15 +444,15 @@ mix-blend-mode: difference; */
 }
 
 .section-description-text{
-    font-size: 24px;
-    margin-top: 20px;
-    max-width: 1000px;
-    font-weight: 100;
+  font-size: 24px;
+  margin-top: 20px;
+  max-width: 1000px;
+  font-weight: 100;
 }
 
-/*========================
-   Section Specific Styles
-========================*/
+/*====================================
+=       10. SECTION-SPECIFIC         =
+====================================*/
 
 /* Section 1 – First Screen */
 .first-screen {
@@ -501,7 +497,6 @@ mix-blend-mode: difference; */
   color: #010101;
 }
 
-
 .section-content {
   width: 100%;
   align-self: flex-start;
@@ -516,7 +511,7 @@ mix-blend-mode: difference; */
   justify-content: center;
 }
 
-/* Section Stories */
+/* Section Stories (4) */
 .section-stories {
   padding: 150px 100px;
   display: flex;
@@ -629,7 +624,6 @@ mix-blend-mode: difference; */
   max-width: 750px;
   line-height: 100%;
   z-index: 10;
-
 }
 
 .contacts {
@@ -670,9 +664,10 @@ mix-blend-mode: difference; */
   color: #010101;
 }
 
-/*========================
-   Footer
-========================*/
+/*====================================
+=               11. FOOTER           =
+====================================*/
+
 .section-footer{
   flex-direction: column;
   align-items: flex-start;
@@ -700,9 +695,10 @@ mix-blend-mode: difference; */
   opacity: 0.7;
 }
 
-/*========================
-   Canvas for 3D Scene
-========================*/
+/*====================================
+=        12. CANVAS 3D SCENE         =
+====================================*/
+
 canvas {
   position: fixed;
   top: 0;
@@ -713,9 +709,13 @@ canvas {
   background: none !important;
 }
 
-/* ============================= */
-/* Mobile Styles (до 768px)      */
-/* ============================= */
+/*====================================
+=       13. MEDIA QUERIES (768px)    =
+   (Розширення, що вже почалися вище)
+====================================*/
+
+/* Тут налаштування для max-width: 768px вже розташовані в блоці 8 (MOBILE NAV) */
+/* Та додаткові глобальні правки для секцій унизу */
 
 @media (max-width: 768px) {
   /* ============================= */
@@ -734,15 +734,6 @@ canvas {
     font-size: 1.5rem;
   }
 
-  /* ============================= */
-  /* Header (Мобільна версія)      */
-  /* ============================= */
-
-  .header {
-  padding: 0;
-  z-index: 999;
-
-  }
   /* .logo-text {
     font-size: 2rem;
   } */
@@ -789,7 +780,6 @@ canvas {
   /* Sections                      */
   /* ============================= */
 
-  
   .page-section {
     flex-direction: column;
     height: auto;
@@ -806,7 +796,7 @@ canvas {
     margin-top: 16px;
     max-width: 1000px;
     font-weight: 100;
-}
+  }
 
   /* Section 1 – First Screen */
   .first-screen {
@@ -818,24 +808,20 @@ canvas {
 
   .first-screen-content {
     width: 100%;
-    /* padding: 0 20px; */
     text-align: center;
   }
 
   .first-screen-title {
-
     position: relative;
     padding: 1rem 2rem;
     transform: translateX(-50%);
     text-align: center;
     font-size: 44px;
     font-weight: bold;
-    transition: all 0.3s ease; /* Додаємо плавність */
+    transition: all 0.3s ease;
     z-index: 999;
     mix-blend-mode: difference;
 
-
-    font-size: 44px;
     /* margin-bottom: 20px; */
   }
 
@@ -934,38 +920,33 @@ canvas {
     width: 100%;
   }
 
-
   .contacts a {
     font-size: 20px;
     color: inherit;
     text-decoration: none;
     transition: color 0.8s ease;
   }
-  
-  .contacts a:hover {
-  color: #544545;
 
+  .contacts a:hover {
+    color: #544545;
   }
 
   .social-icons {
     font-size: 50px;
     justify-content: center;
-    /* margin: 20px auto; */
   }
 
-  /* ============================= */
-  /* Footer                        */
-  /* ============================= */
-
+  /* Footer */
   .landing-footer {
     padding: 20px;
     text-align: center;
   }
 }
 
-/* ============================= */
-/* Extra Small Screens (до 480px) */
-/* ============================= */
+/*====================================
+=   14. EXTRA SMALL (max-width:480)  =
+====================================*/
+
 @media (max-width: 480px) {
   /* Глобальні стилі */
   body {
@@ -1000,7 +981,7 @@ canvas {
     text-align: center;
     font-size: 36px;
     font-weight: bold;
-    transition: all 0.3s ease; /* Додаємо плавність */
+    transition: all 0.3s ease;
     z-index: 999;
     mix-blend-mode: difference;
   }
