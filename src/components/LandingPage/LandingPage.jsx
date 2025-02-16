@@ -210,7 +210,6 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
         <Section sectionNumber={1} className="first-screen">
           <motion.div className="first-screen-content glass-overlay">
             {!isScrolled && (
-              <motion.h1 className="first-screen-title" style={{ scale: logoScale, x: logoX, y: logoY }}>
                         <motion.div 
                           className={`first-screen-title ${(menuOpen || isScrolled) ? "in-header" : ""}`}
                           style={isScrolled ? {} : { scale: logoScale, x: logoX, y: logoY }}
@@ -219,7 +218,6 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
                             <span className="logo-sub">project</span>
                             </a>
                         </motion.div>
-              </motion.h1>
             )}
               <Title className="first-screen-description" as="p">
                 Start with Nothing - create Everything
