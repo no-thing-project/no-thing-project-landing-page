@@ -202,11 +202,43 @@ h2 {
 =         7. HEADER BUTTONS          =
 ====================================*/
 
+.donation-header-button {
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.donation-button {
+  display: inline-block;
+  background-color: #fff;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 10px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.donation-button:hover {
+  background-color: #111;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.donation-button:active {
+  background-color: #fff;
+  transform: scale(0.98);
+}
+
+
+
 .header-buttons-wrapper {
   display: flex;
   align-items: center;
-  gap: 12px;
+  padding-left: 40px;
 }
+
 
 .header-buttons {
   display: flex;
@@ -382,6 +414,15 @@ h2 {
   .header.scrolled {
     z-index: 99;
   }
+
+  .donation-header-button {
+    position: absolute;
+    top: 18px;
+    right: 9rem;
+    display: block;
+    cursor: pointer;
+  }
+  
 }
 
 /*====================================

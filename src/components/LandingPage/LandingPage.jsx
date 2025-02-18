@@ -191,6 +191,16 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
             </label>
           </div>
         </div>
+        <div className="donation-header-button">
+          <motion.a 
+            href="https://www.paypal.com/donate/?hosted_button_id=FFPAVCYLTSZV6" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            className="donation-button"
+          >
+            Donate
+          </motion.a>
+        </div>
         <div className="header-buttons-wrapper">
           {showDebugButtons && (
             <motion.div className="header-buttons" {...fadeInUp(0.7)}>
@@ -276,7 +286,7 @@ const LandingPage = ({ hdrTexture, showDebugButtons, showHubButton, isMobile }) 
 
         {/* Секція 3 – Великий текст */}
         <Section sectionNumber={3} className="section3" id="section3">
-          <motion.h2 className="section-title-text glass-overlay" {...fadeInUp(0.2)}>
+          <motion.h2 className="section-title-text" {...fadeInUp(0.2)}>
             {"NOTHING".split(" ").map((word, idx) => (
               <a key={idx} style={{ display: "block" }}>
                 {word}
