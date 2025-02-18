@@ -1,18 +1,17 @@
-name: No.Thing Project - CI/CD Workflow
+name: Nothing Project Build
 
 on:
   push:
     branches:
       - master
-      - staging
       - development
 
 permissions:
   contents: write
 
 env:
-  NODE_VERSION: 20.12
   ACTIONS_DEPLOY_ACCESS_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
+  USERNAME_GIT: ${{ secrets.USERNAME_GIT }}
   CI: false
 
 jobs:
@@ -20,24 +19,25 @@ jobs:
     name: Build and Deploy 🔥
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Repository 🛎
+      - name: Checkout code
         uses: actions/checkout@v3
-
-      - name: Setup Node.js ⚙️
+        
+      - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: ${{ env.NODE_VERSION }}
-          cache: "npm"
-
-      - name: Install Dependencies 🤖
+          node-version: '20.12'
+          
+      - name: Install dependencies 🤖
         run: npm install
 
       - name: Set Environment Variables 🌍
         run: |
-          if [[ $GITHUB_REF == "refs/heads/master" ]]; then
+          if [[ "$GITHUB_REF" == "refs/heads/master" ]]; then
             echo "APP_ENV=production" >> $GITHUB_ENV
-          else [[ $GITHUB_REF == "refs/heads/development" ]]; then
+          elif [[ "$GITHUB_REF" == "refs/heads/staging" ]]; then
             echo "APP_ENV=staging" >> $GITHUB_ENV
+          else
+            echo "APP_ENV=development" >> $GITHUB_ENV
           fi
           echo "Using Environment: $APP_ENV"
 
@@ -49,9 +49,9 @@ jobs:
         run: npm run build:${{ env.APP_ENV }}
 
       - name: Deploy to GitHub Pages 🚀
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npx gh-pages -d build -u "github-actions <support+actions@github.com>"
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npx gh-pages -d build -u "github-actions-landing <support+actions@github.com>"
