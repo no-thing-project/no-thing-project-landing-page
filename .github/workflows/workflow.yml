@@ -1,17 +1,18 @@
-name: Nothing Project Build
+name: No.Thing Project - CI/CD Workflow
 
 on:
   push:
     branches:
       - master
+      - staging
       - development
 
 permissions:
   contents: write
 
 env:
+  NODE_VERSION: 20.12
   ACTIONS_DEPLOY_ACCESS_TOKEN: ${{ secrets.ACTIONS_DEPLOY_ACCESS_TOKEN }}
-  USERNAME_GIT: ${{ secrets.USERNAME_GIT }}
   CI: false
 
 jobs:
@@ -19,23 +20,38 @@ jobs:
     name: Build and Deploy 🔥
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout code
+      - name: Checkout Repository 🛎
         uses: actions/checkout@v3
-        
-      - name: Setup Node.js
+
+      - name: Setup Node.js ⚙️
         uses: actions/setup-node@v3
         with:
-          node-version: '20.12'
-          
-      - name: Install dependencies 🤖
+          node-version: ${{ env.NODE_VERSION }}
+          cache: "npm"
+
+      - name: Install Dependencies 🤖
         run: npm install
-    
-      - name: Build the project 👷
-        run: npm run build
+
+      - name: Set Environment Variables 🌍
+        run: |
+          if [[ $GITHUB_REF == "refs/heads/master" ]]; then
+            echo "APP_ENV=production" >> $GITHUB_ENV
+          else [[ $GITHUB_REF == "refs/heads/development" ]]; then
+            echo "APP_ENV=staging" >> $GITHUB_ENV
+          fi
+          echo "Using Environment: $APP_ENV"
+
+      - name: Debug Environment Variables 🕵️
+        run: |
+          echo "DEPLOY_ENV = $APP_ENV"
+
+      - name: Build the Project 👷
+        run: npm run build:${{ env.APP_ENV }}
 
       - name: Deploy to GitHub Pages 🚀
+        if: github.ref == 'refs/heads/development'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npx gh-pages -d build -u "github-actions-landing <support+actions@github.com>"
+          git remote set-url origin https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npx gh-pages -d build -u "github-actions <support+actions@github.com>"
