@@ -1,23 +1,63 @@
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
-# dependencies
-/node_modules
-/.pnp
+# Node.js dependencies
+node_modules/
+.pnp/
 .pnp.js
 
-# testing
-/coverage
+# Testing
+coverage/
 
-# production
-/build
+# Production build
+build/
+dist/
 
-# misc
+# Miscellaneous
 .DS_Store
+Thumbs.db
+
+# Environment variables (DO NOT COMMIT)
+.env
 .env.local
+.env.development
 .env.development.local
+.env.staging
+.env.staging.local
+.env.test
 .env.test.local
+.env.production
 .env.production.local
 
+# Logs
+logs/
+*.log
 npm-debug.log*
 yarn-debug.log*
-yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Parcel cache
+.cache/
+.parcel-cache/
+
+# Editor directories and files
+.idea/
+.vscode/
+*.sublime-workspace
+
+# OS generated files
+Thumbs.db
+.DS_Store
+
+# Temporary files
+*.swp
+*.swo
+*.swn
+*.bak
+*.tmp
+
+# GitHub Pages
+/gh-pages/
+
+# Ignore public-generated files (optional, depending on use case)
+public/*.cache

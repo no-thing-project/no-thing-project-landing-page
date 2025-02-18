@@ -11,3 +11,1090 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+
+
+/*====================================
+=            1. GLOBAL & RESET       =
+====================================*/
+
+:root {
+  --main-font: "JetBrains Mono", monospace;
+}
+body {
+  font-family: var(--main-font);
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+html,
+a,
+body {
+  cursor: none !important;
+}
+
+h1 {
+  font-size: 4rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+h2 {
+  font-size: 2rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/*====================================
+=         2. LAYOUT CONTAINERS       =
+====================================*/
+
+.landing-container {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  background-color: #f0f0f0;
+
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+}
+
+.background-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.scene-wrapper {
+  width: 100dvw;
+  height: 100dvh;
+}
+
+/*====================================
+=            3. GLASS OVERLAY        =
+====================================*/
+/* Прозора блюр-підкладка (поки що деактивовано позиціонування) */
+
+.glass-overlay {
+  /* position: absolute; */
+  /* top: 0; */
+  /* left: 0; */
+  /* width: 100%; */
+  /* height: 100%; */
+  /* background: rgba(255, 255, 255, 0.3); */
+  backdrop-filter: blur(10px);
+  box-shadow: (0px 10px);
+}
+
+/*====================================
+=               4. HEADER            =
+====================================*/
+
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  /* background: rgba(255, 255, 255, 0.3); */
+  box-shadow: 0px 1px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  transition: background 0.3s ease-in-out, padding 0.3s ease-in-out;
+  z-index: 99;
+}
+
+/* .header.scrolled {
+  background: rgba(255, 255, 255, 0.3);
+  padding-top: 35px;
+} */
+
+/*====================================
+=               5. LOGO             =
+====================================*/
+
+.logo-container {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  /* position: absolute; */
+  /* transform: translate(0, 0); */
+  transition: all 0.5s ease;
+  font-size: 1.5rem;
+  z-index: 99;
+}
+
+.logo-container.false{
+  display: none;
+}
+
+/* Логотип (у хедері після скролу) */
+.logo-container.in-header {
+  top: 20px;
+  left: 20px;
+  transform: translate(0, 0);
+  transition: all 0.5s ease;
+  z-index: 999;
+}
+
+/* Фіксація логотипа у хедері після переходу */
+.header.scrolled .logo-container {
+  position: absolute;
+  top: 16px;
+  left: 20px;
+  transform: translate(0, 0);
+  transition: all 0.5s ease;
+  font-size: 24px;
+  z-index: 99;
+}
+
+.logo-text {
+  text-decoration: none;
+  color: #111;
+  font-weight: 700;
+  line-height: 1.2;
+  letter-spacing: 0.02em;
+  transform: translate(0, 0);
+  transition: all 0.5s ease;
+  z-index: 999;
+}
+
+.logo-sub {
+  padding-left: 40%;
+  z-index: 999;
+}
+
+.logo-text:hover {
+  /* Можна налаштувати ховер тут */
+}
+
+/*====================================
+=           6. NAVIGATION            =
+====================================*/
+
+.landing-nav ul {
+  list-style: none;
+  display: flex;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+}
+
+.landing-nav ul li a {
+  text-decoration: none;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: 500;
+  transition: color 0.3s ease-in-out;
+}
+
+.landing-nav ul li a:hover {
+  color: #555;
+}
+
+.menu-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menu-toggle {
+  display: none;
+}
+
+.menu-icon {
+  display: none;
+}
+
+/*====================================
+=         7. HEADER BUTTONS          =
+====================================*/
+
+.donation-header-button {
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+.donation-button {
+  display: inline-block;
+  background-color: #fff;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 13px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.donation-button:hover {
+  background-color: #111;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.donation-button:active {
+  background-color: #fff;
+  transform: scale(0.98);
+}
+
+
+
+.header-buttons-wrapper {
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
+
+
+.header-buttons {
+  display: flex;
+  gap: 12px;
+}
+
+.header-buttons button {
+  padding: 10px 18px;
+  background: #222;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out;
+}
+
+.header-buttons button:hover {
+  background: #333;
+}
+
+.header-hub-button a {
+  font-size: 1rem;
+  color: #010101;
+  text-decoration: none;
+  transition: color 0.3s ease-in-out;
+}
+
+.header-hub-button a:hover {
+  color: #555;
+}
+
+/*====================================
+=          8. MOBILE NAV             =
+====================================*/
+
+@media (max-width: 930px) {
+  .menu-toggle  {
+    position: absolute;
+    top: 14px;
+    right: 5rem;
+    display: block;
+    cursor: pointer;
+  }
+  .menu-checkbox {
+    display: none;
+  }
+
+  .menu-icon {
+    width: 45px;
+    height: 45px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  .hamburger {
+    width: 24px;
+    height: 3px;
+    background: black;
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: black;
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hamburger::before {
+    top: -8px;
+  }
+
+  .hamburger::after {
+    top: 8px;
+  }
+
+  .menu-checkbox:checked + .menu-icon .hamburger {
+    background: transparent;
+  }
+
+  .menu-checkbox:checked + .menu-icon .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+
+  .menu-checkbox:checked + .menu-icon .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+
+  .landing-nav {
+    display: none;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    transition: max-height 0.3s ease-out;
+    flex-direction: column;
+  }
+
+  .landing-nav.open {
+    display: flex;
+    right: 2rem;
+    max-height: 100%;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+
+  .menu-checkbox:checked ~ .landing-nav {
+    transform: translateX(0);
+  }
+
+  .landing-nav ul {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .menu-item {
+    margin: 10px 0;
+  }
+
+  .menu-item a {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .menu-item a:hover {
+    color: #007bff;
+  }
+
+  .logo-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 99;
+  }
+
+  .logo-container.false{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 999;
+    display: none;
+  }
+
+  .header {
+      padding: 35px;
+  }
+
+  .header.scrolled .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: translate(0, 0);
+  transition: all 0.5s ease;
+    font-size: 22px;
+    z-index: 99;
+  }
+
+  .header.scrolled {
+    z-index: 99;
+  }
+
+  .donation-header-button {
+    padding-left: 0px;
+    position: absolute;
+    top: 14px;
+    right: 9rem;
+    display: block;
+    cursor: pointer;
+  }  
+}
+
+/*====================================
+=         9. SECTION WRAPPERS        =
+====================================*/
+
+.page-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+}
+
+.section-wrapper {
+  max-width: 1200px;
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* За замовчуванням центровано */
+  justify-content: center;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.section-wrapper.left-align {
+  align-items: flex-start;
+  text-align: left;
+  margin-left: 0;
+}
+
+.section-wrapper.right-align {
+  align-items: flex-end;
+  text-align: right;
+  margin-right: 0;
+}
+
+.section-wrapper-full {
+  width: 100vw;
+  overflow: hidden;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.section-title-text {
+  font-size: 120px;
+  font-weight: 100;
+  max-width: 750px;
+  line-height: 100%;
+  z-index: 10;
+}
+
+.align-left {
+  text-align: left !important;
+}
+
+.section-description-text{
+  font-size: 24px;
+  margin-top: 20px;
+  max-width: 1000px;
+  font-weight: 100;
+}
+
+/*====================================
+=       10. SECTION-SPECIFIC         =
+====================================*/
+
+/* Section 1 – First Screen */
+.first-screen {
+  padding-top: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 10;
+  color: #010101;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.first-screen-content {
+  max-width: 1000px;
+}
+
+.first-screen-title {
+  position: relative;
+  padding: 1rem 8rem;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 74px;
+  font-weight: bold;
+  transition: all 0.3s ease; /* Додаємо плавність */
+  z-index: 999;
+  mix-blend-mode: difference;
+}
+
+.first-screen-description {
+  font-size: 36px;
+  padding: 4rem;
+  text-align: left;
+  font-weight: 100;
+  mix-blend-mode: difference;
+}
+
+/* Section 2 – Who We Are */
+.section2 {
+  height: 50vh;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 150px 100px;
+  z-index: 10;
+  color: #010101;
+}
+
+.section-content {
+  width: 100%;
+  align-self: flex-start;
+  text-align: left;
+}
+
+/* Section 3 – Large Text */
+.section3 {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Section Stories (4) */
+.section-stories {
+  padding: 150px 100px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stories-container {
+  width: 100%;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  gap: 150px;
+  z-index: 10;
+}
+
+.story {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.story-content {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.story:nth-child(even) .story-content {
+  flex-direction: row-reverse;
+}
+
+.story:nth-child(even) .story-name {
+  margin-left: auto;
+}
+
+.story-photo img {
+  width: 300px;
+  height: 450px;
+  object-fit: cover;
+}
+
+.story-text {
+  max-width: 600px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.story-title-text {
+  font-size: 64px;
+  margin: 0;
+}
+
+.story-description-text{
+  font-size: 18px;
+  margin-top: 20px;
+  max-width: 1000px;
+  font-weight: 100;
+}
+
+/* Section 5 – Interesting */
+.section5 {
+  width: 100vw;
+  padding: 50px 20px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.interesting-container {
+  overflow: hidden;
+  width: 100vw;
+}
+
+.interesting-wrapper {
+  display: inline-block;
+  white-space: nowrap;
+}
+
+.interesting-text {
+  font-size: 400px;
+  text-transform: uppercase;
+  display: inline-block;
+  white-space: nowrap;
+  position: relative;
+  margin: 0;
+  padding: 0;
+}
+
+.interesting-text::after {
+  content: attr(data-text);
+  position: absolute;
+  left: 100%;
+  top: 0;
+  white-space: nowrap;
+}
+
+/* Section 6 – Contacts */
+.section6 {
+  padding-top: 150px;
+  padding-left: 20px;
+  z-index: 10;
+}
+
+.contacts-title-text{
+  font-size: 120px;
+  font-weight: 100;
+  max-width: 750px;
+  line-height: 100%;
+  z-index: 10;
+}
+
+.contacts {
+  max-width: 800px;
+  text-align: left;
+  font-size: 24px;
+  line-height: 1.5;
+  margin: 50px 100px;
+}
+
+.contacts p {
+  font-family: "JetBrains Mono", monospace;
+  font-size: 24px;
+  font-weight: 100;
+  margin: 10px 0;
+  color: #010101;
+}
+
+.contacts a {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.8s ease;
+}
+
+.contacts a:hover {
+  color: #544545;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: flex-start;
+  gap: 30px;
+  margin: 20px auto;
+}
+
+.social-icon {
+  font-size: 48px;
+  color: #010101;
+}
+
+/*====================================
+=               11. FOOTER           =
+====================================*/
+
+.section-footer{
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  z-index: 11;
+  color: #010101;
+}
+.landing-footer {
+  position: relative;
+  bottom: 50px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 0.9rem;
+  color: #333;
+}
+
+.brand {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.rights {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+/*====================================
+=        12. CANVAS 3D SCENE         =
+====================================*/
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none;
+  background: none !important;
+}
+
+/*====================================
+=       13. MEDIA QUERIES (930px)    =
+   (Розширення, що вже почалися вище)
+====================================*/
+
+/* Тут налаштування для max-width: 930px вже розташовані в блоці 8 (MOBILE NAV) */
+/* Та додаткові глобальні правки для секцій унизу */
+
+@media (max-width: 930px) {
+  /* ============================= */
+  /* Global Styles                 */
+  /* ============================= */
+
+  body {
+    font-size: 16px;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+  }
+
+  /* .logo-text {
+    font-size: 2rem;
+  } */
+
+  .landing-nav ul {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    display: none;
+  }
+
+  .landing-nav.open ul {
+    display: flex;
+  }
+
+  /* Бургер-меню */
+  .hamburger {
+    display: block;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+  }
+
+  .mobile-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 80%;
+    max-width: 300px;
+    height: 100%;
+    background: none;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-out;
+    z-index: 1050;
+  }
+
+  .mobile-nav.open {
+    transform: translateX(0);
+  }
+
+  /* ============================= */
+  /* Sections                      */
+  /* ============================= */
+
+  .page-section {
+    flex-direction: column;
+    height: auto;
+    padding: 50px 20px;
+  }
+
+  .section-title-text{
+    font-size: calc(100vw / 5);
+    font-weight: 60;  
+  }
+
+  .section-description-text{
+    font-size: 18px;
+    margin-top: 16px;
+    max-width: 1000px;
+    font-weight: 100;
+  }
+
+  /* Section 1 – First Screen */
+  .first-screen {
+    height: 100vh;
+    padding: 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .first-screen-content {
+    width: 100%;
+    text-align: center;
+  }
+
+  .first-screen-title {
+    position: relative;
+    padding: 1rem 2rem;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 44px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    z-index: 999;
+    mix-blend-mode: difference;
+
+    /* margin-bottom: 20px; */
+  }
+
+  .first-screen-description {
+    padding: 4rem;
+    font-size: 18px;
+    text-align: center;
+  }
+
+  /* Section 2 – Who We Are */
+  .section2 {
+    padding: 40px 20px;
+    height: auto;
+  }
+
+  /* Section 3 – Large Text */
+  .section3 {
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Section 4 – Stories */
+  .section-stories {
+    padding: 20px;
+    display: block;
+    text-align: center;
+  }
+
+  .stories-container {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+  .story {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+  }
+
+  .story:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+  }
+
+  .story-content {
+    display: block;
+  }
+
+  .story-photo {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 10px;
+  }
+
+  .story-photo img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .story-text {
+    width: 100%;
+    text-align: left;
+  }
+
+  .story-title-text {
+    font-size: 20px;
+    margin-bottom: 10px;
+  }
+
+  .story-description-text {
+    font-size: 18px;
+  }
+
+  /* Section 5 – Interesting */
+  .section5 {
+    padding: 40px 20px;
+  }
+
+  .interesting-text {
+    font-size: calc(100vw / 3);
+  }
+
+  /* Section 6 – Contacts */
+  .contacts-title-text{
+    font-size: calc(100vw / 7);
+    font-weight: 60;  
+  }
+
+  .contacts {
+    margin: 20px auto;
+    width: 100%;
+  }
+
+  .contacts a {
+    font-size: 20px;
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.8s ease;
+  }
+
+  .contacts a:hover {
+    color: #544545;
+  }
+
+  .social-icons {
+    font-size: 50px;
+    justify-content: center;
+  }
+
+  /* Footer */
+  .landing-footer {
+    padding: 20px;
+    text-align: center;
+  }
+}
+
+/*====================================
+=   14. EXTRA SMALL (max-width:480)  =
+====================================*/
+
+@media (max-width: 480px) {
+  /* Глобальні стилі */
+  body {
+    font-size: 14px;
+  }
+
+  h1 {
+    font-size: 2rem;
+  }
+
+  h2 {
+    font-size: 1.2rem;
+  }
+
+  /* .logo-text {
+    font-size: 1.8rem;
+  } */
+
+  .hamburger {
+    font-size: 1.8rem;
+  }
+
+  /* First Screen */
+  .first-screen {
+    padding: 20px;
+  }
+
+  .first-screen-title {
+    position: relative;
+    right: 2rem;
+    transform: translateX(-50%);
+    text-align: center;
+    font-size: 36px;
+    font-weight: bold;
+    transition: all 0.3s ease;
+    z-index: 999;
+    mix-blend-mode: difference;
+  }
+
+  .first-screen-description {
+    padding: 4rem;
+    font-size: 16px;
+  }
+
+  /* Секції */
+  .page-section {
+    padding: 40px 15px;
+  }
+
+  .section2 {
+    padding: 30px 15px;
+  }
+
+  .section3 {
+    padding: 15px;
+  }
+
+  .story-title-text {
+    font-size: 20px;
+  }
+
+  .story-description-text {
+    font-size: 18px;
+  }
+
+  /* Footer */
+  .landing-footer {
+    font-size: 0.8rem;
+  }
+
+  .brand {
+    font-size: 1rem;
+  }
+
+  .rights {
+    font-size: 10px;
+  }
+
+  .social-icons {
+    font-size: 50px;
+  }
+}
