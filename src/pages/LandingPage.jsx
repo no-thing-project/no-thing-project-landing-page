@@ -27,7 +27,7 @@ const LandingPage = ({ hdrTexture, isMobile }) => {
 
       <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
 
-      <motion.div className="landing-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
+      <motion.div className="main-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
         <div className="background-container">
           <Suspense fallback={<div>Loading 3D scene...</div>}>
             <Scene3D hdrTexture={hdrTexture} />

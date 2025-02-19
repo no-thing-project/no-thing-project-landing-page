@@ -11,7 +11,7 @@ const fadeInUp = (delay = 0.2) => ({
 
 const NothingSection = () => {
   return (
-    <Section sectionNumber={3} className="section3" id="section3">
+    <Section sectionNumber={3} className="section-nothing" id="section-nothing">
       <motion.h2 className="section-title-text" {...fadeInUp(0.2)}>
         {"NOTHING".split(" ").map((word, idx) => (
           <a key={idx} style={{ display: "block" }}>

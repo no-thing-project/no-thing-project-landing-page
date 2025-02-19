@@ -15,19 +15,19 @@ const fadeInUp = (delay = 0.2) => ({
 
 const StoriesSection = () => {
   return (
-    <Section sectionNumber={4} className="section-stories" id="section4">
-      <div className="stories-container">
+    <Section sectionNumber={4} className="section-stories" id="section-stories">
+      <div className="container-stories">
         <AnimatedTitle as="h2" className="section-title-text" delay={0.2}>
           FOR YOU
         </AnimatedTitle>
         {storiesData.map((story, i) => (
           <motion.div key={i} {...fadeInUp(0.2 + i * 0.2)}>
-            <div className="story glass-overlay">
+            <div className="story-data glass-overlay">
               <div className="story-content">
                 <div className="story-photo">
                   <img src={`${config.PUBLIC_URL}${story.img}`} alt={story.name} />
                 </div>
-                <div className="story-text">
+                <div className="container-story-text">
                   <h3 className="story-title-text">{story.name}</h3>
                   <p className="story-description-text">{story.text}</p>
                 </div>

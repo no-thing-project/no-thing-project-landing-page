@@ -10,13 +10,12 @@ const InterestingSection = () => {
   }, []);
 
   return (
-    <Section sectionNumber={5} className="section5" id="section5">
-      <div className="interesting-container glass-overlay">
-        <motion.div id="infinite-scroll" className="interesting-wrapper">
+    <Section sectionNumber={5} className="section-interesting" id="section-interesting">
+      <div className="container-interesting glass-overlay">
+        <motion.div id="infinite-scroll" className="wrapper-interesting">
           <a ref={interestingRef} className="interesting-text">
             INTERESTING?
           </a>
-          <a className="interesting-text">INTERESTING?</a>
         </motion.div>
       </div>
     </Section>

@@ -12,13 +12,13 @@ const fadeInUp = (delay = 0.2) => ({
 
 const ContactSection = () => {
   return (
-    <Section sectionNumber={6} className="contacts-section" id="contacts-section">
-      <div className="section-content">
-        <AnimatedTitle as="h2" className="contacts-title-text" motionProps={fadeInUp(0.2)}>
+    <Section sectionNumber={6} className="section-contacts" id="section-contacts">
+      <div className="container-main">
+        <AnimatedTitle as="h2" className="section-title-text" motionProps={fadeInUp(0.2)}>
           CONTACT US
         </AnimatedTitle>
-        <div className="contacts-container">
-          <div className="contacts glass-overlay">
+        <div className="container-contacts glass-overlay">
+          <div className="contacts ">
             <motion.p {...fadeInUp(0.3)}>
               <a href="mailto:someone@nothingproject.io">
                 someone@nothingproject.io
@@ -29,7 +29,7 @@ const ContactSection = () => {
                 noone@nothingproject.io
               </a>
             </motion.p>
-            <div className="social-icons">
+            <div className="container-social-icons">
               {[
                 { href: "https://t.me/no_thing_project", icon: "fab fa-telegram" },
                 { href: "https://www.instagram.com/no.thing.project", icon: "fab fa-instagram" },

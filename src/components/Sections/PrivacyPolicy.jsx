@@ -3,10 +3,10 @@ import Section from "./Section";
 
 const PrivacyPolicy = () => {
   return (
-    <Section id="privacy-policy" className="policy-section">
-      <div className="policy-container glass-overlay">
-        <h2 className="policy-title">Privacy Policy</h2>
-        <p className="policy-text">At No.Thing Project, we value your privacy. This Privacy Policy outlines how we collect, use, and protect your information when you visit our website.</p>
+    <Section id="privacy-policy" className="section-policy">
+      <div className="container-policy glass-overlay">
+        <h2 className="policy-title-text">Privacy Policy</h2>
+        <p className="policy-description-tex">At No.Thing Project, we value your privacy. This Privacy Policy outlines how we collect, use, and protect your information when you visit our website.</p>
         
         <h3>Information We Collect</h3>
         <p>We collect minimal data necessary to improve our website, such as analytics and contact information you voluntarily provide.</p>

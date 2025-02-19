@@ -12,11 +12,7 @@ code {
     monospace;
 }
 
-
-
-/*====================================
-=            1. GLOBAL & RESET       =
-====================================*/
+/*  GLOBAL & RESET */
 
 :root {
   --main-font: "JetBrains Mono", monospace;
@@ -45,11 +41,32 @@ h2 {
   margin: 0;
 }
 
-/*====================================
-=         2. LAYOUT CONTAINERS       =
-====================================*/
+.align-left {
+  text-align: left !important;
+}
 
-.landing-container {
+.align-right {
+  text-align: right !important;
+}
+
+.align-right {
+  text-align: center !important;
+}
+
+/*  CANVAS 3D SCENE */
+
+canvas {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw !important;
+  height: 100vh !important;
+  pointer-events: none;
+  background: none !important;
+}
+
+/* LAYOUT CONTAINERS */
+.main-container {
   position: relative;
   width: 100vw;
   min-height: 100vh;
@@ -75,27 +92,14 @@ h2 {
   height: 100dvh;
 }
 
-/*====================================
-=            3. GLASS OVERLAY        =
-====================================*/
-/* Прозора блюр-підкладка (поки що деактивовано позиціонування) */
-
+/* GLASS OVERLAY */
 .glass-overlay {
-  /* position: absolute; */
-  /* top: 0; */
-  /* left: 0; */
-  /* width: 100%; */
-  /* height: 100%; */
-  /* background: rgba(255, 255, 255, 0.3); */
   backdrop-filter: blur(15px);
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   border-radius: 12px;
 }
 
-/*====================================
-=               4. HEADER            =
-====================================*/
-
+/* HEADER */
 .header {
   position: fixed;
   top: 0;
@@ -113,15 +117,8 @@ h2 {
   z-index: 99;
 }
 
-/* .header.scrolled {
-  background: rgba(255, 255, 255, 0.3);
-  padding-top: 35px;
-} */
 
-/*====================================
-=               5. LOGO             =
-====================================*/
-
+/* LOGO */
 .logo-container {
   position: absolute;
   top: 20px;
@@ -137,7 +134,6 @@ h2 {
   display: none;
 }
 
-/* Логотип (у хедері після скролу) */
 .logo-container.in-header {
   top: 20px;
   left: 20px;
@@ -146,7 +142,6 @@ h2 {
   z-index: 999;
 }
 
-/* Фіксація логотипа у хедері після переходу */
 .header.scrolled .logo-container {
   position: absolute;
   top: 16px;
@@ -173,13 +168,8 @@ h2 {
   z-index: 999;
 }
 
-.logo-text:hover {
-  /* Можна налаштувати ховер тут */
-}
 
-/*====================================
-=           6. NAVIGATION            =
-====================================*/
+/* MENU NAVIGATION */
 
 .landing-nav ul {
   list-style: none;
@@ -215,101 +205,14 @@ h2 {
   display: none;
 }
 
-/*====================================
-=         7. HEADER BUTTONS          =
-====================================*/
 
-.donation-header-button {
-  display: flex;
-  align-items: center;
-  padding-left: 40px;
-}
+/* HEADER BUTTONS */
 
-.donation-button-header {
-  display: inline-block;
-  background-color: #fff;
-  color: #111;
-  font-size: 1.1rem;
-  font-weight: 500;
-  padding: 13px 20px;
-  border-radius: 25px;
-  text-decoration: none;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.3s ease, transform 0.3s ease;
-}
-
-.donation-button-header:hover {
-  background-color: #111;
-  color: #fff;
-  transform: scale(1.05);
-}
-
-.donation-button-header:active {
-  background-color: #fff;
-  transform: scale(0.98);
-}
-
-
-
-/*====================================
-=           8. DONATION SECTION         =
-====================================*/
-.donation-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-  padding: 50px 20px;
-  z-index: 11;
-}
-
-.donation-section-container {
-  max-width: 800px;
-}
-
-.donation-title-text {
-  font-size: 3rem;
-  margin-bottom: 10px;
-}
-
-.donation-description-text {
-  font-size: 1.2rem;
-  margin-bottom: 20px;
-}
-
-.donation-section-button {
-  display: inline-block;
-  background-color: #fff;
-  color: #111;
-  font-size: 2.1rem;
-  font-weight: 500;
-  padding: 13px 20px;
-  border-radius: 60px;
-  text-decoration: none;
-  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
-  transition: background-color 0.3s ease, transform 0.3s ease;;
-}
-
-.donation-section-button:hover {
-  background-color: #111;
-  color: #fff;
-  transform: scale(1.05);
-}
-
-.donation-section-button:active {
-  background-color: #fff;
-  transform: scale(0.98);
-}
-
-/*====================================
-=           9. HEADER BUTTONS WRAPPER            =
-====================================*/
 .header-buttons-wrapper {
   display: flex;
   align-items: center;
   padding-left: 40px;
 }
-
 
 .header-buttons {
   display: flex;
@@ -341,10 +244,40 @@ h2 {
   color: #555;
 }
 
-/*====================================
-=         9. SECTION WRAPPERS        =
-====================================*/
+/* HEADER DONATION BUTTON*/
+.container-donation-button-header {
+  display: flex;
+  align-items: center;
+  padding-left: 40px;
+}
 
+.donation-button-header {
+  display: inline-block;
+  background-color: #fff;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: 500;
+  padding: 13px 20px;
+  border-radius: 25px;
+  text-decoration: none;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.donation-button-header:hover {
+  background-color: #111;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.donation-button-header:active {
+  background-color: #fff;
+  transform: scale(0.98);
+}
+
+
+
+/* SECTIONS */
 .page-section {
   display: flex;
   align-items: center;
@@ -352,149 +285,227 @@ h2 {
   height: 100vh;
 }
 
-.section-wrapper {
-  max-width: 1200px;
-  width: auto;
+.section-first-screen {
   display: flex;
-  flex-direction: column;
-  align-items: center; /* За замовчуванням центровано */
-  justify-content: center;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
+  position: relative;
 
-.section-wrapper.left-align {
-  align-items: flex-start;
-  text-align: left;
-  margin-left: 0;
-}
-
-.section-wrapper.right-align {
-  align-items: flex-end;
-  text-align: right;
-  margin-right: 0;
-}
-
-.section-wrapper-full {
-  width: 100vw;
-  overflow: hidden;
-  padding: 0;
-  display: flex;
-  justify-content: center;
+  /* flex-direction: column; */
   align-items: center;
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-}
+  justify-content: center;
+  text-align: center;
 
-.section-title-text {
-  font-size: 120px;
-  font-weight: 100;
-  max-width: 750px;
-  line-height: 100%;
-  z-index: 10;
-}
-
-.align-left {
-  text-align: left !important;
-}
-
-.section-description-text{
-  font-size: 22px;
-  margin-top: 20px;
-  max-width: 1000px;
-  font-weight: 100;
-  padding: 2rem
-}
-
-
-
-/*====================================
-=       10. SECTION-SPECIFIC         =
-====================================*/
-
-/* Section 1 – First Screen */
-.first-screen {
   padding-top: 4rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  z-index: 10;
-  color: #010101;
   min-height: 100vh;
-  text-align: center;
+  z-index: 10;
+
 }
 
-.first-screen-content {
+.section-whatIs {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 150px 100px;
+  height: 50vh;
+  z-index: 10;
+}
+
+.section-nothing {
+  display: flex;
+  position: relative;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 150px 100px;
+  height: 50vh;
+  z-index: 10;
+}
+
+.section-stories {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 150px 100px;
+  height: 100%;
+  z-index: 10;
+}
+
+.section-interesting {
+  width: 100%;
+  height: 100%;
+
+  padding-top: 100px;
+  padding-bottom: 50px;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.section-donation {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 150px 100px;
+  height: 50vh;
+  z-index: 10;
+}
+
+.section-contacts {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  padding: 150px 100px;
+  height: 50vh;
+  z-index: 10;
+}
+
+.section-footer {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: flex-end;
+  text-align: center;
+
+  z-index: 999;
+}
+
+.section-policy {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  padding: 40px 20px;
+}
+
+/* CONTAINERS */
+
+.container-main {
+  width: 100%;
   max-width: 1000px;
 }
 
-.first-screen-title {
-  position: relative;
-  padding-top: 3rem;
-  transform: translateX(-50%);
-  text-align: center;
-  font-size: 74px;
-  font-weight: bold;
-  transition: all 0.3s ease; /* Додаємо плавність */
-  z-index: 999;
-  mix-blend-mode: difference;
-}
-
-.first-screen-description {
-  font-size: 36px;
-  text-align: center;
-  margin-top: 20px;
-  padding: 2rem;
-}
-
-/* Section 2 – Who We Are */
-.section2 {
-  height: 50vh;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 150px 100px;
-  z-index: 10;
-  color: #010101;
-}
-
-.section-content {
+.container-first-screen {
   width: 100%;
-  /* align-self: flex-start; */
-  /* text-align: left; */
+  max-width: 1000px;
 }
 
-/* Section 3 – Large Text */
-.section3 {
-  min-height: 100vh;
+.container-stories {
   display: flex;
+  position: relative;
+  flex-direction: column;
+
   align-items: center;
   justify-content: center;
+  text-align: center;
+
+  gap: 50px;
+
+  width: 100%;
+  max-width: 1000px;
+
+  z-index: 11;
 }
 
-/* Section Stories (4) */
-.section-stories {
-  padding: 150px 100px;
+.container-story-text {
   display: flex;
+  position: relative;
   flex-direction: column;
+
   align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  gap: 10px;
+
+  width: 100%;
+  max-width: 600px;
+
+  z-index: 11;
 }
 
-.stories-container {
+.container-interesting {
+  overflow: hidden;
+}
+
+.container-donation {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  gap: 10px;
+
   width: 100%;
   max-width: 800px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  z-index: 10;
+
+  z-index: 11;
 }
 
-.story {
+.container-footer {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: 100%;
+  padding: 0.5rem;
+
+  z-index: 999;
+}
+
+.container-social-icons {
+  display: flex;
+  justify-content: center;
+
+  gap: 30px;
+  margin: 20px auto;
+
+  z-index: 999;
+}
+
+.container-policy {
+  max-width: 800px;
+  width: 100%;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 20px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+/* STORIES CARDS */
+.story-data {
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -521,16 +532,57 @@ h2 {
   object-fit: cover;
 }
 
-.story-text {
-  max-width: 600px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+
+/* TEXT */
+
+/* TITLE TEXT */
+.section-title-text {
+  font-size: 120px;
+  font-weight: 100;
+  max-width: 750px;
+  line-height: 100%;
+  z-index: 10;
+}
+
+.first-screen-title-text {
+  position: relative;
+  padding-top: 3rem;
+  transform: translateX(-50%);
+  text-align: center;
+  font-size: 74px;
+  font-weight: bold;
+  transition: all 0.3s ease; /* Додаємо плавність */
+  z-index: 999;
+  mix-blend-mode: difference;
 }
 
 .story-title-text {
   font-size: 64px;
   margin: 0;
+}
+
+.policy-title-text {
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 20px;
+  color: #111;
+}
+
+/* DESCRIPTION TEXT */
+.section-description-text {
+  font-size: 22px;
+  margin-top: 20px;
+  max-width: 1000px;
+  font-weight: 100;
+  padding: 2rem
+}
+
+.first-screen-description-text {
+  font-size: 36px;
+  text-align: center;
+  margin-top: 20px;
+  padding: 2rem;
 }
 
 .story-description-text{
@@ -540,26 +592,15 @@ h2 {
   font-weight: 100;
 }
 
-/* Section 5 – Interesting */
-.section5 {
-  width: 100vw;
-  padding-top: 100px;
-  padding-bottom: 50px;
-  height: auto;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.policy-description-text {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #111;
+  margin-bottom: 15px;
 }
 
-.interesting-container {
-  overflow: hidden;
-}
 
-.interesting-wrapper {
-  display: inline-block;
-  white-space: nowrap;
-}
-
+/* INTERESTING TEXT */
 .interesting-text {
   font-size: 400px;
   text-transform: uppercase;
@@ -578,24 +619,12 @@ h2 {
   white-space: nowrap;
 }
 
-/* Section 6 – Contacts */
-.contacts-section {
-  display: flex;
-  justify-content: center;
-  align-items: start;
-  text-align: center;
-  padding: 50px 20px;
-  z-index: 10;
+.wrapper-interesting {
+  display: inline-block;
+  white-space: nowrap;
 }
 
-.contacts-title-text{
-  font-size: 120px;
-  font-weight: 100;
-  max-width: 750px;
-  line-height: 100%;
-  z-index: 10;
-}
-
+/* CONTACTS */
 .contacts {
   padding: 1rem;
   font-size: 24px;
@@ -621,52 +650,20 @@ h2 {
   color: #544545;
 }
 
-.social-icons {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin: 20px auto;
-}
 
+/* SOCIAL ICONS */
 .social-icon {
   font-size: 48px;
   color: #010101;
 }
 
-/*====================================
-=               11. FOOTER           =
-====================================*/
-
-.section-footer{
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  z-index: 11;
-  color: #010101;
-}
-
-.landing-footer {
-  position: relative;
-  bottom: 50px;
-  left: 50%;
-  transform: translateX(-50%);
-  text-align: center;
-  font-size: 0.9rem;
-  color: #333;
-}
-
-.footer-content {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 1rem;
-}
-
-.brand {
+/* FOOTER SECTION*/
+.footer-brand-text {
   font-weight: bold;
   text-transform: uppercase;
 }
 
-.rights {
+.footer-rights-text {
   font-size: 12px;
   opacity: 0.7;
 }
@@ -691,57 +688,44 @@ h2 {
   text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
-/* =================================
-=               12. POLICY           =
-====================================*/
 
-.policy-link {
+/* DONATION SECTION */
+.button-donation-section {
+  display: inline-block;
+  background-color: #fff;
   color: #111;
+  font-size: 2.1rem;
+  font-weight: 500;
+  padding: 13px 20px;
+  border-radius: 60px;
   text-decoration: none;
-  font-size: 16px;
-  transition: color 0.3s ease, text-shadow 0.3s ease;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.3s ease;;
 }
 
-.policy-section {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  padding: 40px 20px;
+.button-donation-section:hover {
+  background-color: #111;
+  color: #fff;
+  transform: scale(1.05);
 }
 
-.policy-container {
-  max-width: 800px;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 12px;
-  padding: 20px;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+.button-donation-section:active {
+  background-color: #fff;
+  transform: scale(0.98);
 }
 
-.policy-title {
-  font-size: 28px;
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 20px;
-  color: #111;
-}
-
-.policy-text {
-  font-size: 16px;
-  line-height: 1.6;
-  color: #111;
-  margin-bottom: 15px;
-}
-
-@media (max-width: 768px) {
-  .policy-container {
-    padding: 20px;
+/* MOBILE NAVIGATION */
+@media (max-width: 930px) {
+  body {
+    font-size: 16px;
   }
 
-  .policy-title {
-    font-size: 24px;
+  h1 {
+    font-size: 2.5rem;
+  }
+
+  h2 {
+    font-size: 1.5rem;
   }
 
   h3 {
@@ -751,32 +735,105 @@ h2 {
   p {
     font-size: 14px;
   }
+
+  .container-policy {
+    padding: 20px;
+  }
+
+  .policy-title-text {
+    font-size: 24px;
+  }
 }
-
-/*====================================
-=        12. CANVAS 3D SCENE         =
-====================================*/
-
-canvas {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw !important;
-  height: 100vh !important;
-  pointer-events: none;
-  background: none !important;
-}
-
-/*====================================
-=          8. MOBILE NAV             =
-====================================*/
-
-/*====================================
-=         1. MOBILE NAVIGATION       =
-====================================*/
 
 @media (max-width: 930px) {
-  /* Базові стилі меню */
+  /* Хедер */
+  .header {
+    padding: 35px;
+  }
+
+  .header.scrolled .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    font-size: 22px;
+    z-index: 99;
+  }
+
+  .header.scrolled {
+    z-index: 99;
+  }
+
+  /*LOGO */
+  .logo-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 99;
+  }
+
+  .logo-container.false {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 999;
+    display: none;
+  }
+
+  /* Список навігації */
+  .landing-nav {
+    display: none;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    transition: max-height 0.3s ease-out;
+    flex-direction: column;
+  }
+
+  .landing-nav.open {
+    display: flex;
+    right: 2rem;
+    max-height: 100%;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+
+  .landing-nav ul {
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+    display: none;
+  }
+  
+  .landing-nav.open ul {
+    display: flex;
+  }
+
+/* Menu */
+
+  .menu-item {
+    margin: 10px 0;
+  }
+
+  .menu-item a {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .menu-item a:hover {
+    color: #007bff;
+  }
+
   .menu-toggle {
     position: absolute;
     top: 14px;
@@ -784,7 +841,6 @@ canvas {
     display: block;
     cursor: pointer;
   }
-
   .menu-checkbox {
     display: none;
   }
@@ -801,7 +857,7 @@ canvas {
     box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
   }
 
-  /* Бургер-іконка */
+  /* Burger Menu */
   .hamburger {
     width: 24px;
     height: 3px;
@@ -843,149 +899,79 @@ canvas {
     top: 0;
   }
 
-  /* Навігаційне меню */
-  .landing-nav {
-    display: none;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
-    transition: max-height 0.3s ease-out;
-    flex-direction: column;
-  }
-
-  .landing-nav.open {
-    display: flex;
-    right: 2rem;
-    max-height: 100%;
-    height: 100vh;
-    width: 100%;
-    position: relative;
-  }
-
   .menu-checkbox:checked ~ .landing-nav {
     transform: translateX(0);
   }
 
-  /* Список навігації */
-  .landing-nav ul {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .menu-item {
-    margin: 10px 0;
-  }
-
-  .menu-item a {
-    display: block;
-    padding: 20px;
-    text-decoration: none;
-    font-size: 1rem;
-    color: #333;
-    transition: color 0.3s ease;
-  }
-
-  .menu-item a:hover {
-    color: #007bff;
-  }
-}
-
-/*====================================
-=         2. MOBILE HEADER           =
-====================================*/
-
-@media (max-width: 930px) {
-  /* Лого */
-  .logo-container {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    transform: translate(0, 0);
-    transition: all 0.5s ease;
-    z-index: 99;
-  }
-
-  .logo-container.false {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    transform: translate(0, 0);
-    transition: all 0.5s ease;
-    z-index: 999;
-    display: none;
-  }
-
-  /* Хедер */
-  .header {
-    padding: 35px;
-  }
-
-  .header.scrolled .logo-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    transform: translate(0, 0);
-    transition: all 0.5s ease;
-    font-size: 22px;
-    z-index: 99;
-  }
-
-  .header.scrolled {
-    z-index: 99;
-  }
-
-  /* Кнопка пожертвувань */
-  .donation-header-button {
+/* Buttons */
+  .container-donation-button-header {
     padding-left: 0px;
     position: absolute;
     top: 14px;
     right: 9rem;
     display: block;
     cursor: pointer;
-  }
+  }  
 }
 
-/*====================================
-=         3. RESPONSIVE TEXT         =
-====================================*/
 
 @media (max-width: 930px) {
-  body {
-    font-size: 16px;
-  }
-
-  h1 {
-    font-size: 2.5rem;
-  }
-
-  h2 {
-    font-size: 1.5rem;
-  }
-
-  /* Навігація */
-  .landing-nav ul {
-    flex-direction: column;
-    gap: 10px;
-    align-items: center;
-    display: none;
-  }
-
-  .landing-nav.open ul {
-    display: flex;
-  }
-}
-
-/*====================================
-=         4. MOBILE SECTIONS         =
-====================================*/
-
-@media (max-width: 930px) {
+/* Sections */
   .page-section {
     flex-direction: column;
     height: auto;
     padding: 50px 20px;
   }
 
+  .section-first-screen {
+    height: 100vh;
+    padding: 50px 20px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-whatIs {
+    padding: 50px 20px;
+    height: auto;
+  }
+
+  .section-nothing {
+    padding: 50px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .section-stories {
+    padding: 50px 20px;
+    display: block;
+    text-align: center;
+  }
+
+  .section-interesting{
+    padding-top: 40px;
+    padding-bottom: 40px;
+  }
+
+  .section-footer {
+    padding: 50px 20px;
+    text-align: center;
+  }
+
+/* Containers */
+  .container-first-screen {
+    width: 100%;
+    text-align: center;
+  }
+
+  .container-stories {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+  }
+
+
+  /* text styles */
   .section-title-text {
     font-size: calc(100vw / 5);
     font-weight: 60;
@@ -998,20 +984,7 @@ canvas {
     font-weight: 100;
   }
 
-  /* Перша секція */
-  .first-screen {
-    height: 100vh;
-    padding: 20px;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .first-screen-content {
-    width: 100%;
-    text-align: center;
-  }
-
-  .first-screen-title {
+  .first-screen-title-text {
     position: relative;
     padding-top: 3rem;
     transform: translateX(-50%);
@@ -1023,51 +996,27 @@ canvas {
     mix-blend-mode: difference;
   }
 
-  .first-screen-description {
+  .first-screen-description-text {
     padding: 4rem;
     font-size: 18px;
     text-align: center;
   }
-}
 
-/*====================================
-=         5. MOBILE FOOTER           =
-====================================*/
-
-@media (max-width: 930px) {
-  .landing-footer {
-    padding: 20px;
-    text-align: center;
+  .story-title-text {
+    font-size: 20px;
+    margin-bottom: 10px;
   }
 
-  /* Section 2 – Who We Are */
-  .section2 {
-    padding: 40px 20px;
-    height: auto;
+  .story-description-text {
+    font-size: 18px;
   }
 
-  /* Section 3 – Large Text */
-  .section3 {
-    padding: 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .interesting-text {
+    font-size: calc(100vw / 3);
   }
 
-  /* Section 4 – Stories */
-  .section-stories {
-    padding: 20px;
-    display: block;
-    text-align: center;
-  }
-
-  .stories-container {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-  .story {
+/* Stories Section */
+  .story-data {
     margin-bottom: 30px;
     padding-bottom: 20px;
   }
@@ -1095,42 +1044,12 @@ canvas {
     object-fit: cover;
   }
 
-  .story-text {
+  .container-story-text {
     width: 100%;
     text-align: left;
   }
 
-  .story-title-text {
-    font-size: 20px;
-    margin-bottom: 10px;
-  }
-
-  .story-description-text {
-    font-size: 18px;
-  }
-
-  /* Section 5 – Interesting */
-  .section5 {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-
-  .interesting-text {
-    font-size: calc(100vw / 3);
-  }
-
-}
-
-/*====================================
-=         6. MOBILE CONTACTS         =
-====================================*/
-
-@media (max-width: 930px) {
-  .contacts-title-text {
-    font-size: calc(100vw / 7);
-    font-weight: 60;
-  }
-
+/* Contacts Section */
   .contacts {
     margin: 10px auto;
   }
@@ -1146,22 +1065,13 @@ canvas {
     color: #544545;
   }
 
-  .social-icons {
+  .container-social-icons {
     font-size: 50px;
     justify-content: center;
   }
 
-  /* Footer */
-  .landing-footer {
-    padding: 20px;
-    text-align: center;
-  }
 }
 
-
-/*====================================
-=   14. EXTRA SMALL (max-width:480)  =
-====================================*/
 
 @media (max-width: 480px) {
   /* Глобальні стилі */
@@ -1186,11 +1096,11 @@ canvas {
   }
 
   /* First Screen */
-  .first-screen {
+  .section-first-screen{
     padding: 20px;
   }
 
-  .first-screen-title {
+  .first-screen-title-text {
     position: relative;
     right: 2rem;
     padding-top: 3rem;
@@ -1203,7 +1113,7 @@ canvas {
     mix-blend-mode: difference;
   }
 
-  .first-screen-description {
+  .first-screen-description-text {
     padding: 4rem;
     font-size: 18px;
   }
@@ -1213,11 +1123,11 @@ canvas {
     padding: 40px 15px;
   }
 
-  .section2 {
+  .section-whatIs {
     padding: 30px 15px;
   }
 
-  .section3 {
+  .section-nothing {
     padding: 15px;
   }
 
@@ -1230,19 +1140,19 @@ canvas {
   }
 
   /* Footer */
-  .landing-footer {
+  .section-footer{
     font-size: 0.8rem;
   }
 
-  .brand {
+  .footer-brand-text {
     font-size: 1rem;
   }
 
-  .rights {
+  .footer-rights-text {
     font-size: 10px;
   }
 
-  .social-icons {
+  .container-social-icons {
     font-size: 50px;
   }
 }

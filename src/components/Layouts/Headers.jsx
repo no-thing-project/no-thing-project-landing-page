@@ -66,7 +66,7 @@ const Header = ({ showDebugButtons, showHubButton }) => {
         </div>
       </div>
 
-      <div className="donation-header-button">
+      <div className="container-donation-button-header">
         <motion.a
           href="https://www.paypal.com/donate/?hosted_button_id=FFPAVCYLTSZV6"
           target="_blank"

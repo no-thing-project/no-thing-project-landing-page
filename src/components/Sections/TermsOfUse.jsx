@@ -3,10 +3,10 @@ import Section from "./Section";
 
 const TermsOfUse = () => {
   return (
-    <Section id="terms-of-use" className="policy-section">
-      <div className="policy-container glass-overlay">
-        <h2 className="policy-title">Terms of Use</h2>
-        <p className="policy-text">Welcome to No.Thing Project. By using our website, you agree to these terms.</p>
+    <Section className="section-policy" id="terms-of-use" >
+      <div className="container-policy glass-overlay">
+        <h2 className="policy-title-text">Terms of Use</h2>
+        <p className="policy-description-tex">Welcome to No.Thing Project. By using our website, you agree to these terms.</p>
         
         <h3>Use of Content</h3>
         <p>All content on this site is for informational purposes only. Unauthorized use or duplication without consent is prohibited.</p>
