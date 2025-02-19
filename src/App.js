@@ -12,7 +12,7 @@ const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicyPage"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUsePage"));
 
 const App = () => {
-  const [showSplash, setShowSplash] = useState(true);
+  const [showSplash, setShowSplash] = useState(false); // temporary disable
   const [hdrTexture, setHdrTexture] = useState(null);
   const [hdrError, setHdrError] = useState(false);
   const isMobile = /Mobi|Android/i.test(navigator.userAgent);
