@@ -16,7 +16,7 @@ const fadeInUp = (delay = 0.2) => ({
 const StoriesSection = () => {
   return (
     <Section sectionNumber={4} className="section-stories" id="section4">
-      <div className="stories-container glass-overlay">
+      <div className="stories-container">
         <AnimatedTitle as="h2" className="section-title-text" delay={0.2}>
           FOR YOU
         </AnimatedTitle>

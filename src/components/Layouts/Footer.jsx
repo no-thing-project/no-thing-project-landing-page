@@ -6,8 +6,8 @@ const Footer = () => {
   const navigate = useNavigate();
 
   return (
-    <footer className="landing-footer glass-overlay">
-      <div className="footer-content">
+    <footer className="landing-footer">
+      <div className="footer-content glass-overlay">
         <p>
           &copy; {new Date().getFullYear()} <span className="brand">no.thing.project</span>
         </p>

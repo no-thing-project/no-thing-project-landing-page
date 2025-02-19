@@ -17,8 +17,8 @@ const ContactSection = () => {
         <AnimatedTitle as="h2" className="contacts-title-text" motionProps={fadeInUp(0.2)}>
           CONTACT US
         </AnimatedTitle>
-        <div className="contacts-container glass-overlay">
-          <div className="contacts">
+        <div className="contacts-container">
+          <div className="contacts glass-overlay">
             <motion.p {...fadeInUp(0.3)}>
               <a href="mailto:someone@nothingproject.io">
                 someone@nothingproject.io

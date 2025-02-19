@@ -12,17 +12,13 @@ const fadeInUp = (delay = 0.2) => ({
 const WhatIsSection = () => {
   return (
     <Section sectionNumber={2} className="section2" id="section2">
-      <div className="section-content glass-overlay">
+      <div className="section-content">
         <Title as="h2" className="section-title-text" motionProps={fadeInUp(0.2)}>
           WHAT IS
         </Title>
-        <Title as="p" className="section-description-text" motionProps={fadeInUp(0.4)}>
+        <Title as="p" className="section-description-text glass-overlay" motionProps={fadeInUp(0.4)}>
           No.Thing Project is a movement, a mindset, and a platform for transformation
-        </Title>
-        <Title as="p" className="section-description-text" motionProps={fadeInUp(0.6)}>
           It is the idea that nothing is not emptiness but a starting point—a space where creativity, innovation, and change can emerge.
-        </Title>
-        <Title as="p" className="section-description-text" motionProps={fadeInUp(0.6)}>
           We embrace minimalism as a tool for clarity and inspiration, proving that even from nothing, something extraordinary can be built.
         </Title>
       </div>
