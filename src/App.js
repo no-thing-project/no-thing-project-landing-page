@@ -5,7 +5,7 @@ import { BrowserRouter } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
 import SplashScreenContainer from "./containers/SplashScreenContainer.jsx";
 import LandingPageContainer from "./containers/LandingPageContainer.jsx";
-import config from "./config"; // Імпортуємо конфіг
+import config from "./config";
 
 // Динамічне завантаження LandingPage
 const LandingPage = lazy(() => import("./components/LandingPage/LandingPage.jsx"));

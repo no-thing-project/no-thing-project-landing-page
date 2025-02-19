@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import { storiesData } from "../../data/stories";
 import AnimatedTitle from "../UI/AnimatedTitle";
 import Section from "./Section";
+import config from "../../config";
+
 
 const fadeInUp = (delay = 0.2) => ({
   initial: { opacity: 0, y: 20 },
@@ -23,7 +25,7 @@ const StoriesSection = () => {
             <div className="story glass-overlay">
               <div className="story-content">
                 <div className="story-photo">
-                  <img src={story.img} alt={story.name} />
+                  <img src={`${config.PUBLIC_URL}${story.img}`} alt={story.name} />
                 </div>
                 <div className="story-text">
                   <h3 className="story-title-text">{story.name}</h3>

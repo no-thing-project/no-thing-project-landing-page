@@ -34,54 +34,18 @@ PUBLIC_URL=/dev
 APP_GA_ID=UA-XXXXX-Y
 ```
 
-==== 📌p `.env.staging`
-```
-APP_ENV=staging
-API_URL=https://staging.api.mysite.com
-PUBLIC_URL=/stage
-APP_GA_ID=UA-XXXXX-Z
-```
-
-==== 📌p `.env.production`
-```
-APP_ENV=production
-API_URL=https://api.mysite.com
-PUBLIC_URL=/prod
-APP_GA_ID=UA-XXXXX-P
-```
-
 == 🔥 Running the Project
 
 === Start in Development Mode
 ```bash
-npm run start:dev
-```
-
-=== Start in Staging Mode
-```bash
-npm run start:stage
-```
-
-=== Start in Production Mode
-```bash
-npm run start:prod
+npm run start:development
 ```
 
 == 🏠 Building for Deployment
 
 === Build for Development
 ```bash
-npm run build:dev
-```
-
-=== Build for Staging
-```bash
-npm run build:stage
-```
-
-=== Build for Production
-```bash
-npm run build:prod
+npm run build:development
 ```
 
 === Serve Production Build Locally
@@ -94,7 +58,7 @@ npm run serve
 ```bash
 npm run predeploy
 ```
-2. **Deploy to GitHub Pages**
+1. **Deploy to GitHub Pages**
 ```bash
 npm run deploy
 ```
@@ -137,27 +101,6 @@ src/
 ├── .env.production
 ```
 
-== 🔧 Configuration Handling (`config.js`)
-```js
-const ENV = process.env.APP_ENV || process.env.NODE_ENV;
-
-const config = {
-  development: {
-    API_URL: process.env.API_URL || "https://dev.api.mysite.com",
-    PUBLIC_URL: process.env.PUBLIC_URL || "/dev",
-  },
-  staging: {
-    API_URL: process.env.API_URL || "https://staging.api.mysite.com",
-    PUBLIC_URL: process.env.PUBLIC_URL || "/stage",
-  },
-  production: {
-    API_URL: process.env.API_URL || "https://api.mysite.com",
-    PUBLIC_URL: process.env.PUBLIC_URL || "/prod",
-  },
-};
-
-export default config[ENV] || config.production;
-```
 
 == 🛠 Troubleshooting
 ```bash
