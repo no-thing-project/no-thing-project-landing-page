@@ -114,7 +114,7 @@ canvas {
   -webkit-backdrop-filter: blur(15px);
   border-bottom: 1px solid rgba(255, 255, 255, 0.3);
   transition: background 0.3s ease-in-out, padding 0.3s ease-in-out;
-  z-index: 99;
+  z-index: 998;
 }
 
 
@@ -844,7 +844,7 @@ canvas {
 
   .landing-nav.open {
     display: flex;
-    right: 2rem;
+    right: 1rem;
     max-height: 100%;
     height: 100vh;
     width: 100%;
