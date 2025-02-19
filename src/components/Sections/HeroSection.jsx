@@ -9,7 +9,7 @@ const HeroSection = () => {
 
   return (
     <Section sectionNumber={1} className="first-screen" id="hero">
-      <motion.div className="first-screen-content">
+      <motion.div className="first-screen-content glass-overlay">
         {/* Логотип відображається лише, якщо не відбулося скролінгу */}
         {!isScrolled && (
           <motion.div 
