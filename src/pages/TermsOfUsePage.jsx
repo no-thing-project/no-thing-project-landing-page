@@ -1,17 +1,11 @@
 import React, { useState, Suspense } from "react";
 import { motion } from "framer-motion";
 import { Helmet, HelmetProvider } from "react-helmet-async";
-import Header from "../Layouts/Headers";
-import Footer from "../Layouts/Footer";
-import StoriesSection from "../Sections/StoriesSection";
-import ContactSection from "../Sections/ContactSection";
-import HeroSection from "../Sections/HeroSection";
-import WhatIsSection from "../Sections/WhatIsSection";
-import NothingSection from "../Sections/NothingSection";
-import InterestingSection from "../Sections/InterestingSection";
-import DonationSection from "../Sections/DonationSection";
+import Header from "../components/Layouts/Headers";
+import Footer from "../components/Layouts/Footer";
+import TermsOfUse from "../components/Sections/TermsOfUse";
 
-const Scene3D = React.lazy(() => import("../Scene/Scene3D"));
+const Scene3D = React.lazy(() => import("../components/Scene/Scene3D"));
 
 
 const LandingPage = ({ hdrTexture, isMobile }) => {
@@ -34,13 +28,7 @@ const LandingPage = ({ hdrTexture, isMobile }) => {
           </Suspense>
         </div>
 
-        <HeroSection />
-        <WhatIsSection />
-        <NothingSection />
-        <StoriesSection />
-        <InterestingSection />
-        <DonationSection />
-        <ContactSection />
+        <TermsOfUse></TermsOfUse>
 
         <Footer />
       </motion.div>

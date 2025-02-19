@@ -12,12 +12,12 @@ const fadeInUp = (delay = 0.2) => ({
 
 const ContactSection = () => {
   return (
-    <Section sectionNumber={6} className="section6" id="section6">
-      <div className="section-content glass-overlay">
+    <Section sectionNumber={6} className="contacts-section" id="contacts-section">
+      <div className="section-content">
         <AnimatedTitle as="h2" className="contacts-title-text" motionProps={fadeInUp(0.2)}>
           CONTACT US
         </AnimatedTitle>
-        <div className="contacts-container">
+        <div className="contacts-container glass-overlay">
           <div className="contacts">
             <motion.p {...fadeInUp(0.3)}>
               <a href="mailto:someone@nothingproject.io">

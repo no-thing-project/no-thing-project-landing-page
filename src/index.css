@@ -575,10 +575,10 @@ h2 {
 }
 
 /* Section 6 – Contacts */
-.section6 {
+.contacts-section {
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: start;
   text-align: center;
   padding: 50px 20px;
   z-index: 10;
@@ -593,7 +593,7 @@ h2 {
 }
 
 .contacts {
-  max-width: 800px;
+  padding: 1rem;
   font-size: 24px;
   line-height: 1.5;
   margin: 50px 100px;
@@ -619,7 +619,7 @@ h2 {
 
 .social-icons {
   display: flex;
-  justify-content: flex-start;
+  justify-content: center;
   gap: 30px;
   margin: 20px auto;
 }
@@ -659,6 +659,27 @@ h2 {
   font-size: 12px;
   opacity: 0.7;
 }
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.footer-links a {
+  color: #111;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.footer-links a:hover {
+  color:  #333;
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+}
+
 
 /*====================================
 =        12. CANVAS 3D SCENE         =
@@ -1038,8 +1059,7 @@ canvas {
   }
 
   .contacts {
-    margin: 20px auto;
-    width: 100%;
+    margin: 10px auto;
   }
 
   .contacts a {

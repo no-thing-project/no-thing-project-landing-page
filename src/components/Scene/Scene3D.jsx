@@ -584,13 +584,20 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     }
     window.addEventListener("resize", onWindowResize);
 
+    
     // Cleanup
     return () => {
       window.removeEventListener("resize", onWindowResize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("scroll", throttledScrollHandler);
       window.removeEventListener("keydown", onKeyDown);
-      mountRef.current.removeChild(renderer.domElement);
+      
+      if (renderer) {
+        renderer.dispose();
+      }
+      if (mountRef.current) {
+        mountRef.current.removeChild(renderer.domElement);
+      }
       renderer.dispose();
     };
   }, [hdrTexture]);

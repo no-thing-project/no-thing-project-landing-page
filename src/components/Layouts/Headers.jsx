@@ -1,49 +1,57 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { useNavigate, useLocation } from "react-router-dom";
 import useScrollPosition from "../../hooks/useScrollPosition";
 import Navigation from "../UI/Navigation";
 
 const Header = ({ showDebugButtons, showHubButton }) => {
   const isScrolled = useScrollPosition();
   const [menuOpen, setMenuOpen] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const toggleMenu = () => {
     setMenuOpen((prev) => {
       const newState = !prev;
-      document.body.style.overflow = newState ? "hidden" : "auto"; 
+      document.body.style.overflow = newState ? "hidden" : "auto";
       return newState;
     });
   };
 
-  // Закриваємо меню та повертаємо скрол при кліку на лінку
   const closeMenu = () => {
     setMenuOpen(false);
     document.body.style.overflow = "auto";
   };
 
-  const handleLogoClick = () => {
-    document.getElementById("hero")?.scrollIntoView({ behavior: "smooth", block: "start" });
+  const handleNavigation = (sectionId) => {
+    navigate("/");
 
-    if (menuOpen) {
-      closeMenu();
-    }
+    setTimeout(() => {
+      const section = document.getElementById(sectionId);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100);
+
+    closeMenu();
   };
 
   return (
     <header className={`header ${isScrolled ? "scrolled" : ""}`}>
-      <motion.div
-        className={`logo-container ${menuOpen || isScrolled }`}
-        onClick={handleLogoClick}
-        style={{ cursor: "pointer" }}
-      >
-        <span className="logo-text">
-          no.thing<br />
-          <span className="logo-sub">project</span>
-        </span>
-      </motion.div>
+      {(location.pathname !== "/" || isScrolled) && (
+        <motion.div
+          className={`logo-container ${menuOpen || isScrolled }`}
+          onClick={() => handleNavigation("/")}
+        >
+          <span className="logo-text">
+            no.thing<br />
+            <span className="logo-sub">project</span>
+          </span>
+        </motion.div>
+      )}
 
       <div className="menu-container">
-        <Navigation menuOpen={menuOpen} toggleMenu={closeMenu} />
+        <Navigation menuOpen={menuOpen} toggleMenu={closeMenu} onNavigate={handleNavigation} />
         <div className={`menu-toggle ${isScrolled ? "scrolled" : ""}`}>
           <input
             type="checkbox"

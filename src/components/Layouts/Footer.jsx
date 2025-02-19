@@ -1,5 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { Link } from "react-router-dom";
 
 const fadeInUp = (delay = 0.8) => ({
   initial: { opacity: 0, y: 20 },
@@ -11,12 +12,16 @@ const fadeInUp = (delay = 0.8) => ({
 const Footer = () => {
   return (
     <footer className="landing-footer glass-overlay">
-      <motion.div className="footer-content" {...fadeInUp(0.8)}>
+      <div className="footer-content">
+        <nav className="footer-links">
+          <Link to="/privacy-policy">Privacy Policy</Link>
+          <Link to="/terms-of-use">Terms of Use</Link>
+        </nav>
         <p>
           &copy; {new Date().getFullYear()} <span className="brand">no.thing.project</span>
         </p>
         <p className="rights">ALL.RIGHTS.RESERVED</p>
-      </motion.div>
+      </div>
     </footer>
   );
 };

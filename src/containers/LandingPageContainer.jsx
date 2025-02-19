@@ -1,6 +1,6 @@
 import React, { Suspense } from "react";
 import { motion } from "framer-motion";
-import LandingPage from "../components/LandingPage/LandingPage";
+import LandingPage from "../pages/LandingPage";
 
 const LandingPageContainer = ({ hdrTexture, hdrError, isMobile }) => (
   <motion.div

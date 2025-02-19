@@ -1,17 +1,23 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import { navLinks } from "../../data/navlinks";
 
-const Navigation = ({ menuOpen, toggleMenu }) => {
+const Navigation = ({ menuOpen, toggleMenu, onNavigate }) => {
+  const navigate = useNavigate();
+
   const handleLinkClick = (e, id) => {
     e.preventDefault();
-    const section = document.getElementById(id);
-    if (section) {
-      section.scrollIntoView({ behavior: "smooth", block: "start" });
-      
-      // Закриваємо меню та повертаємо скрол
-      toggleMenu();
-      document.body.style.overflow = "auto";
-    }
+    navigate("/"); // Редірект на головну
+    
+    setTimeout(() => {
+      const section = document.getElementById(id);
+      if (section) {
+        section.scrollIntoView({ behavior: "smooth", block: "start" });
+      }
+    }, 100); // Додаємо затримку, щоб DOM перерендерився
+
+    toggleMenu();
+    document.body.style.overflow = "auto";
   };
 
   return (
