@@ -224,7 +224,7 @@ h2 {
   padding-left: 40px;
 }
 
-.donation-button {
+.donation-button-header {
   display: inline-block;
   background-color: #fff;
   color: #111;
@@ -237,19 +237,72 @@ h2 {
   transition: background-color 0.3s ease, transform 0.3s ease;
 }
 
-.donation-button:hover {
+.donation-button-header:hover {
   background-color: #111;
   color: #fff;
   transform: scale(1.05);
 }
 
-.donation-button:active {
+.donation-button-header:active {
   background-color: #fff;
   transform: scale(0.98);
 }
 
 
 
+/*====================================
+=           8. DONATION SECTION         =
+====================================*/
+.donation-section {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
+  z-index: 11;
+}
+
+.donation-section-container {
+  max-width: 600px;
+}
+
+.donation-title-text {
+  font-size: 3rem;
+  margin-bottom: 10px;
+}
+
+.donation-description-text {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.donation-section-button {
+  display: inline-block;
+  background-color: #fff;
+  color: #111;
+  font-size: 2.1rem;
+  font-weight: 500;
+  padding: 13px 20px;
+  border-radius: 35px;
+  text-decoration: none;
+  box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+  transition: background-color 0.3s ease, transform 0.3s ease;;
+}
+
+.donation-section-button:hover {
+  background-color: #111;
+  color: #fff;
+  transform: scale(1.05);
+}
+
+.donation-section-button:active {
+  background-color: #fff;
+  transform: scale(0.98);
+}
+
+/*====================================
+=           9. HEADER BUTTONS WRAPPER            =
+====================================*/
 .header-buttons-wrapper {
   display: flex;
   align-items: center;
@@ -285,165 +338,6 @@ h2 {
 
 .header-hub-button a:hover {
   color: #555;
-}
-
-/*====================================
-=          8. MOBILE NAV             =
-====================================*/
-
-@media (max-width: 930px) {
-  .menu-toggle  {
-    position: absolute;
-    top: 14px;
-    right: 5rem;
-    display: block;
-    cursor: pointer;
-  }
-  .menu-checkbox {
-    display: none;
-  }
-
-  .menu-icon {
-    width: 45px;
-    height: 45px;
-    background: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 50%;
-    cursor: pointer;
-    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
-  }
-
-  .hamburger {
-    width: 24px;
-    height: 3px;
-    background: black;
-    position: relative;
-  }
-
-  .hamburger::before,
-  .hamburger::after {
-    content: "";
-    display: block;
-    width: 24px;
-    height: 3px;
-    background: black;
-    position: absolute;
-    transition: all 0.3s ease-in-out;
-  }
-
-  .hamburger::before {
-    top: -8px;
-  }
-
-  .hamburger::after {
-    top: 8px;
-  }
-
-  .menu-checkbox:checked + .menu-icon .hamburger {
-    background: transparent;
-  }
-
-  .menu-checkbox:checked + .menu-icon .hamburger::before {
-    transform: rotate(45deg);
-    top: 0;
-  }
-
-  .menu-checkbox:checked + .menu-icon .hamburger::after {
-    transform: rotate(-45deg);
-    top: 0;
-  }
-
-  .landing-nav {
-    display: none;
-    overflow: hidden;
-    justify-content: center;
-    align-items: center;
-    transition: max-height 0.3s ease-out;
-    flex-direction: column;
-  }
-
-  .landing-nav.open {
-    display: flex;
-    right: 2rem;
-    max-height: 100%;
-    height: 100vh;
-    width: 100%;
-    position: relative;
-  }
-
-  .menu-checkbox:checked ~ .landing-nav {
-    transform: translateX(0);
-  }
-
-  .landing-nav ul {
-    flex-direction: column;
-    gap: 24px;
-  }
-
-  .menu-item {
-    margin: 10px 0;
-  }
-
-  .menu-item a {
-    display: block;
-    padding: 20px;
-    text-decoration: none;
-    font-size: 1rem;
-    color: #333;
-    transition: color 0.3s ease;
-  }
-
-  .menu-item a:hover {
-    color: #007bff;
-  }
-
-  .logo-container {
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    transform: translate(0, 0);
-    transition: all 0.5s ease;
-    z-index: 99;
-  }
-
-  .logo-container.false{
-    position: absolute;
-    top: 15px;
-    left: 15px;
-    transform: translate(0, 0);
-    transition: all 0.5s ease;
-    z-index: 999;
-    display: none;
-  }
-
-  .header {
-      padding: 35px;
-  }
-
-  .header.scrolled .logo-container {
-    position: absolute;
-    top: 10px;
-    left: 10px;
-    transform: translate(0, 0);
-  transition: all 0.5s ease;
-    font-size: 22px;
-    z-index: 99;
-  }
-
-  .header.scrolled {
-    z-index: 99;
-  }
-
-  .donation-header-button {
-    padding-left: 0px;
-    position: absolute;
-    top: 14px;
-    right: 9rem;
-    display: block;
-    cursor: pointer;
-  }  
 }
 
 /*====================================
@@ -682,7 +576,7 @@ h2 {
 
 /* Section 6 – Contacts */
 .section6 {
-  padding-top: 150px;
+  padding-top: 50px;
   padding-left: 20px;
   z-index: 10;
 }
@@ -779,18 +673,188 @@ canvas {
 }
 
 /*====================================
-=       13. MEDIA QUERIES (930px)    =
-   (Розширення, що вже почалися вище)
+=          8. MOBILE NAV             =
 ====================================*/
 
-/* Тут налаштування для max-width: 930px вже розташовані в блоці 8 (MOBILE NAV) */
-/* Та додаткові глобальні правки для секцій унизу */
+/*====================================
+=         1. MOBILE NAVIGATION       =
+====================================*/
 
 @media (max-width: 930px) {
-  /* ============================= */
-  /* Global Styles                 */
-  /* ============================= */
+  /* Базові стилі меню */
+  .menu-toggle {
+    position: absolute;
+    top: 14px;
+    right: 5rem;
+    display: block;
+    cursor: pointer;
+  }
 
+  .menu-checkbox {
+    display: none;
+  }
+
+  .menu-icon {
+    width: 45px;
+    height: 45px;
+    background: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  /* Бургер-іконка */
+  .hamburger {
+    width: 24px;
+    height: 3px;
+    background: black;
+    position: relative;
+  }
+
+  .hamburger::before,
+  .hamburger::after {
+    content: "";
+    display: block;
+    width: 24px;
+    height: 3px;
+    background: black;
+    position: absolute;
+    transition: all 0.3s ease-in-out;
+  }
+
+  .hamburger::before {
+    top: -8px;
+  }
+
+  .hamburger::after {
+    top: 8px;
+  }
+
+  /* Анімація бургер-іконки при активації */
+  .menu-checkbox:checked + .menu-icon .hamburger {
+    background: transparent;
+  }
+
+  .menu-checkbox:checked + .menu-icon .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+  }
+
+  .menu-checkbox:checked + .menu-icon .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+  }
+
+  /* Навігаційне меню */
+  .landing-nav {
+    display: none;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    transition: max-height 0.3s ease-out;
+    flex-direction: column;
+  }
+
+  .landing-nav.open {
+    display: flex;
+    right: 2rem;
+    max-height: 100%;
+    height: 100vh;
+    width: 100%;
+    position: relative;
+  }
+
+  .menu-checkbox:checked ~ .landing-nav {
+    transform: translateX(0);
+  }
+
+  /* Список навігації */
+  .landing-nav ul {
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .menu-item {
+    margin: 10px 0;
+  }
+
+  .menu-item a {
+    display: block;
+    padding: 20px;
+    text-decoration: none;
+    font-size: 1rem;
+    color: #333;
+    transition: color 0.3s ease;
+  }
+
+  .menu-item a:hover {
+    color: #007bff;
+  }
+}
+
+/*====================================
+=         2. MOBILE HEADER           =
+====================================*/
+
+@media (max-width: 930px) {
+  /* Лого */
+  .logo-container {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 99;
+  }
+
+  .logo-container.false {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    z-index: 999;
+    display: none;
+  }
+
+  /* Хедер */
+  .header {
+    padding: 35px;
+  }
+
+  .header.scrolled .logo-container {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    transform: translate(0, 0);
+    transition: all 0.5s ease;
+    font-size: 22px;
+    z-index: 99;
+  }
+
+  .header.scrolled {
+    z-index: 99;
+  }
+
+  /* Кнопка пожертвувань */
+  .donation-header-button {
+    padding-left: 0px;
+    position: absolute;
+    top: 14px;
+    right: 9rem;
+    display: block;
+    cursor: pointer;
+  }
+}
+
+/*====================================
+=         3. RESPONSIVE TEXT         =
+====================================*/
+
+@media (max-width: 930px) {
   body {
     font-size: 16px;
   }
@@ -803,10 +867,7 @@ canvas {
     font-size: 1.5rem;
   }
 
-  /* .logo-text {
-    font-size: 2rem;
-  } */
-
+  /* Навігація */
   .landing-nav ul {
     flex-direction: column;
     gap: 10px;
@@ -817,57 +878,32 @@ canvas {
   .landing-nav.open ul {
     display: flex;
   }
+}
 
-  /* Бургер-меню */
-  .hamburger {
-    display: block;
-    background: none;
-    border: none;
-    font-size: 2rem;
-    cursor: pointer;
-  }
+/*====================================
+=         4. MOBILE SECTIONS         =
+====================================*/
 
-  .mobile-nav {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 80%;
-    max-width: 300px;
-    height: 100%;
-    background: none;
-    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.1);
-    transform: translateX(100%);
-    transition: transform 0.3s ease-out;
-    z-index: 1050;
-  }
-
-  .mobile-nav.open {
-    transform: translateX(0);
-  }
-
-  /* ============================= */
-  /* Sections                      */
-  /* ============================= */
-
+@media (max-width: 930px) {
   .page-section {
     flex-direction: column;
     height: auto;
     padding: 50px 20px;
   }
 
-  .section-title-text{
+  .section-title-text {
     font-size: calc(100vw / 5);
-    font-weight: 60;  
+    font-weight: 60;
   }
 
-  .section-description-text{
+  .section-description-text {
     font-size: 18px;
     margin-top: 16px;
     max-width: 1000px;
     font-weight: 100;
   }
 
-  /* Section 1 – First Screen */
+  /* Перша секція */
   .first-screen {
     height: 100vh;
     padding: 20px;
@@ -890,13 +926,22 @@ canvas {
     transition: all 0.3s ease;
     z-index: 999;
     mix-blend-mode: difference;
-
-    /* margin-bottom: 20px; */
   }
 
   .first-screen-description {
     padding: 4rem;
     font-size: 18px;
+    text-align: center;
+  }
+}
+
+/*====================================
+=         5. MOBILE FOOTER           =
+====================================*/
+
+@media (max-width: 930px) {
+  .landing-footer {
+    padding: 20px;
     text-align: center;
   }
 
@@ -978,10 +1023,16 @@ canvas {
     font-size: calc(100vw / 3);
   }
 
-  /* Section 6 – Contacts */
-  .contacts-title-text{
+}
+
+/*====================================
+=         6. MOBILE CONTACTS         =
+====================================*/
+
+@media (max-width: 930px) {
+  .contacts-title-text {
     font-size: calc(100vw / 7);
-    font-weight: 60;  
+    font-weight: 60;
   }
 
   .contacts {
@@ -1011,6 +1062,7 @@ canvas {
     text-align: center;
   }
 }
+
 
 /*====================================
 =   14. EXTRA SMALL (max-width:480)  =

@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import useScrollPosition from "../../hooks/useScrollPosition";
 import Navigation from "../UI/Navigation";
 
@@ -63,7 +63,7 @@ const Header = ({ showDebugButtons, showHubButton }) => {
           href="https://www.paypal.com/donate/?hosted_button_id=FFPAVCYLTSZV6"
           target="_blank"
           rel="noopener noreferrer"
-          className="donation-button"
+          className="donation-button-header"
         >
           Donate
         </motion.a>
