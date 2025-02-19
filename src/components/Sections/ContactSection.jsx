@@ -12,7 +12,7 @@ const fadeInUp = (delay = 0.2) => ({
 
 const ContactSection = () => {
   return (
-    <Section sectionNumber={6} className="section-contacts" id="section-contacts">
+    <Section sectionNumber={6} className="section-contact-us" id="section-contact-us">
       <div className="container-main">
         <AnimatedTitle as="h2" className="section-title-text" motionProps={fadeInUp(0.2)}>
           CONTACT US

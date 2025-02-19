@@ -1,10 +1,27 @@
-import React from "react";
-import { motion } from "framer-motion";
+
+
+import React, { useRef, useLayoutEffect } from "react";
+import { motion, animate } from "framer-motion";
+import Section from "./Section";
 
 
 const DonationSection = () => {
+  const interestingRef = useRef(null);
+
+  useLayoutEffect(() => {
+    animate("#infinite-scroll", { x: ["100%", "-100%"] }, { ease: "linear", duration: 6, repeat: Infinity, repeatType: "loop" });
+  }, []);
+
+
   return (
     <section className="section-donation">
+      <div className="container-interesting ">
+        <motion.div id="infinite-scroll" className="wrapper-interesting">
+          <a ref={interestingRef} className="interesting-text">
+            INTERESTING?
+          </a>
+        </motion.div>
+      </div>
       <div className="container-donation">
         <div className="donation-button-section">
         <motion.a

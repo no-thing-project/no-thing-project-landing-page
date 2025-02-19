@@ -2,6 +2,7 @@ import React, { useRef, useLayoutEffect } from "react";
 import { motion, animate } from "framer-motion";
 import Section from "./Section";
 
+//CAN BE REMOVED
 const InterestingSection = () => {
   const interestingRef = useRef(null);
 

@@ -8,7 +8,6 @@ import ContactSection from "../components/Sections/ContactSection";
 import HeroSection from "../components/Sections/HeroSection";
 import WhatIsSection from "../components/Sections/WhatIsSection";
 import NothingSection from "../components/Sections/NothingSection";
-import InterestingSection from "../components/Sections/InterestingSection";
 import DonationSection from "../components/Sections/DonationSection";
 
 const Scene3D = React.lazy(() => import("../components/Scene/Scene3D"));
@@ -38,7 +37,6 @@ const LandingPage = ({ hdrTexture, isMobile }) => {
         <WhatIsSection />
         <NothingSection />
         <StoriesSection />
-        <InterestingSection />
         <DonationSection />
         <ContactSection />
 

@@ -367,7 +367,7 @@ canvas {
   z-index: 10;
 }
 
-.section-contacts {
+.section-contact-us {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -404,11 +404,27 @@ canvas {
 /* CONTAINERS */
 
 .container-main {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
   width: 100%;
   max-width: 1000px;
 }
 
 .container-first-screen {
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
   width: 100%;
   max-width: 1000px;
 }
@@ -448,10 +464,34 @@ canvas {
 }
 
 .container-interesting {
+  padding: 6rem;
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  z-index: 11;
   overflow: hidden;
 }
 
 .container-donation {
+  /* padding: 4rem; */
+  display: flex;
+  position: relative;
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  width: 100%;
+  z-index: 11;
+}
+
+.container-contacts {
   display: flex;
   position: relative;
   flex-direction: column;
@@ -602,13 +642,16 @@ canvas {
 
 /* INTERESTING TEXT */
 .interesting-text {
-  font-size: 400px;
+  font-size: 120px;
+  font-weight: 100;
+  max-width: 750px;
+  line-height: 100%;
   text-transform: uppercase;
   display: inline-block;
   white-space: nowrap;
   position: relative;
-  margin: 0;
-  padding: 0;
+
+  z-index: 10;
 }
 
 .interesting-text::after {
@@ -626,9 +669,9 @@ canvas {
 
 /* CONTACTS */
 .contacts {
-  padding: 1rem;
+  /* padding: 1rem;
   font-size: 24px;
-  line-height: 1.5;
+  line-height: 1.5; */
   margin: 50px 100px;
 }
 
@@ -694,10 +737,12 @@ canvas {
   display: inline-block;
   background-color: #fff;
   color: #111;
+  
+  border-radius: 50%;
+  padding: 150px 10px;
+
   font-size: 2.1rem;
   font-weight: 500;
-  padding: 13px 20px;
-  border-radius: 60px;
   text-decoration: none;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s ease, transform 0.3s ease;;
@@ -746,7 +791,7 @@ canvas {
 }
 
 @media (max-width: 930px) {
-  /* Хедер */
+  /* HEADER */
   .header {
     padding: 35px;
   }
@@ -785,7 +830,7 @@ canvas {
     display: none;
   }
 
-  /* Список навігації */
+ /* MENU NAVIGATION */
   .landing-nav {
     display: none;
     overflow: hidden;
@@ -815,8 +860,7 @@ canvas {
     display: flex;
   }
 
-/* Menu */
-
+/* MENU */
   .menu-item {
     margin: 10px 0;
   }
@@ -884,7 +928,6 @@ canvas {
     top: 8px;
   }
 
-  /* Анімація бургер-іконки при активації */
   .menu-checkbox:checked + .menu-icon .hamburger {
     background: transparent;
   }
@@ -904,6 +947,118 @@ canvas {
   }
 
 /* Buttons */
+.button-donation-section {
+  border-radius: 50%;
+  padding: 150px 10px;
+}
+}
+
+@media (max-width: 930px) {
+/* SECTIONS */
+  .page-section {
+    flex-direction: column;
+    height: auto;
+
+    height: 100%;
+    width: 100%;
+    
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-first-screen {
+    height: 100%;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-whatIs {
+    height: 100vh;
+    width: 100%;
+
+    padding: 0;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .section-nothing {
+    height: 100vh;
+    width: 100%;
+
+    padding: 0;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .section-stories {
+    width: 100%;
+
+    padding: 0;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  /* .section-interesting{
+    height: 50vh;
+    width: 100%;
+
+    padding: 0;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  } */
+
+  .section-donation {
+    height: 100vh;
+    width: 100%;
+
+    padding: 0;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .section-contact-us {
+    height: 60vh;
+    width: 100%;
+
+    padding: 0;
+
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+  }
+
+  .section-footer {
+    text-align: center;
+  }
+
+/* CONTAINERS */
+  .container-first-screen {
+    width: 100%;
+    text-align: center;
+  }
+
+  .container-stories {
+    width: 100%;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
   .container-donation-button-header {
     padding-left: 0px;
     position: absolute;
@@ -912,68 +1067,10 @@ canvas {
     display: block;
     cursor: pointer;
   }  
-}
 
-
-@media (max-width: 930px) {
-/* Sections */
-  .page-section {
-    flex-direction: column;
-    height: auto;
-    padding: 50px 20px;
-  }
-
-  .section-first-screen {
-    height: 100vh;
-    padding: 50px 20px;
-    justify-content: center;
-    align-items: center;
-  }
-
-  .section-whatIs {
-    padding: 50px 20px;
-    height: auto;
-  }
-
-  .section-nothing {
-    padding: 50px 20px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .section-stories {
-    padding: 50px 20px;
-    display: block;
-    text-align: center;
-  }
-
-  .section-interesting{
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-
-  .section-footer {
-    padding: 50px 20px;
-    text-align: center;
-  }
-
-/* Containers */
-  .container-first-screen {
-    width: 100%;
-    text-align: center;
-  }
-
-  .container-stories {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-  }
-
-
-  /* text styles */
+  /* TEXT */
   .section-title-text {
-    font-size: calc(100vw / 5);
+    font-size: calc(100vw / 8);
     font-weight: 60;
   }
 
@@ -997,8 +1094,7 @@ canvas {
   }
 
   .first-screen-description-text {
-    padding: 4rem;
-    font-size: 18px;
+    font-size: 26px;
     text-align: center;
   }
 
@@ -1050,9 +1146,9 @@ canvas {
   }
 
 /* Contacts Section */
-  .contacts {
+  /* .contacts {
     margin: 10px auto;
-  }
+  } */
 
   .contacts a {
     font-size: 20px;
@@ -1097,7 +1193,10 @@ canvas {
 
   /* First Screen */
   .section-first-screen{
-    padding: 20px;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
   }
 
   .first-screen-title-text {
@@ -1114,21 +1213,28 @@ canvas {
   }
 
   .first-screen-description-text {
-    padding: 4rem;
-    font-size: 18px;
+    font-size: 26px;
   }
 
   /* Секції */
   .page-section {
-    padding: 40px 15px;
+    /* padding: 40px 15px; */
   }
 
   .section-whatIs {
-    padding: 30px 15px;
+    height: 100vh;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
   }
 
   .section-nothing {
-    padding: 15px;
+    height: 100vh;
+    width: 100%;
+
+    justify-content: center;
+    align-items: center;
   }
 
   .story-title-text {
