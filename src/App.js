@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Suspense, lazy } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
 import SplashScreenContainer from "./containers/SplashScreenContainer";
 import LandingPageContainer from "./containers/LandingPageContainer";
@@ -20,7 +20,9 @@ const App = () => {
   useEffect(() => {
     const loadHDR = async () => {
       try {
-        const texture = await new RGBELoader().loadAsync(`${config.PUBLIC_URL}/hdr_maps/poly_haven_studio_1k.hdr`);
+        const texture = await new RGBELoader().loadAsync(
+          `${config.PUBLIC_URL}/hdr_maps/poly_haven_studio_1k.hdr`
+        );
         setHdrTexture(texture);
       } catch (error) {
         console.error("Error loading HDR texture:", error);
@@ -31,7 +33,7 @@ const App = () => {
   }, []);
 
   return (
-    <Router basename={config.PUBLIC_URL}>
+    <Router>
       <div className="App">
         {!isMobile && <CustomCursor size={12} />}
         <AnimatePresence mode="wait">
@@ -39,7 +41,17 @@ const App = () => {
             <SplashScreenContainer onFinish={() => setShowSplash(false)} />
           ) : (
             <Routes>
-              <Route path="/" element={<LandingPageContainer hdrTexture={hdrTexture} hdrError={hdrError} isMobile={isMobile} key="home" />} />
+              <Route
+                path="/"
+                element={
+                  <LandingPageContainer
+                    hdrTexture={hdrTexture}
+                    hdrError={hdrError}
+                    isMobile={isMobile}
+                    key="home"
+                  />
+                }
+              />
               <Route path="/privacy-policy" element={<PrivacyPolicy key="privacy" />} />
               <Route path="/terms-of-use" element={<TermsOfUse key="terms" />} />
             </Routes>
