@@ -283,7 +283,7 @@ h2 {
   font-size: 2.1rem;
   font-weight: 500;
   padding: 13px 20px;
-  border-radius: 35px;
+  border-radius: 60px;
   text-decoration: none;
   box-shadow: 2px 2px 12px rgba(0, 0, 0, 0.15);
   transition: background-color 0.3s ease, transform 0.3s ease;;
@@ -462,8 +462,8 @@ h2 {
 
 .section-content {
   width: 100%;
-  align-self: flex-start;
-  text-align: left;
+  /* align-self: flex-start; */
+  /* text-align: left; */
 }
 
 /* Section 3 – Large Text */
@@ -576,8 +576,11 @@ h2 {
 
 /* Section 6 – Contacts */
 .section6 {
-  padding-top: 50px;
-  padding-left: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 50px 20px;
   z-index: 10;
 }
 
@@ -591,7 +594,6 @@ h2 {
 
 .contacts {
   max-width: 800px;
-  text-align: left;
   font-size: 24px;
   line-height: 1.5;
   margin: 50px 100px;
