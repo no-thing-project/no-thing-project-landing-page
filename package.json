@@ -1,24 +1,43 @@
 {
-  "name": "landing-page",
-  "version": "0.1.0",
+  "name": "no-thin-project-landing",
+  "version": "0.0.1",
   "private": true,
+  "homepage": "https://no-thing-project.github.io/website.landing/",
   "dependencies": {
     "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.121.4",
     "@react-three/fiber": "^8.17.14",
     "cra-template": "1.2.0",
     "framer-motion": "^12.0.11",
+    "popmotion": "^11.0.5",
     "react": "^18.0.0",
     "react-dom": "^18.0.0",
+    "react-helmet-async": "^2.0.5",
+    "react-router-dom": "^7.1.5",
     "react-scripts": "5.0.1",
     "web-vitals": "^4.2.4"
   },
+  
   "scripts": {
     "start": "react-scripts start",
+    "start:development": "cross-env APP_ENV=development react-scripts start",
+    "start:staging": "cross-env APP_ENV=staging react-scripts start",
+    "start:production": "cross-env APP_ENV=production react-scripts start",
+  
     "build": "react-scripts build",
+    "build:development": "cross-env APP_ENV=development react-scripts build",
+    "build:staging": "cross-env APP_ENV=staging react-scripts build",
+    "build:production": "cross-env APP_ENV=production react-scripts build",
+  
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+  
+    "serve": "serve -s build",
+  
+    "predeploy": "npm run build:production",
+    "deploy": "gh-pages -d build"
   },
+
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -36,5 +55,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }

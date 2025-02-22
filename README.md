@@ -1,70 +1,137 @@
-# Getting Started with Create React App
+= No.Thing Project - Web Application
+:toc:
+:toc-title: Table of Contents
+:sectnums:
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+_A modern, scalable React web application with support for multiple environments (Development, Staging, Production) and advanced animations._
 
-## Available Scripts
+== 📌 Project Overview
+This is a **React-based** web application designed for the **No.Thing Project**.  
+The project features:
+- ✅ **Dynamic routing** with `react-router-dom`
+- ✅ **Smooth animations** powered by `framer-motion`
+- ✅ **Three.js HDR textures** for enhanced 3D experiences
+- ✅ **Custom Cursor** for an immersive UX
+- ✅ **Multi-environment support** (Dev, Staging, Production)
+- ✅ **Optimized structure with modular components**
+- ✅ **GitHub Pages Deployment** for easy hosting
 
-In the project directory, you can run:
+== 🚀 Project Setup
 
-### `npm start`
+=== Install Dependencies
+```bash
+npm install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+=== Set Up Environment Variables
+Create the following environment files in the project root:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+==== 📌p `.env.development`
+```
+APP_ENV=development
+API_URL=https://dev.api.mysite.com
+PUBLIC_URL=/dev
+APP_GA_ID=UA-XXXXX-Y
+```
 
-### `npm test`
+== 🔥 Running the Project
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+=== Start in Development Mode
+```bash
+npm run start:development
+```
 
-### `npm run build`
+== 🏠 Building for Deployment
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+=== Build for Development
+```bash
+npm run build:development
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+=== Serve Production Build Locally
+```bash
+npm run serve
+```
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+== 📄 Deploying to GitHub Pages
+1. **Pre-deployment (Build Production)**
+```bash
+npm run predeploy
+```
+1. **Deploy to GitHub Pages**
+```bash
+npm run deploy
+```
 
-### `npm run eject`
+== 🌿 Project Structure
+```bash
+src/
+├── components/
+│   ├── CustomCursor/
+│   │   └── CustomCursor.jsx
+│   ├── LandingPage/
+│   │   └── LandingPage.jsx
+│   ├── Sections/
+│   │   ├── HeroSection.jsx
+│   │   ├── WhatIsSection.jsx
+│   │   ├── NothingSection.jsx
+│   │   ├── InterestingSection.jsx
+│   │   ├── ContactSection.jsx
+│   ├── Layouts/
+│   │   ├── Header.jsx
+│   │   ├── Footer.jsx
+│   ├── SplashScreen/
+│   │   ├── CodeSplashScreen.jsx
+│   │   ├── SplashScreenContainer.jsx
+│   ├── Scene/
+│   │   ├── Scene3D.jsx
+├── containers/
+│   ├── SplashScreenContainer.jsx
+│   ├── LandingPageContainer.jsx
+├── config/
+│   └── config.js
+├── assets/
+│   ├── animations/
+│   ├── hdr_maps/
+├── App.jsx
+├── index.js
+├── package.json
+├── .env.development
+├── .env.staging
+├── .env.production
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+== 🛠 Troubleshooting
+```bash
+rm -rf node_modules/.cache && npm start
+npm install
+npm run clean
+```
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+== 🚀 Contributing
+Fork, clone, install dependencies, create a new branch, commit, and open a PR.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+== 🔧 Tech Stack
+| Technology | Purpose |
+|------------|---------|
+| **React.js** | UI Components |
+| **Framer Motion** | Animations |
+| **Three.js** | 3D Scenes |
+| **React Router** | Routing |
+| **GH-Pages** | Deployment |
+| **Cross-Env** | Environment Handling |
+| **Serve** | Local Production Server |
 
-## Learn More
+== 🌟 Credits & Thanks
+Built with ❤️ by the **No.Thing Project** team.  
+Follow us:
+- 🌐 https://nothingproject.io[Website]
+- 🐦 https://twitter.com/nooneonnothing[Twitter]
+- 📸 https://instagram.com/no.thing.project[Instagram]
+- 📚 https://linkedin.com/company/no-thing-project[LinkedIn]
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+== 📚 License
+MIT License © No.Thing Project 2024.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+🚀 **Now you're ready to contribute, build, and deploy the No.Thing Project web application!**

@@ -1,41 +1,37 @@
+// CustomCursor.js
 import React, { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { motion, useMotionValue } from "framer-motion";
 import "./CustomCursor.css";
 
 const CustomCursor = ({ size = 8 }) => {
-  // Початкові значення для позиціонування
   const motionX = useMotionValue(-100);
   const motionY = useMotionValue(-100);
-
-  // Стан для перевірки наведення на інтерактивні елементи (лінки або кнопки)
   const [hoveringInteractive, setHoveringInteractive] = useState(false);
 
   useEffect(() => {
+    let animationFrameId;
+
     const handleMouseMove = (e) => {
-      const x = Math.round(e.clientX);
-      const y = Math.round(e.clientY);
-      motionX.set(x);
-      motionY.set(y);
+      // Використання requestAnimationFrame для оптимізації частоти оновлень
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
+      animationFrameId = requestAnimationFrame(() => {
+        motionX.set(e.clientX);
+        motionY.set(e.clientY);
+        const isInteractive = e.target.closest("a, button, img");
+        setHoveringInteractive(!!isInteractive);
+      });
     };
 
     window.addEventListener("mousemove", handleMouseMove);
-    return () => window.removeEventListener("mousemove", handleMouseMove);
-  }, [motionX, motionY]);
-
-  useEffect(() => {
-    const handleHover = (e) => {
-      // Перевірка, чи є найближчий елемент a або button
-      const isInteractive = e.target.closest("a, button");
-      setHoveringInteractive(!!isInteractive);
-    };
-
-    document.addEventListener("mouseover", handleHover);
-    document.addEventListener("mouseout", handleHover);
     return () => {
-      document.removeEventListener("mouseover", handleHover);
-      document.removeEventListener("mouseout", handleHover);
+      window.removeEventListener("mousemove", handleMouseMove);
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+      }
     };
-  }, []);
+  }, [motionX, motionY]);
 
   return (
     <motion.svg
@@ -46,14 +42,8 @@ const CustomCursor = ({ size = 8 }) => {
         width: size,
         height: size,
       }}
-      animate={{
-        scale: hoveringInteractive ? 3 : 1,
-      }}
-      transition={{
-        type: "tween",
-        ease: "easeInOut",
-        duration: 0.3,
-      }}
+      animate={{ scale: hoveringInteractive ? 3 : 1 }}
+      transition={{ type: "tween", ease: "easeInOut", duration: 0.3 }}
     >
       <circle
         cx="50%"
