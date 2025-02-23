@@ -49,7 +49,7 @@ jobs:
         run: npm run build:${{ env.APP_ENV }}
 
       - name: Deploy to GitHub Pages 🚀
-        if: github.ref == 'refs/heads/development'
+        if: github.ref == 'refs/heads/master'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
