@@ -1,5 +1,5 @@
-import React, { useState, useEffect, Suspense, lazy } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import React, { useState, useEffect, lazy } from "react";
+import { AnimatePresence } from "framer-motion";
 import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
 import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
@@ -7,7 +7,7 @@ import SplashScreenContainer from "./containers/SplashScreenContainer";
 import LandingPageContainer from "./containers/LandingPageContainer";
 import config from "./config";
 
-const LandingPage = lazy(() => import("./pages/LandingPage"));
+// const LandingPage = lazy(() => import("./pages/LandingPage"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicyPage"));
 const TermsOfUse = lazy(() => import("./pages/TermsOfUsePage"));
 

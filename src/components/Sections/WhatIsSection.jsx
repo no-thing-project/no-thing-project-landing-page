@@ -17,9 +17,7 @@ const WhatIsSection = () => {
           WHAT IS
         </Title>
         <Title as="p" className="section-description-text glass-overlay" motionProps={fadeInUp(0.4)}>
-          No.Thing Project is a movement, a mindset, and a platform for transformation
-          It is the idea that nothing is not emptiness but a starting point—a space where creativity, innovation, and change can emerge.
-          We embrace minimalism as a tool for clarity and inspiration, proving that even from nothing, something extraordinary can be built.
+        No.Thing Project is more than just a concept — it is a movement, a philosophy, and a call to action. It is the art of transforming nothing into everything. Built on the principles of minimalism, creativity, and self-belief, No.Thing is a global platform that empowers individuals to start from scratch and build something meaningful.
         </Title>
       </div>
     </Section>
