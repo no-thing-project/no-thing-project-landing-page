@@ -2,7 +2,7 @@
   "name": "no-thin-project-landing",
   "version": "0.0.1",
   "private": true,
-  "homepage": "https://no-thing-project.github.io/website.landing/",
+  "homepage": "https://nothingproject.io",
   "dependencies": {
     "@react-three/cannon": "^6.6.0",
     "@react-three/drei": "^9.121.4",
