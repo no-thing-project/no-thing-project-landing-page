@@ -40,7 +40,7 @@ const config = {
   controls: {
     enableScrollRotation: false, // Початкове значення для повороту сцени при скролі
     toggleKey: "r", // Клавіша для перемикання повороту сцени
-    enableScrollImpulse: false, // Початкове значення для імпульсу при скролі
+    enableScrollImpulse: true, // Початкове значення для імпульсу при скролі
     toggleImpulseKey: "i", // Клавіша для перемикання імпульсу при скролі
   },
   camera: {
@@ -584,20 +584,13 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
     }
     window.addEventListener("resize", onWindowResize);
 
-    
     // Cleanup
     return () => {
       window.removeEventListener("resize", onWindowResize);
       window.removeEventListener("mousemove", onMouseMove);
       window.removeEventListener("scroll", throttledScrollHandler);
       window.removeEventListener("keydown", onKeyDown);
-      
-      if (renderer) {
-        renderer.dispose();
-      }
-      if (mountRef.current) {
-        mountRef.current.removeChild(renderer.domElement);
-      }
+      mountRef.current.removeChild(renderer.domElement);
       renderer.dispose();
     };
   }, [hdrTexture]);
@@ -790,7 +783,7 @@ const Scene = forwardRef(({ hdrTexture, showDebugButtons }, ref) => {
         width: "100vw",
         height: "100vh",
         overflow: "hidden",
-        pointerEvents: "none",
+        // pointerEvents: "none",
       }}
     />
   );
