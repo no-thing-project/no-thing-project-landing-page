@@ -46,6 +46,18 @@ const HeaderSection = ({
     };
   }, [isMenuOpen]);
 
+  useEffect(() => {
+    if (isMenuOpen) {
+      document.body.classList.add("menu-open");
+      logoOpacity.set(1);
+      logoY.set(0);
+    } else {
+      document.body.classList.remove("menu-open");
+      window.scrollY === 0 ? logoOpacity.set(0) : logoOpacity.set(1);
+      logoY.set(0);
+    }
+  }, [isMenuOpen]);
+
   return (
     <header className={`landing-header ${isMenuOpen ? "menu-open" : ""}`}>
       <motion.a
@@ -70,6 +82,10 @@ const HeaderSection = ({
             {isMenuOpen ? "CLOSE" : "MENU"}
           </button>
           <nav className={`mobile-nav ${isMenuOpen ? "open" : ""}`}>
+            {/* Блок FancyButton, розташований внизу overlay */}
+            <div className="mobile-nav-footer">
+              <FancyButton />
+            </div>
             <ul>
               <li>
                 <a href="#section2" onClick={() => handleNavClick("section2")}>
@@ -87,15 +103,16 @@ const HeaderSection = ({
                 </a>
               </li>
               <li>
+                <a href="#support" onClick={() => handleNavClick("support")}>
+                  Join the movement
+                </a>
+              </li>
+              <li>
                 <a href="#section6" onClick={() => handleNavClick("section6")}>
                   Connect
                 </a>
               </li>
             </ul>
-            {/* Блок FancyButton, розташований внизу overlay */}
-            <div className="mobile-nav-footer">
-              <FancyButton />
-            </div>
           </nav>
         </>
       ) : (
@@ -132,6 +149,17 @@ const HeaderSection = ({
                 }}
               >
                 Stories
+              </a>
+            </li>
+            <li>
+              <a
+                href="#support"
+                onClick={(e) => {
+                  e.preventDefault();
+                  scrollToSection("support");
+                }}
+              >
+                Join the movement
               </a>
             </li>
             <li>

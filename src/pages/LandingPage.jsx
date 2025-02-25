@@ -12,6 +12,7 @@ import StoriesSection from "../components/Sections/StoriesSection";
 import InterestingSection from "../components/Sections/InterestingSection";
 import ConnectSection from "../components/Sections/ConnectSection";
 import FooterSection from "../components/Sections/FooterSection";
+import SupportSection from "../components/Sections/SupportSection";
 
 const LandingPage = ({
   showDebugButtons,
@@ -101,7 +102,7 @@ const LandingPage = ({
             calcTextWidth={calcTextWidth}
             interestingRef={interestingRef}
           />
-          {/* <SupportSection /> */}
+          <SupportSection />
           <ConnectSection />
           <FooterSection />
         </div>

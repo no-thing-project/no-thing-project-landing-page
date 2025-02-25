@@ -21,7 +21,7 @@ const NothingSection = ({ isMobile }) => {
               textOrientation: "upright",
               margin: "auto",
               height: "auto", // Забезпечуємо auto-розмір
-              paddingBottom: "600px"
+              paddingBottom: "500px"
             }}
           >
             <DecryptText text="NOTHING" />
