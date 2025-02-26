@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { fadeInAnimation } from "../../utils/fadeInAnimation";
+import { Link } from "react-router-dom";
 
 const FooterSection = () => {
   return (
@@ -11,17 +12,16 @@ const FooterSection = () => {
         {...fadeInAnimation({ delay: 0.2 })}
       >
         <p>
-          &copy; 2025 <span className="brand">no.thing.project</span>
+        Copyright &copy; 2025 <span className="brand">no.thing.project</span>. All Rights Reserved
         </p>
-        <p className="rights">ALL RIGHTS RESERVED</p>
         <p className="footer-links">
-          <a href="/privacy-policy" className="footer-link">
+          <Link to="/privacy-policy" className="footer-link">
             Privacy Policy
-          </a>{" "}
-          |{" "}
-          <a href="/terms-of-use" className="footer-link">
-            Terms of Use
-          </a>
+          </Link>{" "}
+          ●{" "}
+          <Link to="/terms-of-use" className="footer-link">
+            Terms & Conditions
+          </Link>
         </p>
       </motion.div>
     </footer>

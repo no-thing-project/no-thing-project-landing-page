@@ -49,7 +49,7 @@ const DecryptText = ({ text, speed = 100 }) => {
   }, [isInView, iteration, text, speed]);
 
   return (
-    <motion.span ref={ref} style={{ display: "inline-block" }}>
+    <motion.span ref={ref} style={{ display: "inline-block", verticalAlign: "middle" }}>
       {displayText}
     </motion.span>
   );

@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { fadeInAnimation } from "../../utils/fadeInAnimation";
 import FancyButton from "../Buttons/FancyButton";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const HeaderSection = ({
   scrollToSection,
@@ -17,6 +18,9 @@ const HeaderSection = ({
   showDonateButton,
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const isHomePage = location.pathname === "/";
 
   // Перемикання стану меню
   const toggleMenu = () => {
@@ -53,20 +57,27 @@ const HeaderSection = ({
       logoY.set(0);
     } else {
       document.body.classList.remove("menu-open");
-      window.scrollY === 0 ? logoOpacity.set(0) : logoOpacity.set(1);
+      window.scrollY === 0 && isHomePage ? logoOpacity.set(0) : logoOpacity.set(1);
       logoY.set(0);
     }
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isHomePage, logoOpacity, logoY]);
+
+  const handleLogoClick = (e) => {
+    e.preventDefault();
+    // Якщо не на головній сторінці, переходимо на головну
+    if (!isHomePage) {
+      navigate("/");
+    } else {
+      scrollToSection("section1");
+    }
+  };
 
   return (
     <header className={`landing-header ${isMenuOpen ? "menu-open" : ""}`}>
       <motion.a
         className="logo"
         href="#section1"
-        onClick={(e) => {
-          e.preventDefault();
-          scrollToSection("section1");
-        }}
+        onClick={handleLogoClick}
         style={{ opacity: logoOpacity, y: logoY }}
       >
         <h1 className="logo-text">
@@ -76,105 +87,109 @@ const HeaderSection = ({
         </h1>
       </motion.a>
 
-      {isMobile ? (
+      {/* Показуємо навігацію тільки на головній сторінці */}
+      {isHomePage && (
         <>
-          <button className="hamburger" onClick={toggleMenu}>
-            {isMenuOpen ? "CLOSE" : "MENU"}
-          </button>
-          <nav className={`mobile-nav ${isMenuOpen ? "open" : ""}`}>
-            {/* Блок FancyButton, розташований внизу overlay */}
-            <div className="mobile-nav-footer">
-              <FancyButton />
-            </div>
-            <ul>
-              <li>
-                <a href="#section2" onClick={() => handleNavClick("section2")}>
-                  About
-                </a>
-              </li>
-              <li>
-                <a href="#section3" onClick={() => handleNavClick("section3")}>
-                  Nothing
-                </a>
-              </li>
-              <li>
-                <a href="#section4" onClick={() => handleNavClick("section4")}>
-                  Stories
-                </a>
-              </li>
-              <li>
-                <a href="#support" onClick={() => handleNavClick("support")}>
-                  Join the movement
-                </a>
-              </li>
-              <li>
-                <a href="#section6" onClick={() => handleNavClick("section6")}>
-                  Connect
-                </a>
-              </li>
-            </ul>
-          </nav>
+          {isMobile ? (
+            <>
+              <button className="hamburger" onClick={toggleMenu}>
+                {isMenuOpen ? "CLOSE" : "MENU"}
+              </button>
+              <nav className={`mobile-nav ${isMenuOpen ? "open" : ""}`}>
+                <div className="mobile-nav-footer">
+                  <FancyButton />
+                </div>
+                <ul>
+                  <li>
+                    <a href="#section2" onClick={() => handleNavClick("section2")}>
+                      About
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#section3" onClick={() => handleNavClick("section3")}>
+                      Nothing
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#section4" onClick={() => handleNavClick("section4")}>
+                      Stories
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#support" onClick={() => handleNavClick("support")}>
+                      Join the movement
+                    </a>
+                  </li>
+                  <li>
+                    <a href="#section6" onClick={() => handleNavClick("section6")}>
+                      Connect
+                    </a>
+                  </li>
+                </ul>
+              </nav>
+            </>
+          ) : (
+            <nav className="landing-nav">
+              <ul>
+                <li>
+                  <a
+                    href="#section2"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("section2");
+                    }}
+                  >
+                    About
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#section3"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("section3");
+                    }}
+                  >
+                    Nothing
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#section4"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("section4");
+                    }}
+                  >
+                    Stories
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#support"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("support");
+                    }}
+                  >
+                    Join the movement
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href="#section6"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      scrollToSection("section6");
+                    }}
+                  >
+                    Connect
+                  </a>
+                </li>
+              </ul>
+            </nav>
+          )}
         </>
-      ) : (
-        <nav className="landing-nav">
-          <ul>
-            <li>
-              <a
-                href="#section2"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("section2");
-                }}
-              >
-                About
-              </a>
-            </li>
-            <li>
-              <a
-                href="#section3"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("section3");
-                }}
-              >
-                Nothing
-              </a>
-            </li>
-            <li>
-              <a
-                href="#section4"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("section4");
-                }}
-              >
-                Stories
-              </a>
-            </li>
-            <li>
-              <a
-                href="#support"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("support");
-                }}
-              >
-                Join the movement
-              </a>
-            </li>
-            <li>
-              <a
-                href="#section6"
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollToSection("section6");
-                }}
-              >
-                Connect
-              </a>
-            </li>
-          </ul>
-        </nav>
       )}
 
       <div className="header-buttons-wrapper">

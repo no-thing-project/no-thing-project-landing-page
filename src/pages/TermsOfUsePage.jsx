@@ -1,40 +1,74 @@
-import React, { useState, Suspense } from "react";
-import { motion } from "framer-motion";
-import { Helmet, HelmetProvider } from "react-helmet-async";
-import Header from "../components/Layouts/Headers";
-import Footer from "../components/Layouts/Footer";
-import TermsOfUse from "../components/Sections/TermsOfUse";
+import React from "react";
+import { motion, useMotionValue } from "framer-motion";
+import { Helmet } from "react-helmet";
+import HeaderSection from "../components/Sections/HeaderSection";
+import FooterSection from "../components/Sections/FooterSection";
+import "../index.css";
 
-const Scene3D = React.lazy(() => import("../components/Scene/Scene3D"));
-
-
-const LandingPage = ({ hdrTexture, isMobile }) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const toggleMenu = () => setMenuOpen((prev) => !prev);
+const TermsOfUse = () => {
+  const logoOpacity = useMotionValue(1);
+  const logoY = useMotionValue(0);
 
   return (
-    <HelmetProvider>
     <>
       <Helmet>
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" />
+        <title>Terms of Use - no.thing.project</title>
+        <meta name="description" content="Terms of Use of no.thing.project" />
       </Helmet>
+      <motion.div
+        className="landing-container"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+      >
+        <HeaderSection 
+          scrollToSection={() => {}}
+          logoOpacity={logoOpacity}
+          logoY={logoY}
+          isMobile={false}
+          showDebugButtons={false}
+          showHubButton={false}
+          showDonateButton={false}
+        />
 
-      <Header menuOpen={menuOpen} toggleMenu={toggleMenu} />
+        {/* Основний контент сторінки */}
+        <div className="section-wrapper">
+          <div className="terms-of-use-content">
+            <h2>Terms of Use</h2>
+            <p>
+              Welcome to No.Thing Project. By using our website, you agree to these terms.
+            </p>
 
-      <motion.div className="main-container" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 1 }}>
-        <div className="background-container">
-          <Suspense fallback={<div>Loading 3D scene...</div>}>
-            <Scene3D hdrTexture={hdrTexture} />
-          </Suspense>
+            <h3>Use of Content</h3>
+            <p>
+              All content on this site is for informational purposes only.
+              Unauthorized use or duplication without consent is prohibited.
+            </p>
+
+            <h3>User Responsibilities</h3>
+            <p>
+              Users must respect community guidelines and refrain from harmful
+              activities, including spamming and illegal use.
+            </p>
+
+            <h3>Liability Disclaimer</h3>
+            <p>
+              No.Thing Project is not responsible for any direct or indirect
+              damages arising from the use of this site.
+            </p>
+
+            <h3>Policy Updates</h3>
+            <p>
+              These terms may be updated periodically. Continued use of the site
+              signifies acceptance of changes.
+            </p>
+          </div>
         </div>
 
-        <TermsOfUse></TermsOfUse>
-
-        <Footer />
+        <FooterSection />
       </motion.div>
     </>
-    </HelmetProvider>
   );
 };
 
-export default LandingPage;
+export default TermsOfUse;

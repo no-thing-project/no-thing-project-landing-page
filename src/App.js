@@ -3,22 +3,11 @@ import React, { useState, useEffect, Suspense, lazy } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import SplashScreen from "./components/SplashScreen/CodeSplashScreen";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
-import { RGBELoader } from "three/examples/jsm/loaders/RGBELoader";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
-
-// Функція для визначення мобільного пристрою
-const isMobileDevice = () => /Mobi|Android/i.test(navigator.userAgent);
-
-const App = () => {
-  const [showSplash, setShowSplash] = useState(false);
-  // const [hdrTexture, setHdrTexture] = useState(null);
-  const [isMobile, setIsMobile] = useState(false);
-
-  useEffect(() => {
-    setIsMobile(isMobileDevice());
-  }, []);
+const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicyPage"));
+const TermsOfUse = lazy(() => import("./pages/TermsOfUsePage"));
 
   // Завантаження HDR текстури
   // useEffect(() => {
@@ -34,6 +23,71 @@ const App = () => {
   //   }
   //   loadHDR();
   // }, []);
+
+// Компонент для маршрутизації із анімацією
+const AppRoutes = ({ isMobile, showDebugButtons, showHubButton, showDonateButton }) => {
+  const location = useLocation();
+  return (
+    <AnimatePresence exitBeforeEnter>
+      <Suspense fallback={null}>
+        <Routes location={location} key={location.pathname}>
+          <Route
+            path="/"
+            element={
+              <motion.div
+                key="landing"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
+              >
+                <LandingPage
+                  showDebugButtons={showDebugButtons}
+                  showHubButton={showHubButton}
+                  showDonateButton={showDonateButton}
+                  isMobile={isMobile}
+                />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/privacy-policy"
+            element={
+              <motion.div
+                key="privacy"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <PrivacyPolicy />
+              </motion.div>
+            }
+          />
+          <Route
+            path="/terms-of-use"
+            element={
+              <motion.div
+                key="terms"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.6, ease: "easeInOut" }}
+              >
+                <TermsOfUse />
+              </motion.div>
+            }
+          />
+        </Routes>
+      </Suspense>
+    </AnimatePresence>
+  );
+};
+
+const App = () => {
+  const [showSplash, setShowSplash] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    setIsMobile(/Mobi|Android/i.test(navigator.userAgent));
+  }, []);
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -51,23 +105,12 @@ const App = () => {
               <SplashScreen onFinish={() => setShowSplash(false)} />
             </motion.div>
           ) : (
-            <motion.div
-              key="landing"
-              initial={{ opacity: 0, scale: 0.95 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, ease: "easeInOut", delay: 0.2 }}
-            >
-              <Suspense fallback={null}>
-                {/* Передаємо HDR текстуру та прапорець isMobile */}
-                <LandingPage
-                  // hdrTexture={hdrTexture}
-                  showDebugButtons={false}
-                  showHubButton={false}
-                  showDonateButton={true}
-                  isMobile={isMobile}
-                />
-              </Suspense>
-            </motion.div>
+            <AppRoutes
+              isMobile={isMobile}
+              showDebugButtons={false}
+              showHubButton={false}
+              showDonateButton={true}
+            />
           )}
         </AnimatePresence>
       </div>

@@ -21,7 +21,6 @@ const NothingSection = ({ isMobile }) => {
               textOrientation: "upright",
               margin: "auto",
               height: "auto", // Забезпечуємо auto-розмір
-              paddingBottom: "500px"
             }}
           >
             <DecryptText text="NOTHING" />
@@ -41,7 +40,7 @@ const NothingSection = ({ isMobile }) => {
       <div className="section-wrapper right-align">
         <motion.h2 className="section3-title" {...fadeInAnimation(0.2)}>
           {text.split(" ").map((word, idx) => (
-            <a key={idx} style={{ display: "block" }}>
+            <a class="nothing" key={idx} style={{ display: "flex", justifyContent: "end" }}>
               {word === "NOTHING" ? <DecryptText text="NOTHING" /> : word}
             </a>
           ))}

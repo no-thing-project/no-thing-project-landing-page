@@ -18,6 +18,10 @@ h2 {
   margin: 0;
 }
 
+p, h3, h2{
+  font-family: "Inter", sans-serif;
+}
+
 /*========================
    Layout Containers
 ========================*/
@@ -71,6 +75,7 @@ h2 {
 }
 
 .logo-text {
+  font-family: "JetBrains Mono", monospace;
   font-size: 1.5rem;
   line-height: 1;
   color: #000;
@@ -415,6 +420,7 @@ body.menu-open {
 
 .story-description {
   font-size: 24px;
+  font-weight: 200;
   margin: 0;
 }
 
@@ -531,7 +537,6 @@ body.menu-open {
 }
 
 .contacts p {
-  font-family: "JetBrains Mono", monospace;
   font-size: 24px;
   font-weight: 100;
   margin: 10px 0;
@@ -565,8 +570,9 @@ body.menu-open {
    Footer
 ========================*/
 .landing-footer {
+  font-weight: 200;
   position: absolute;
-  bottom: 20px;
+  bottom: 10px;
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
@@ -576,7 +582,6 @@ body.menu-open {
 }
 
 .brand {
-  font-weight: bold;
   text-transform: uppercase;
 }
 
@@ -610,6 +615,90 @@ body.menu-open {
   mix-blend-mode: multiply;
   z-index: 9999;
 }
+
+/*========================
+   Privacy Policy
+========================*/
+.privacy-policy-content {
+  padding: 40px;
+  max-width: 800px;
+  margin: 100px auto;
+}
+
+.privacy-policy-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #7f44ff;
+  padding-bottom: 10px;
+}
+
+.privacy-policy-content h3 {
+  font-size: 1.75rem;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.privacy-policy-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.privacy-policy-content a {
+  color: #7f44ff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.3s ease;
+}
+
+.privacy-policy-content a:hover {
+  border-bottom: 1px solid #7f44ff;
+}
+
+/*========================
+   Terms of Use
+========================*/
+.terms-of-use-content {
+  padding: 40px;
+  max-width: 800px;
+  margin: 100px auto;
+}
+
+.terms-of-use-content h2 {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  border-bottom: 2px solid #7f44ff;
+  padding-bottom: 10px;
+}
+
+.terms-of-use-content h3 {
+  font-size: 1.75rem;
+  margin-top: 30px;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.terms-of-use-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #555;
+  margin-bottom: 20px;
+}
+
+.terms-of-use-content a {
+  color: #7f44ff;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-bottom 0.3s ease;
+}
+
+.terms-of-use-content a:hover {
+  border-bottom: 1px solid #7f44ff;
+}
+
+
 
 /*========================
    Responsive - Mobile Styles
