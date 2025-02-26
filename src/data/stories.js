@@ -12,13 +12,13 @@ export const storiesData = [
     
     I do not fear nothing.
     I live in it. I move with it.
-    And in nothing, I find everything.`,
+    And in nothing, I can find everything.`,
   },
   {
     name: "Noone",
     img: "/assets/images/noone_userphoto_id.png",
     text: `Nothing - is the space where meaning begins.
-    Nothing is silence before a song, the blank page before a story, the deep breath before the first step.
+    Nothing is the blank page before a story, the deep breath before the first step.
 
     People fear Nothing. They think it’s a void, a dead end. But I see it as freedom.
     Freedom from expectations. Freedom to create, to reinvent, to become.`,

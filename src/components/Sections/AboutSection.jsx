@@ -23,7 +23,7 @@ const AboutSection = () => {
           className="second-screen-description"
           {...fadeInAnimation({ delay: 0.6 })}
         >
-          It is the idea that nothing is not emptiness but a starting point—a space where creativity, innovation, and change can emerge.
+          It is the idea that nothing is not emptiness but a starting point - a space where creativity, innovation, and change can emerge.
         </motion.p>
         <motion.p
           className="second-screen-description"
