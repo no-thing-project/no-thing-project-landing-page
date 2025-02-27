@@ -5,7 +5,7 @@ import "./FancyButton.css";
 function FancyButton() {
   return (
     <motion.a
-      href="https://www.paypal.com/donate/?hosted_button_id=FFPAVCYLTSZV6"
+      href="https://secure.wayforpay.com/tips/tf3951577f0b1"
       target="_blank"
       rel="noopener noreferrer"
     >
