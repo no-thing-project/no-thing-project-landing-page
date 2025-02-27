@@ -1,7 +1,49 @@
 {
+    "header": {
+        "logoMain": "no.thing",
+        "logoSub": "project",
+        "menu": "МЕНЮ",
+        "close": "ЗАКРИТИ"
+    },
+    "nav": {
+        "about": "Про нас",
+        "nothing": "Нічого",
+        "stories": "Історії",
+        "join": "Приєднуйся до руху",
+        "connect": "Контакти"
+    },
+    
     "mainSection": {
         "title": "No.Thing Project",
-        "description": "Почни з нічого. Створи всесвіт",
-        "hintBadgeText": "Натисни і утримуй, щоб створити всесвіт!"
+        "description": "Почни з нічого. Створи все.",
+        "hintBadgeText": "Натисни й утримуй, щоб створити все!"
+    },
+
+    "aboutSection": {
+        "aboutText": "ПРО НАС",
+        "description_1": "No.Thing Project - це рух, спосіб мислення та платформа для змін.",
+        "description_2": "Це ідея про те, що «нічого» - це не порожнеча, а відправна точка, простір, у якому народжуються творчість, інновації та зміни.",
+        "description_3": "Ми використовуємо мінімалізм як інструмент для ясності та натхнення, доводячи, що навіть з нічого можна створити щось величне."
+    },
+
+    "nothingSection": {
+        "nothing": "НІЧОГО",
+        "question": "ЩО ДЛЯ ТЕБЕ НІЧОГО??"
+    },
+    
+    "interestingSection": {
+        "title": "Цікаво?",
+        "tooltip": "Проведи пальцем"
+    },    
+
+    "connectSection": {
+        "title": "ЗВ’ЯЗОК"
+    },    
+
+    "footer": {
+        "privacyPolicy": "Політика конфіденційності",
+        "termsConditions": "Умови використання",
+        "brand": "no.thing.project",
+        "allRightsReserved": "Усі права захищені"
     }
 }

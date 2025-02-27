@@ -22,7 +22,7 @@ const HeaderSection = ({
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -85,9 +85,9 @@ const HeaderSection = ({
         style={{ opacity: logoOpacity, y: logoY }}
       >
         <h1 className="logo-text">
-          no.thing
+          {t("header.logoMain")}
           <br />
-          <span className="logo-sub">project</span>
+          <span className="logo-sub">{t("header.logoSub")}</span>
         </h1>
       </motion.a>
 
@@ -119,107 +119,22 @@ const HeaderSection = ({
                   <FancyButton />
                 </div>
                 <ul>
-                  <li>
-                    <a
-                      href="#section2"
-                      onClick={() => handleNavClick("section2")}
-                    >
-                      About
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#section3"
-                      onClick={() => handleNavClick("section3")}
-                    >
-                      Nothing
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#section4"
-                      onClick={() => handleNavClick("section4")}
-                    >
-                      Stories
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#support"
-                      onClick={() => handleNavClick("support")}
-                    >
-                      Join the movement
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#section6"
-                      onClick={() => handleNavClick("section6")}
-                    >
-                      Connect
-                    </a>
-                  </li>
+                  <li><a href="#section2" onClick={() => handleNavClick("section2")}>{t("nav.about")}</a></li>
+                  <li><a href="#section3" onClick={() => handleNavClick("section3")}>{t("nav.nothing")}</a></li>
+                  <li><a href="#section4" onClick={() => handleNavClick("section4")}>{t("nav.stories")}</a></li>
+                  <li><a href="#support" onClick={() => handleNavClick("support")}>{t("nav.join")}</a></li>
+                  <li><a href="#section6" onClick={() => handleNavClick("section6")}>{t("nav.connect")}</a></li>
                 </ul>
               </nav>
             </>
           ) : (
             <nav className="landing-nav">
               <ul>
-                <li>
-                  <a
-                    href="#section2"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("section2");
-                    }}
-                  >
-                    About
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#section3"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("section3");
-                    }}
-                  >
-                    Nothing
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#section4"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("section4");
-                    }}
-                  >
-                    Stories
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#support"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("support");
-                    }}
-                  >
-                    Join the movement
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href="#section6"
-                    onClick={(e) => {
-                      e.preventDefault();
-                      scrollToSection("section6");
-                    }}
-                  >
-                    Connect
-                  </a>
-                </li>
+                <li><a href="#section2" onClick={(e) => {e.preventDefault(); scrollToSection("section2");}}>{t("nav.about")}</a></li>
+                <li><a href="#section3" onClick={(e) => {e.preventDefault(); scrollToSection("section3");}}>{t("nav.nothing")}</a></li>
+                <li><a href="#section4" onClick={(e) => {e.preventDefault(); scrollToSection("section4");}}>{t("nav.stories")}</a></li>
+                <li><a href="#support" onClick={(e) => {e.preventDefault(); scrollToSection("support");}}>{t("nav.join")}</a></li>
+                <li><a href="#section6" onClick={(e) => {e.preventDefault(); scrollToSection("section6");}}>{t("nav.connect")}</a></li>
               </ul>
             </nav>
           )}
@@ -233,8 +148,8 @@ const HeaderSection = ({
               value={i18n.language}
               onChange={(e) => changeLanguage(e.target.value)}
             >
-              <option value="uk">UA</option>
               <option value="en">EN</option>
+              <option value="uk">UA</option>
             </select>
           </div>
 

@@ -1,7 +1,49 @@
 {
+    "header": {
+        "logoMain": "no.thing",
+        "logoSub": "project",
+        "menu": "MENU",
+        "close": "CLOSE"
+    },
+    "nav": {
+        "about": "About",
+        "nothing": "Nothing",
+        "stories": "Stories",
+        "join": "Join the movement",
+        "connect": "Connect"
+    },
+    
     "mainSection": {
         "title": "No.Thing Project",
         "description": "Start with Nothing. Create Everything",
         "hintBadgeText": "Press and hold to create Everything!"
+    },
+
+    "aboutSection": {
+        "aboutText": "ABOUT",
+        "description_1": "No.Thing Project is a movement, a mindset, and a platform for transformation",
+        "description_2": " It is the idea that nothing is not emptiness but a starting point - a space where creativity, innovation, and change can emerge.",
+        "description_3": "We embrace minimalism as a tool for clarity and inspiration, proving that even from nothing, something extraordinary can be built."
+    },
+
+    "nothingSection": {
+        "nothing": "NOTHING",
+        "question": "WHAT IS NOTHING FOR YOU?"
+    },
+    
+    "interestingSection": {
+        "title": "INTERESTING?",
+        "tooltip": "Swipe"
+    },    
+
+    "connectSection": {
+        "title": "CONNECT"
+    },    
+
+    "footer": {
+        "privacyPolicy": "Privacy Policy",
+        "termsConditions": "Terms & Conditions",
+        "brand": "no.thing.project",
+        "allRightsReserved": "All Rights Reserved"
     }
 }

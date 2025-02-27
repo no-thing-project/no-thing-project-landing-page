@@ -1,10 +1,11 @@
-// NothingSection.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { fadeInAnimation } from "../../utils/fadeInAnimation";
+import { useTranslation } from "react-i18next";
 import DecryptText from "../DecryptText/DecryptText";
 
 const NothingSection = ({ isMobile }) => {
+  const { t } = useTranslation();
+
   if (isMobile) {
     return (
       <section
@@ -15,22 +16,24 @@ const NothingSection = ({ isMobile }) => {
         <div className="section-wrapper">
           <motion.h2
             className="section3-title"
-            {...fadeInAnimation(0.2)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
             style={{
               writingMode: "vertical-rl",
               textOrientation: "upright",
               margin: "auto",
-              height: "auto", // Забезпечуємо auto-розмір
+              height: "auto",
             }}
           >
-            <DecryptText text="NOTHING" />
+            <DecryptText text={t("nothingSection.nothing")}/>
           </motion.h2>
         </div>
       </section>
     );
   }
 
-  const text = "WHAT IS NOTHING FOR YOU?";
+  const text = t("nothingSection.question").split(" ");
   return (
     <section
       id="section3"
@@ -38,10 +41,10 @@ const NothingSection = ({ isMobile }) => {
       data-section-id="3"
     >
       <div className="section-wrapper right-align">
-        <motion.h2 className="section3-title" {...fadeInAnimation(0.2)}>
-          {text.split(" ").map((word, idx) => (
+        <motion.h2 className="section3-title" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
+          {text.map((word, idx) => (
             <a key={idx} style={{ display: "flex", justifyContent: "end" }}>
-              {word === "NOTHING" ? <DecryptText text="NOTHING" /> : word}
+              {word === t("nothingSection.nothing") ? <DecryptText text={t("nothingSection.nothing")} /> : word}
             </a>
           ))}
         </motion.h2>

@@ -1,8 +1,9 @@
-// InterestingSection.jsx
 import React, { useState, useEffect } from "react";
 import { motion, useAnimation, useMotionValue, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
 const InterestingSection = ({ calcTextWidth, interestingRef }) => {
+  const { t } = useTranslation();
   const controls = useAnimation();
   const x = useMotionValue(-calcTextWidth);
 
@@ -38,11 +39,7 @@ const InterestingSection = ({ calcTextWidth, interestingRef }) => {
   const [tooltipPos, setTooltipPos] = useState({ x: 0, y: 0 });
 
   return (
-    <section
-      id="section5"
-      className="page-section section5 inverting-text"
-      data-section-id="5"
-    >
+    <section id="section5" className="page-section section5 inverting-text" data-section-id="5">
       <div className="section-wrapper-full">
         <div className="interesting-container">
           <motion.div
@@ -59,12 +56,8 @@ const InterestingSection = ({ calcTextWidth, interestingRef }) => {
               setTooltipPos({ x: e.clientX + 20, y: e.clientY + 10 })
             }
           >
-            <span
-              ref={interestingRef}
-              className="interesting-text"
-              data-text="INTERESTING?"
-            >
-              INTERESTING?
+            <span ref={interestingRef} className="interesting-text" data-text={t("interestingSection.title")}>
+              {t("interestingSection.title")}
             </span>
           </motion.div>
           <AnimatePresence>
@@ -82,7 +75,7 @@ const InterestingSection = ({ calcTextWidth, interestingRef }) => {
                 exit={{ scale: 0, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                Swipe
+                {t("interestingSection.tooltip")}
               </motion.div>
             )}
           </AnimatePresence>

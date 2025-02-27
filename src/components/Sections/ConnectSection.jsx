@@ -1,18 +1,21 @@
-// ConnectSection.jsx
 import React from "react";
 import { motion } from "framer-motion";
-import { fadeInAnimation } from "../../utils/fadeInAnimation";
+import { useTranslation } from "react-i18next";
 
 const ConnectSection = () => {
+  const { t } = useTranslation();
+
   return (
     <section id="section6" className="page-section section6 inverting-text" data-section-id="6">
       <div className="section-wrapper left-align">
         <div className="second-screen-content">
           <motion.h1
             className="second-screen-title"
-            {...fadeInAnimation({ delay: 0.2 })}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.2 }}
           >
-            CONNECT
+            {t("connectSection.title")}
           </motion.h1>
           <div className="contacts">
             <p>

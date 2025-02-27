@@ -1,8 +1,9 @@
-// HintBadge.jsx
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslation } from "react-i18next";
 
-const HintBadge = ({lang}) => {
+const HintBadge = () => {
+  const { t } = useTranslation();
   const [visible, setVisible] = useState(false);
 
   // Затримка появи на 1 секунду
@@ -44,7 +45,7 @@ const HintBadge = ({lang}) => {
             pointerEvents: "none"
           }}
         >
-          {lang("mainSection.hintBadgeText")}
+          {t("mainSection.hintBadgeText")}
         </motion.div>
       )}
     </AnimatePresence>
