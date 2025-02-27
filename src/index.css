@@ -160,13 +160,12 @@ p, h3, h2{
   height: 40px;
   box-sizing: border-box;
   background: transparent;
-  border: 2px solid #000;
+  border: none;
   font-size: 1.2rem;
   font-weight: 400;
   border-radius: 25px;
   color: #000;
   cursor: pointer;
-  z-index: 1100;
   transition: color 0.3s ease, border 0.3s ease;
 }
 
@@ -223,7 +222,8 @@ body.menu-open {
   flex-direction: column;
   gap: 30px;
   text-align: center;
-  margin-top: -50px;
+  margin-top: 0;
+  padding-bottom: 50px;
 }
 
 .mobile-nav ul li a {
@@ -243,6 +243,38 @@ body.menu-open {
   width: 100%;
   display: flex;
   justify-content: center;
+}
+
+.header-right {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+  z-index: 1100;
+}
+
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.language-switcher select {
+  padding: 5px 10px;
+  background-color: transparent;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  font-size: 1rem;
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 60px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200l5%206%205-6z%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 6px;
+  transition: color 0.3s ease, border 0.3s ease;
 }
 
 /*========================
@@ -316,7 +348,7 @@ body.menu-open {
 }
 
 .second-screen {
-  height: 50vh;
+  height: 100vh;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
@@ -345,7 +377,7 @@ body.menu-open {
 }
 
 .section3 {
-  min-height: 150vh;
+  min-height: 100vh;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -736,6 +768,23 @@ body.menu-open {
 
   .hamburger {
     display: block;
+  }
+
+  .header-right {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .landing-header.menu-open .language-switcher select {
+    background-color: transparent;
+    border-radius: 20px;
+    color: #fff;
+    border: none;
+    background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200l5%206%205-6z%22%20fill%3D%22%23fff%22/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 10px 6px;
   }
 
   .header-buttons-wrapper {

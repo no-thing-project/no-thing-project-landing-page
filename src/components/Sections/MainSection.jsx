@@ -2,9 +2,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { fadeInAnimation } from "../../utils/fadeInAnimation";
-import HintBadge from "../HintBadge/HintBagde"
+import HintBadge from "../HintBadge/HintBagde";
 
-const MainSection = () => {
+const MainSection = ({lang}) => {
   return (
     <section
       id="section1"
@@ -16,13 +16,13 @@ const MainSection = () => {
         style={{ isolation: "isolate", position: "relative" }}
       >
         <motion.h1 className="first-screen-title" {...fadeInAnimation(0.2)}>
-          No.Thing Project
+          {lang("mainSection.title")}
         </motion.h1>
         <motion.p className="first-screen-description" {...fadeInAnimation(0.4)}>
-          Start with Nothing. Create Everything
+          {lang("mainSection.description")}
         </motion.p>
       </div>
-        <HintBadge />
+      <HintBadge lang={lang}/>
     </section>
   );
 };

@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
-const HintBadge = () => {
+const HintBadge = ({lang}) => {
   const [visible, setVisible] = useState(false);
 
   // Затримка появи на 1 секунду
@@ -44,7 +44,7 @@ const HintBadge = () => {
             pointerEvents: "none"
           }}
         >
-          Press and hold to create Everything!
+          {lang("mainSection.hintBadgeText")}
         </motion.div>
       )}
     </AnimatePresence>

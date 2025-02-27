@@ -13,6 +13,7 @@ import InterestingSection from "../components/Sections/InterestingSection";
 import ConnectSection from "../components/Sections/ConnectSection";
 import FooterSection from "../components/Sections/FooterSection";
 import SupportSection from "../components/Sections/SupportSection";
+import { useTranslation } from "react-i18next";
 
 const LandingPage = ({
   showDebugButtons,
@@ -23,6 +24,7 @@ const LandingPage = ({
   const { scrollY } = useViewportScroll();
   const [calcTextWidth, setCalcTextWidth] = useState(0);
   const interestingRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (interestingRef.current) {
@@ -92,7 +94,7 @@ const LandingPage = ({
 
         {/* Обгортка для основних секцій */}
         <div className="sections-wrapper">
-          <MainSection scrollToSection={scrollToSection} />
+          <MainSection lang={t} />
           <AboutSection />
           <NothingSection
             isMobile={isMobile}

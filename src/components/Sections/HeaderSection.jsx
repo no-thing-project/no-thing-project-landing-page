@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { fadeInAnimation } from "../../utils/fadeInAnimation";
 import FancyButton from "../Buttons/FancyButton";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const HeaderSection = ({
   scrollToSection,
@@ -21,19 +22,17 @@ const HeaderSection = ({
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
+  const { i18n } = useTranslation();
 
-  // Перемикання стану меню
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
   };
 
-  // Закриття меню після вибору пункту навігації
   const handleNavClick = (sectionId) => {
     scrollToSection(sectionId);
     setIsMenuOpen(false);
   };
 
-  // Закриття меню при кліку поза ним
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (
@@ -57,19 +56,24 @@ const HeaderSection = ({
       logoY.set(0);
     } else {
       document.body.classList.remove("menu-open");
-      window.scrollY === 0 && isHomePage ? logoOpacity.set(0) : logoOpacity.set(1);
+      window.scrollY === 0 && isHomePage
+        ? logoOpacity.set(0)
+        : logoOpacity.set(1);
       logoY.set(0);
     }
   }, [isMenuOpen, isHomePage, logoOpacity, logoY]);
 
   const handleLogoClick = (e) => {
     e.preventDefault();
-    // Якщо не на головній сторінці, переходимо на головну
     if (!isHomePage) {
       navigate("/");
     } else {
       scrollToSection("section1");
     }
+  };
+
+  const changeLanguage = (lng) => {
+    i18n.changeLanguage(lng);
   };
 
   return (
@@ -87,41 +91,71 @@ const HeaderSection = ({
         </h1>
       </motion.a>
 
-      {/* Показуємо навігацію тільки на головній сторінці */}
       {isHomePage && (
         <>
           {isMobile ? (
             <>
-              <button className="hamburger" onClick={toggleMenu}>
-                {isMenuOpen ? "CLOSE" : "MENU"}
-              </button>
+              <div className="header-right">
+                {isMenuOpen && (
+                  <div className="language-switcher">
+                    <select
+                      value={i18n.language}
+                      onChange={(e) => {
+                        changeLanguage(e.target.value);
+                        setIsMenuOpen(false);
+                      }}
+                    >
+                      <option value="uk">UA</option>
+                      <option value="en">EN</option>
+                    </select>
+                  </div>
+                )}
+                <button className="hamburger" onClick={toggleMenu}>
+                  {isMenuOpen ? "CLOSE" : "MENU"}
+                </button>
+              </div>
               <nav className={`mobile-nav ${isMenuOpen ? "open" : ""}`}>
                 <div className="mobile-nav-footer">
                   <FancyButton />
                 </div>
                 <ul>
                   <li>
-                    <a href="#section2" onClick={() => handleNavClick("section2")}>
+                    <a
+                      href="#section2"
+                      onClick={() => handleNavClick("section2")}
+                    >
                       About
                     </a>
                   </li>
                   <li>
-                    <a href="#section3" onClick={() => handleNavClick("section3")}>
+                    <a
+                      href="#section3"
+                      onClick={() => handleNavClick("section3")}
+                    >
                       Nothing
                     </a>
                   </li>
                   <li>
-                    <a href="#section4" onClick={() => handleNavClick("section4")}>
+                    <a
+                      href="#section4"
+                      onClick={() => handleNavClick("section4")}
+                    >
                       Stories
                     </a>
                   </li>
                   <li>
-                    <a href="#support" onClick={() => handleNavClick("support")}>
+                    <a
+                      href="#support"
+                      onClick={() => handleNavClick("support")}
+                    >
                       Join the movement
                     </a>
                   </li>
                   <li>
-                    <a href="#section6" onClick={() => handleNavClick("section6")}>
+                    <a
+                      href="#section6"
+                      onClick={() => handleNavClick("section6")}
+                    >
                       Connect
                     </a>
                   </li>
@@ -192,34 +226,48 @@ const HeaderSection = ({
         </>
       )}
 
-      <div className="header-buttons-wrapper">
-        {showDebugButtons && (
-          <motion.div
-            className="header-buttons"
-            {...fadeInAnimation({ opacityY: -50, duration: 0.7 })}
-          >
-            <button onClick={handleStop}>Stop</button>
-            <button onClick={handleContinue}>Continue</button>
-            <button onClick={handlePrev}>{"<"}</button>
-            <button onClick={handleNext}>{">"}</button>
-          </motion.div>
-        )}
-        {showHubButton && (
-          <motion.div
-            className="header-hub-button"
-            {...fadeInAnimation({ opacityY: -50, duration: 0.7 })}
-          >
-            <a
-              href="https://external-resource.com"
-              target="_blank"
-              rel="noopener noreferrer"
+      {!isMobile && (
+        <div className="header-right">
+          <div className="language-switcher">
+            <select
+              value={i18n.language}
+              onChange={(e) => changeLanguage(e.target.value)}
             >
-              no.thing | HUB
-            </a>
-          </motion.div>
-        )}
-        {showDonateButton && <FancyButton />}
-      </div>
+              <option value="uk">UA</option>
+              <option value="en">EN</option>
+            </select>
+          </div>
+
+          <div className="header-buttons-wrapper">
+            {showDebugButtons && (
+              <motion.div
+                className="header-buttons"
+                {...fadeInAnimation({ opacityY: -50, duration: 0.7 })}
+              >
+                <button onClick={handleStop}>Stop</button>
+                <button onClick={handleContinue}>Continue</button>
+                <button onClick={handlePrev}>{"<"}</button>
+                <button onClick={handleNext}>{">"}</button>
+              </motion.div>
+            )}
+            {showHubButton && (
+              <motion.div
+                className="header-hub-button"
+                {...fadeInAnimation({ opacityY: -50, duration: 0.7 })}
+              >
+                <a
+                  href="https://external-resource.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  no.thing | HUB
+                </a>
+              </motion.div>
+            )}
+            {showDonateButton && <FancyButton />}
+          </div>
+        </div>
+      )}
     </header>
   );
 };

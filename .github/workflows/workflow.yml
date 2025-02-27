@@ -28,7 +28,7 @@ jobs:
           node-version: '20.12'
           
       - name: Install dependencies 🤖
-        run: npm install
+        run: npm install --legacy-peer-deps
 
       - name: Set Environment Variables 🌍
         run: |

@@ -40,7 +40,7 @@ const NothingSection = ({ isMobile }) => {
       <div className="section-wrapper right-align">
         <motion.h2 className="section3-title" {...fadeInAnimation(0.2)}>
           {text.split(" ").map((word, idx) => (
-            <a class="nothing" key={idx} style={{ display: "flex", justifyContent: "end" }}>
+            <a key={idx} style={{ display: "flex", justifyContent: "end" }}>
               {word === "NOTHING" ? <DecryptText text="NOTHING" /> : word}
             </a>
           ))}
