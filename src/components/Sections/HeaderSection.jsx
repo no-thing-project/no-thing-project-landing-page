@@ -38,7 +38,8 @@ const HeaderSection = ({
       if (
         isMenuOpen &&
         !event.target.closest(".mobile-nav") &&
-        !event.target.closest(".hamburger")
+        !event.target.closest(".hamburger") &&
+        !event.target.closest(".language-switcher")
       ) {
         setIsMenuOpen(false);
       }
@@ -96,19 +97,16 @@ const HeaderSection = ({
           {isMobile ? (
             <>
               <div className="header-right">
-                {isMenuOpen && (
-                  <div className="language-switcher">
-                    <select
-                      value={i18n.language}
-                      onChange={(e) => {
-                        changeLanguage(e.target.value);
-                        setIsMenuOpen(false);
-                      }}
-                    >
-                      <option value="uk">UA</option>
-                      <option value="en">EN</option>
-                    </select>
-                  </div>
+              {isMenuOpen && (
+                <div className="language-switcher">
+                  <select
+                    value={i18n.language}
+                    onChange={(e) => changeLanguage(e.target.value)}
+                  >
+                    <option value="uk">UA</option>
+                    <option value="en">EN</option>
+                  </select>
+                </div>
                 )}
                 <button className="hamburger" onClick={toggleMenu}>
                   {isMenuOpen ? "CLOSE" : "MENU"}
@@ -141,7 +139,7 @@ const HeaderSection = ({
         </>
       )}
 
-      {!isMobile && (
+{!isMobile && (
         <div className="header-right">
           <div className="language-switcher">
             <select
