@@ -3,9 +3,7 @@ import { motion } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import DecryptText from "../DecryptText/DecryptText";
 
-const NothingSection = ({ isMobile }) => {
-  const { t } = useTranslation();
-
+const NothingSection = ({ lang, isMobile }) => {
   if (isMobile) {
     return (
       <section
@@ -26,14 +24,14 @@ const NothingSection = ({ isMobile }) => {
               height: "auto",
             }}
           >
-            <DecryptText text={t("nothingSection.nothing")}/>
+            <DecryptText text={lang("nothingSection.nothing")}/>
           </motion.h2>
         </div>
       </section>
     );
   }
 
-  const text = t("nothingSection.question").split(" ");
+  const text = lang("nothingSection.question").split(" ");
   return (
     <section
       id="section3"
@@ -44,7 +42,7 @@ const NothingSection = ({ isMobile }) => {
         <motion.h2 className="section3-title" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 0.2 }}>
           {text.map((word, idx) => (
             <a key={idx} style={{ display: "flex", justifyContent: "end" }}>
-              {word === t("nothingSection.nothing") ? <DecryptText text={t("nothingSection.nothing")} /> : word}
+              {word === lang("nothingSection.nothing") ? <DecryptText text={lang("nothingSection.nothing")} /> : word}
             </a>
           ))}
         </motion.h2>

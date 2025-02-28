@@ -1,7 +1,7 @@
 import React from "react";
 import { storiesData } from "../../data/stories";
 
-const StoriesSection = () => {
+const StoriesSection = ({ lang }) => {
   return (
     <section id="section4" className="page-section section4" data-section-id="4">
       <div className="section-wrapper">

@@ -1,10 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 
-const ConnectSection = () => {
-  const { t } = useTranslation();
-
+const ConnectSection = ({ lang }) => {
   return (
     <section id="section6" className="page-section section6 inverting-text" data-section-id="6">
       <div className="section-wrapper left-align">
@@ -15,7 +12,7 @@ const ConnectSection = () => {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.2 }}
           >
-            {t("connectSection.title")}
+            {lang("connectSection.title")}
           </motion.h1>
           <div className="contacts">
             <p>

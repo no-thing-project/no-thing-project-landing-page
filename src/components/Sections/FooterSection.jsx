@@ -1,11 +1,8 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-const FooterSection = () => {
-  const { t } = useTranslation();
-
+const FooterSection = ({ lang }) => {
   return (
     <footer className="landing-footer inverting-text">
       <motion.div
@@ -16,16 +13,16 @@ const FooterSection = () => {
       >
         <p className="footer-links">
           <Link to="/privacy-policy" className="footer-link">
-            {t("footer.privacyPolicy")}
+            {lang("footer.privacyPolicy")}
           </Link>{" "}
           ●{" "}
           <Link to="/terms-of-use" className="footer-link">
-            {t("footer.termsConditions")}
+            {lang("footer.termsConditions")}
           </Link>
         </p>
-        <p><span className="brand">{t("footer.brand")}</span></p>
+        <p><span className="brand">{lang("footer.brand")}</span></p>
         <p>
-          Copyright &copy; {new Date().getFullYear()} {t("footer.allRightsReserved")}
+          Copyright &copy; {new Date().getFullYear()} {lang("footer.allRightsReserved")}
         </p>
       </motion.div>
     </footer>

@@ -1,7 +1,7 @@
 import React, { useRef, useEffect } from "react";
 import { motion, useMotionValue } from "framer-motion";
 
-const SupportSection = () => {
+const SupportSection = ({ lang }) => {
   const sectionRef = useRef(null);
   const buttonRef = useRef(null);
   const tiltX = useMotionValue(0);
@@ -61,7 +61,7 @@ const SupportSection = () => {
         whileHover={{ scale: 1.06 }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
-        Join the movement
+        {lang("nav.join")}
       </motion.button>
     </section>
   );

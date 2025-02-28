@@ -17,12 +17,13 @@ const HeaderSection = ({
   handleNext,
   showHubButton,
   showDonateButton,
+  lang
 }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
   const isHomePage = location.pathname === "/";
-  const { t, i18n } = useTranslation();
+  const { i18n } = useTranslation();
 
   const toggleMenu = () => {
     setIsMenuOpen((prev) => !prev);
@@ -37,9 +38,9 @@ const HeaderSection = ({
     const handleClickOutside = (event) => {
       if (
         isMenuOpen &&
-        !event.target.closest(".mobile-nav") &&
-        !event.target.closest(".hamburger") &&
-        !event.target.closest(".language-switcher")
+        !event.target.closeslang(".mobile-nav") &&
+        !event.target.closeslang(".hamburger") &&
+        !event.target.closeslang(".language-switcher")
       ) {
         setIsMenuOpen(false);
       }
@@ -86,9 +87,9 @@ const HeaderSection = ({
         style={{ opacity: logoOpacity, y: logoY }}
       >
         <h1 className="logo-text">
-          {t("header.logoMain")}
+          {lang("header.logoMain")}
           <br />
-          <span className="logo-sub">{t("header.logoSub")}</span>
+          <span className="logo-sub">{lang("header.logoSub")}</span>
         </h1>
       </motion.a>
 
@@ -117,22 +118,22 @@ const HeaderSection = ({
                   <FancyButton />
                 </div>
                 <ul>
-                  <li><a href="#section2" onClick={() => handleNavClick("section2")}>{t("nav.about")}</a></li>
-                  <li><a href="#section3" onClick={() => handleNavClick("section3")}>{t("nav.nothing")}</a></li>
-                  <li><a href="#section4" onClick={() => handleNavClick("section4")}>{t("nav.stories")}</a></li>
-                  <li><a href="#support" onClick={() => handleNavClick("support")}>{t("nav.join")}</a></li>
-                  <li><a href="#section6" onClick={() => handleNavClick("section6")}>{t("nav.connect")}</a></li>
+                  <li><a href="#section2" onClick={() => handleNavClick("section2")}>{lang("nav.about")}</a></li>
+                  <li><a href="#section3" onClick={() => handleNavClick("section3")}>{lang("nav.nothing")}</a></li>
+                  <li><a href="#section4" onClick={() => handleNavClick("section4")}>{lang("nav.stories")}</a></li>
+                  <li><a href="#support" onClick={() => handleNavClick("support")}>{lang("nav.join")}</a></li>
+                  <li><a href="#section6" onClick={() => handleNavClick("section6")}>{lang("nav.connect")}</a></li>
                 </ul>
               </nav>
             </>
           ) : (
             <nav className="landing-nav">
               <ul>
-                <li><a href="#section2" onClick={(e) => {e.preventDefault(); scrollToSection("section2");}}>{t("nav.about")}</a></li>
-                <li><a href="#section3" onClick={(e) => {e.preventDefault(); scrollToSection("section3");}}>{t("nav.nothing")}</a></li>
-                <li><a href="#section4" onClick={(e) => {e.preventDefault(); scrollToSection("section4");}}>{t("nav.stories")}</a></li>
-                <li><a href="#support" onClick={(e) => {e.preventDefault(); scrollToSection("support");}}>{t("nav.join")}</a></li>
-                <li><a href="#section6" onClick={(e) => {e.preventDefault(); scrollToSection("section6");}}>{t("nav.connect")}</a></li>
+                <li><a href="#section2" onClick={(e) => {e.preventDefault(); scrollToSection("section2");}}>{lang("nav.about")}</a></li>
+                <li><a href="#section3" onClick={(e) => {e.preventDefault(); scrollToSection("section3");}}>{lang("nav.nothing")}</a></li>
+                <li><a href="#section4" onClick={(e) => {e.preventDefault(); scrollToSection("section4");}}>{lang("nav.stories")}</a></li>
+                <li><a href="#support" onClick={(e) => {e.preventDefault(); scrollToSection("support");}}>{lang("nav.join")}</a></li>
+                <li><a href="#section6" onClick={(e) => {e.preventDefault(); scrollToSection("section6");}}>{lang("nav.connect")}</a></li>
               </ul>
             </nav>
           )}
@@ -177,7 +178,7 @@ const HeaderSection = ({
                 </a>
               </motion.div>
             )}
-            {showDonateButton && <FancyButton />}
+            {showDonateButton && <FancyButton lang={lang} />}
           </div>
         </div>
       )}

@@ -3,7 +3,8 @@
         "logoMain": "no.thing",
         "logoSub": "project",
         "menu": "МЕНЮ",
-        "close": "ЗАКРИТИ"
+        "close": "ЗАКРИТИ",
+        "donateButton": "Залиш свій слід"
     },
     "nav": {
         "about": "Про нас",

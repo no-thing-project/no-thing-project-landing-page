@@ -2,7 +2,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import "./FancyButton.css";
 
-function FancyButton() {
+function FancyButton({ lang }) {
   return (
     <motion.a
       href="https://secure.wayforpay.com/donate/NoThingProject"
@@ -10,7 +10,7 @@ function FancyButton() {
       rel="noopener noreferrer"
     >
       <button className="fancy-button">
-        Contribute <span>→</span>
+        {lang("header.donateButton")} <span>→</span>
       </button>
     </motion.a>
   );

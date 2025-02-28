@@ -1,11 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { useTranslation } from "react-i18next";
 import { fadeInAnimation } from "../../utils/fadeInAnimation";
 import HintBadge from "../HintBadge/HintBagde";
 
-const MainSection = () => {
-  const { t } = useTranslation();
+const MainSection = ({ lang }) => {
 
   return (
     <section
@@ -18,10 +16,10 @@ const MainSection = () => {
         style={{ isolation: "isolate", position: "relative" }}
       >
         <motion.h1 className="first-screen-title" {...fadeInAnimation(0.2)}>
-          {t("mainSection.title")}
+          {lang("mainSection.title")}
         </motion.h1>
         <motion.p className="first-screen-description" {...fadeInAnimation(0.4)}>
-          {t("mainSection.description")}
+          {lang("mainSection.description")}
         </motion.p>
       </div>
       <HintBadge />

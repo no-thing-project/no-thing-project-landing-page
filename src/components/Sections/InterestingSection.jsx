@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { motion, useAnimation, useMotionValue, AnimatePresence } from "framer-motion";
 import { useTranslation } from "react-i18next";
 
-const InterestingSection = ({ calcTextWidth, interestingRef }) => {
+const InterestingSection = ({ lang, calcTextWidth, interestingRef }) => {
   const { t } = useTranslation();
   const controls = useAnimation();
   const x = useMotionValue(-calcTextWidth);
@@ -56,8 +56,8 @@ const InterestingSection = ({ calcTextWidth, interestingRef }) => {
               setTooltipPos({ x: e.clientX + 20, y: e.clientY + 10 })
             }
           >
-            <span ref={interestingRef} className="interesting-text" data-text={t("interestingSection.title")}>
-              {t("interestingSection.title")}
+            <span ref={interestingRef} className="interesting-text" data-text={lang("interestingSection.title")}>
+              {lang("interestingSection.title")}
             </span>
           </motion.div>
           <AnimatePresence>
@@ -75,7 +75,7 @@ const InterestingSection = ({ calcTextWidth, interestingRef }) => {
                 exit={{ scale: 0, opacity: 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                {t("interestingSection.tooltip")}
+                {lang("interestingSection.tooltip")}
               </motion.div>
             )}
           </AnimatePresence>

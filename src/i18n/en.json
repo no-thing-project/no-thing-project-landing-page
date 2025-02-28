@@ -3,7 +3,8 @@
         "logoMain": "no.thing",
         "logoSub": "project",
         "menu": "MENU",
-        "close": "CLOSE"
+        "close": "CLOSE",
+        "donateButton": "Contribute"
     },
     "nav": {
         "about": "About",
