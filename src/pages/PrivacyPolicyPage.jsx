@@ -4,10 +4,12 @@ import { Helmet } from "react-helmet";
 import HeaderSection from "../components/Sections/HeaderSection";
 import FooterSection from "../components/Sections/FooterSection";
 import "../index.css";
+import { useTranslation } from "react-i18next";
 
 const PrivacyPolicy = () => {
   const logoOpacity = useMotionValue(1);
   const logoY = useMotionValue(0);
+  const { t } = useTranslation();
 
   return (
     <>
@@ -22,6 +24,7 @@ const PrivacyPolicy = () => {
         transition={{ duration: 0.8 }}
       >
         <HeaderSection 
+          lang={t}
           scrollToSection={() => {}}
           logoOpacity={logoOpacity}
           logoY={logoY}
@@ -65,7 +68,7 @@ const PrivacyPolicy = () => {
           </div>
         </div>
 
-        <FooterSection />
+        <FooterSection lang={t}/>
       </motion.div>
     </>
   );

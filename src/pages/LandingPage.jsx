@@ -24,7 +24,7 @@ const LandingPage = ({
   const { scrollY } = useViewportScroll();
   const [calcTextWidth, setCalcTextWidth] = useState(0);
   const interestingRef = useRef(null);
-    const { t } = useTranslation();
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (interestingRef.current) {
