@@ -178,8 +178,8 @@ const TermsOfUse = () => {
               </li>
               <li>
                 <strong>Email:</strong>{" "}
-                <a href="mailto:support@nothingproject.io">
-                  support@nothingproject.io
+                <a href="mailto:someone@nothingproject.io">
+                  someone@nothingproject.io
                 </a>
               </li>
             </ul>
