@@ -38,9 +38,9 @@ const HeaderSection = ({
     const handleClickOutside = (event) => {
       if (
         isMenuOpen &&
-        !event.target.closeslang(".mobile-nav") &&
-        !event.target.closeslang(".hamburger") &&
-        !event.target.closeslang(".language-switcher")
+        !event.target.closest(".mobile-nav") &&
+        !event.target.closest(".hamburger") &&
+        !event.target.closest(".language-switcher")
       ) {
         setIsMenuOpen(false);
       }
@@ -115,7 +115,7 @@ const HeaderSection = ({
               </div>
               <nav className={`mobile-nav ${isMenuOpen ? "open" : ""}`}>
                 <div className="mobile-nav-footer">
-                  <FancyButton />
+                  <FancyButton lang={lang} />
                 </div>
                 <ul>
                   <li><a href="#section2" onClick={() => handleNavClick("section2")}>{lang("nav.about")}</a></li>
