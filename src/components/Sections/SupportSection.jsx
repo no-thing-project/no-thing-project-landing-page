@@ -50,7 +50,10 @@ const SupportSection = ({ lang }) => {
 
   return (
     <section id="support" className="support-section" ref={sectionRef}>
-      <motion.button
+      <motion.a
+         href="https://secure.wayforpay.com/donate/NoThingProject"
+         target="_blank"
+         rel="noopener noreferrer"
         ref={buttonRef}
         className="support-button"
         style={{
@@ -62,7 +65,7 @@ const SupportSection = ({ lang }) => {
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
       >
         {lang("nav.join")}
-      </motion.button>
+      </motion.a>
     </section>
   );
 };
