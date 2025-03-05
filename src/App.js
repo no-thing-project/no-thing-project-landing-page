@@ -90,7 +90,7 @@ const App = () => {
   }, []);
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
+    <BrowserRouter basename={process.env.PUBLIC_MAIN_URL}>
       <div className="App">
         {/* Рендеримо кастомний курсор лише для десктопу */}
         {!isMobile && <CustomCursor size={12} />}
