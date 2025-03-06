@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import SplashScreen from "./components/SplashScreen/CodeSplashScreen";
 import CustomCursor from "./components/CustomCursor/CustomCursor";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
-import config from "../config";
+import config from "./config";
 
 const LandingPage = lazy(() => import("./pages/LandingPage"));
 const PrivacyPolicy = lazy(() => import("./pages/PrivacyPolicyPage"));
