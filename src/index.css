@@ -1,6 +1,14 @@
 /*========================
    Global Styles & Reset
 ========================*/
+:root {
+  --font-size-base: 1rem; /* 16px */
+  --font-size-md: 1.5rem; /* 24px */
+  --font-size-lg: 2rem; /* 32px */
+  --font-size-xl: 3rem; /* 48px */
+  --font-size-xxl: clamp(4rem, 10vw, 8rem); /* Для великих заголовків */
+}
+
 body {
   font-family: "JetBrains Mono", monospace;
   margin: 0;
@@ -13,12 +21,12 @@ body {
 }
 
 h2 {
-  font-size: 2rem;
+  font-size: var(--font-size-lg);
   font-weight: 400;
   margin: 0;
 }
 
-p, h3, h2{
+p, h3, h2 {
   font-family: "Inter", sans-serif;
 }
 
@@ -27,7 +35,7 @@ p, h3, h2{
 ========================*/
 .landing-container {
   position: relative;
-  width: 100%; /* замість 100vw для уникнення горизонтального скролу */
+  width: 100%;
   min-height: 100vh;
   background-color: #f0f0f0;
   display: flex;
@@ -57,7 +65,7 @@ p, h3, h2{
   top: 0;
   left: 0;
   width: 100%;
-  padding: 10px 20px;
+  padding: clamp(8px, 2vw, 20px);
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,7 +84,7 @@ p, h3, h2{
 
 .logo-text {
   font-family: "JetBrains Mono", monospace;
-  font-size: 1.5rem;
+  font-size: clamp(1.2rem, 3vw, 1.5rem);
   line-height: 1;
   color: #000;
   font-weight: 400;
@@ -88,19 +96,26 @@ p, h3, h2{
   margin-left: 2em;
 }
 
+.landing-nav {
+  display: flex;
+}
+
 .landing-nav ul {
   list-style: none;
   display: flex;
-  gap: 100px;
+  gap: clamp(10px, 3vw, 100px);
   margin: 0;
   padding: 0;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 .landing-nav ul li a {
   text-decoration: none;
   color: #000;
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   transition: color 0.3s ease;
+  white-space: nowrap;
 }
 
 .landing-nav ul li a:hover {
@@ -136,7 +151,7 @@ p, h3, h2{
 }
 
 .header-hub-button a {
-  font-size: 1rem;
+  font-size: clamp(0.875rem, 2vw, 1rem);
   color: #010101;
   text-decoration: none;
   background: none;
@@ -149,19 +164,51 @@ p, h3, h2{
   color: #444;
 }
 
+.header-right {
+  display: flex;
+  gap: clamp(10px, 2vw, 30px);
+  align-items: center;
+  z-index: 1100;
+}
+
+.language-switcher {
+  position: relative;
+  display: inline-block;
+}
+
+.language-switcher select {
+  padding: 5px 10px;
+  background-color: transparent;
+  color: #000;
+  border: none;
+  border-radius: 20px;
+  font-size: var(--font-size-base);
+  outline: none;
+  cursor: pointer;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  width: 60px;
+  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20xmlns%3D%22http://www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200l5%206%205-6z%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 10px 6px;
+  transition: color 0.3s ease, border 0.3s ease;
+}
+
 /*========================
    Мобільне меню та кнопка (бургер)
 ========================*/
 .hamburger {
-  display: flex;
+  display: none;
   align-items: center;
   justify-content: center;
-  width: 100px;
+  width: clamp(60px, 15vw, 100px);
   height: 40px;
   box-sizing: border-box;
   background: transparent;
   border: none;
-  font-size: 1.2rem;
+  font-size: var(--font-size-md);
   font-weight: 400;
   border-radius: 25px;
   color: #000;
@@ -169,7 +216,6 @@ p, h3, h2{
   transition: color 0.3s ease, border 0.3s ease;
 }
 
-/* Забороняємо скрол, коли додано клас menu-open до body */
 body.menu-open {
   overflow: hidden;
 }
@@ -229,7 +275,7 @@ body.menu-open {
 .mobile-nav ul li a {
   color: #fff;
   text-decoration: none;
-  font-size: 1.5rem;
+  font-size: var(--font-size-md);
   transition: color 0.3s ease;
 }
 
@@ -243,38 +289,6 @@ body.menu-open {
   width: 100%;
   display: flex;
   justify-content: center;
-}
-
-.header-right {
-  display: flex;
-  gap: 30px;
-  align-items: center;
-  z-index: 1100;
-}
-
-.language-switcher {
-  position: relative;
-  display: inline-block;
-}
-
-.language-switcher select {
-  padding: 5px 10px;
-  background-color: transparent;
-  color: #000;
-  border: none;
-  border-radius: 20px;
-  font-size: 1rem;
-  outline: none;
-  cursor: pointer;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  appearance: none;
-  width: 60px;
-  background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20width%3D%2210%22%20height%3D%226%22%20viewBox%3D%220%200%2010%206%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Cpath%20d%3D%22M0%200l5%206%205-6z%22%20fill%3D%22%23000%22/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: right 10px center;
-  background-size: 10px 6px;
-  transition: color 0.3s ease, border 0.3s ease;
 }
 
 /*========================
@@ -296,10 +310,9 @@ body.menu-open {
   align-items: center;
   justify-content: center;
   margin: 0 auto;
-  padding: 20px;
+  padding: clamp(10px, 2vw, 20px);
 }
 
-/* Якщо блок має специфічне вирівнювання, його можна перевизначити для адаптиву */
 .section-wrapper.left-align {
   align-items: flex-start;
   text-align: left;
@@ -335,14 +348,14 @@ body.menu-open {
 }
 
 .first-screen-title {
-  font-size: 48px;
+  font-size: var(--font-size-xl);
   margin: 0;
   font-weight: 700;
 }
 
 .first-screen-description {
-  font-size: 24px;
-  margin: 20px 100px;
+  font-size: var(--font-size-md);
+  margin: clamp(10px, 2vw, 20px) clamp(20px, 5vw, 100px);
   text-align: left;
   font-weight: 100;
 }
@@ -352,19 +365,19 @@ body.menu-open {
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  padding: 150px 0 0 100px;
+  padding: clamp(50px, 10vw, 150px) 0 0 clamp(20px, 5vw, 100px);
   z-index: 10;
 }
 
 .second-screen-title {
-  font-size: 128px;
+  font-size: var(--font-size-xxl);
   margin: 0;
   font-weight: 400;
 }
 
 .second-screen-description {
-  font-size: 24px;
-  margin-top: 20px;
+  font-size: var(--font-size-md);
+  margin-top: clamp(10px, 2vw, 20px);
   max-width: 1000px;
   text-align: left;
   font-weight: 100;
@@ -385,8 +398,8 @@ body.menu-open {
 }
 
 .section3-title {
-  margin-right: 50px;
-  font-size: 248px;
+  margin-right: clamp(20px, 5vw, 50px);
+  font-size: clamp(100px, 20vw, 248px);
   font-weight: 400;
   max-width: 1000px;
   text-align: right;
@@ -395,7 +408,7 @@ body.menu-open {
 }
 
 .section4 {
-  padding: 50px 20px;
+  padding: clamp(20px, 5vw, 50px) clamp(10px, 2vw, 20px);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -403,12 +416,12 @@ body.menu-open {
 }
 
 .stories-container {
-  padding: 100px;
+  padding: clamp(20px, 5vw, 100px);
   width: 100%;
   max-width: 1000px;
   display: flex;
   flex-direction: column;
-  gap: 150px;
+  gap: clamp(50px, 10vw, 150px);
   z-index: 10;
 }
 
@@ -446,19 +459,19 @@ body.menu-open {
 }
 
 .story-name {
-  font-size: 64px;
-  margin: auto
+  font-size: clamp(32px, 8vw, 64px);
+  margin: auto;
 }
 
 .story-description {
-  font-size: 24px;
+  font-size: var(--font-size-md);
   font-weight: 200;
   margin: 0;
 }
 
 .section5 {
   width: 100%;
-  padding: 50px 0;
+  padding: clamp(20px, 5vw, 50px) 0;
   height: auto;
   display: flex;
   justify-content: center;
@@ -469,7 +482,7 @@ body.menu-open {
   position: relative;
   overflow: hidden;
   width: 100%;
-  pointer-events: auto;;
+  pointer-events: auto;
 }
 
 .drag-tooltip {
@@ -481,7 +494,7 @@ body.menu-open {
   color: #000000;
   padding: 8px 10px;
   border-radius: 100px;
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   pointer-events: none;
   white-space: nowrap;
   z-index: 10;
@@ -493,7 +506,7 @@ body.menu-open {
 }
 
 .interesting-text {
-  font-size: 400px;
+  font-size: clamp(100px, 50vw, 400px);
   text-transform: uppercase;
   display: inline-block;
   white-space: nowrap;
@@ -514,7 +527,7 @@ body.menu-open {
    Support Section
 ========================*/
 .support-section {
-  padding: 100px 20px;
+  padding: clamp(20px, 5vw, 100px) clamp(10px, 2vw, 20px);
   height: 75vh;
   width: 100%;
   display: flex;
@@ -529,14 +542,14 @@ body.menu-open {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 3rem 6rem;
+  padding: clamp(1.5rem, 4vw, 3rem) clamp(3rem, 8vw, 6rem);
   border: none;
   border-radius: 999px;
-  font-size: 6rem;
+  font-size: clamp(2.5rem, 6vw, 6rem);
   color: #fff;
   cursor: pointer;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
-  will-change: transform, box-shadow, background-position;
+  will-change: transform, box-shadow;
   background:
     radial-gradient(circle at 30% 50%, #7a00ff 0%, transparent 100%),
     radial-gradient(circle at 70% 50%, #00d2ff 0%, transparent 100%),
@@ -545,6 +558,11 @@ body.menu-open {
   background-size: 200% 200%;
   animation: swirl 6s infinite alternate ease-in-out;
   text-decoration: none;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+}
+
+.support-button:hover {
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
 
 .support-button:active {
@@ -555,22 +573,27 @@ body.menu-open {
   outline: none;
 }
 
+@keyframes swirl {
+  0% { transform: translate(-10%, -10%) scale(1); }
+  100% { transform: translate(10%, 10%) scale(1.05); }
+}
+
 /* Section 6 – Contacts */
 .section6 {
-  padding: 150px 100px;
+  padding: clamp(50px, 10vw, 150px) clamp(20px, 5vw, 100px);
   z-index: 10;
 }
 
 .contacts {
   max-width: 800px;
   text-align: left;
-  font-size: 24px;
+  font-size: var(--font-size-md);
   line-height: 1.5;
-  margin: 50px 100px;
+  margin: clamp(20px, 5vw, 50px) clamp(20px, 5vw, 100px);
 }
 
 .contacts p {
-  font-size: 24px;
+  font-size: var(--font-size-md);
   font-weight: 100;
   margin: 10px 0;
   pointer-events: auto;
@@ -590,12 +613,12 @@ body.menu-open {
 .social-icons {
   display: flex;
   justify-content: flex-start;
-  gap: 50px;
+  gap: clamp(20px, 5vw, 50px);
   margin: 20px auto;
 }
 
 .social-icon {
-  font-size: 48px;
+  font-size: clamp(32px, 8vw, 48px);
   cursor: pointer;
 }
 
@@ -609,7 +632,7 @@ body.menu-open {
   left: 50%;
   transform: translateX(-50%);
   text-align: center;
-  font-size: 0.9rem;
+  font-size: var(--font-size-base);
   color: #333;
   width: 100%;
 }
@@ -653,27 +676,27 @@ body.menu-open {
    Privacy Policy
 ========================*/
 .privacy-policy-content {
-  padding: 40px;
+  padding: clamp(20px, 5vw, 40px);
   max-width: 800px;
-  margin: 100px auto;
+  margin: clamp(50px, 10vw, 100px) auto;
 }
 
 .privacy-policy-content h2 {
-  font-size: 2.5rem;
+  font-size: var(--font-size-xl);
   margin-bottom: 20px;
   border-bottom: 2px solid #7f44ff;
   padding-bottom: 10px;
 }
 
 .privacy-policy-content h3 {
-  font-size: 1.75rem;
+  font-size: var(--font-size-lg);
   margin-top: 30px;
   margin-bottom: 10px;
   color: #333;
 }
 
 .privacy-policy-content p {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 1.6;
   color: #555;
   margin-bottom: 20px;
@@ -694,27 +717,27 @@ body.menu-open {
    Terms of Use
 ========================*/
 .terms-of-use-content {
-  padding: 40px;
+  padding: clamp(20px, 5vw, 40px);
   max-width: 800px;
-  margin: 100px auto;
+  margin: clamp(50px, 10vw, 100px) auto;
 }
 
 .terms-of-use-content h2 {
-  font-size: 2.5rem;
+  font-size: var(--font-size-xl);
   margin-bottom: 20px;
   border-bottom: 2px solid #7f44ff;
   padding-bottom: 10px;
 }
 
 .terms-of-use-content h3 {
-  font-size: 1.75rem;
+  font-size: var(--font-size-lg);
   margin-top: 30px;
   margin-bottom: 10px;
   color: #333;
 }
 
 .terms-of-use-content p {
-  font-size: 1rem;
+  font-size: var(--font-size-base);
   line-height: 1.6;
   color: #555;
   margin-bottom: 20px;
@@ -731,13 +754,35 @@ body.menu-open {
   border-bottom: 1px solid #7f44ff;
 }
 
-
-
 /*========================
    Responsive - Mobile Styles
 ========================*/
+@media (max-width: 1024px) {
+  .first-screen-title {
+    font-size: 40px;
+  }
+  .second-screen-title {
+    font-size: 80px;
+  }
+  .section3-title {
+    font-size: calc(100vw / 4);
+  }
+  .support-button {
+    padding: 2.5rem 5rem;
+    font-size: 4rem;
+  }
+  .landing-nav ul {
+    gap: clamp(10px, 2vw, 40px);
+  }
+  .landing-nav ul li a {
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+  }
+  .header-hub-button a {
+    font-size: clamp(0.75rem, 1.5vw, 1rem);
+  }
+}
+
 @media (max-width: 768px) {
-  /* Центрування усіх основних блоків */
   .section-wrapper,
   .section-wrapper.left-align,
   .section-wrapper.right-align {
@@ -747,7 +792,6 @@ body.menu-open {
     padding: 0;
   }
 
-  /* Вирівнювання контенту для конкретних секцій */
   .first-screen-content,
   .first-screen-title,
   .first-screen-description,
@@ -768,7 +812,7 @@ body.menu-open {
   }
 
   .hamburger {
-    display: block;
+    display: flex;
   }
 
   .header-right {
@@ -833,14 +877,14 @@ body.menu-open {
   .section3 {
     min-height: auto;
     height: auto;
-    padding: 20px 0; /* за бажанням, щоб тексту було куди «розкритися» */
-    overflow: visible; 
+    padding: 20px 0;
+    overflow: visible;
     align-items: center;
     justify-content: center;
   }
 
   .section3-title {
-    margin: 0; 
+    margin: 0;
     font-size: calc(100vw / 3);
     line-height: 1;
     position: relative;
@@ -915,6 +959,7 @@ body.menu-open {
 
   .support-section {
     padding: 0;
+    text-align: center;
   }
 
   .support-button {
@@ -938,6 +983,17 @@ body.menu-open {
 
   .landing-footer {
     width: 100%;
+  }
+}
+
+@media (max-width: 768px) and (orientation: landscape) {
+  .support-section {
+    height: auto;
+    padding: 50px 20px;
+  }
+  .support-button {
+    padding: 1.5rem 3rem;
+    font-size: 3rem;
   }
 }
 
