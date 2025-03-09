@@ -544,6 +544,7 @@ body.menu-open {
   background-repeat: no-repeat;
   background-size: 200% 200%;
   animation: swirl 6s infinite alternate ease-in-out;
+  text-decoration: none;
 }
 
 .support-button:active {

@@ -11,7 +11,6 @@ const SupportSection = ({ lang }) => {
     const handleMouseMove = (e) => {
       if (!sectionRef.current || !buttonRef.current) return;
       const sectionRect = sectionRef.current.getBoundingClientRect();
-      // Якщо курсор поза межами секції, знімаємо нахил
       if (
         e.clientX < sectionRect.left ||
         e.clientX > sectionRect.right ||
@@ -22,13 +21,12 @@ const SupportSection = ({ lang }) => {
         tiltY.set(0);
         return;
       }
-      // Якщо курсор всередині секції – обчислюємо нахил кнопки
       const rect = buttonRef.current.getBoundingClientRect();
       const x = e.clientX - rect.left;
       const y = e.clientY - rect.top;
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
-      const maxTilt = 5; // максимальний кут нахилу
+      const maxTilt = 5;
       const newTiltX = ((centerY - y) / centerY) * maxTilt;
       const newTiltY = ((x - centerX) / centerX) * maxTilt;
       tiltX.set(newTiltX);
@@ -51,9 +49,9 @@ const SupportSection = ({ lang }) => {
   return (
     <section id="support" className="support-section" ref={sectionRef}>
       <motion.a
-         href="https://secure.wayforpay.com/donate/NoThingProject"
-         target="_blank"
-         rel="noopener noreferrer"
+        href="https://hub.nothingproject.io/login"
+        target="_blank"
+        rel="noopener noreferrer"
         ref={buttonRef}
         className="support-button"
         style={{
