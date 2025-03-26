@@ -49,7 +49,7 @@ const SupportSection = ({ lang }) => {
   return (
     <section id="support" className="support-section" ref={sectionRef}>
       <motion.a
-        href="https://hub.nothingproject.io/login"
+        href="https://gate.nothingproject.io/login"
         target="_blank"
         rel="noopener noreferrer"
         ref={buttonRef}
