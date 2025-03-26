@@ -5,7 +5,7 @@ import "./FancyButton.css";
 function FancyButton({ lang }) {
   return (
     <motion.a
-      href="https://hub.nothingproject.io/login"
+      href="https://gate.nothingproject.io/login"
       target="_blank"
       rel="noopener noreferrer"
     >
